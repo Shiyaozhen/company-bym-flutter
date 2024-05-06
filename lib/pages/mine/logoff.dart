@@ -1,4 +1,4 @@
-import 'package:BYM/pages/mine/conlogoff.dart';
+import 'package:BYM/utils/by_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 class MineLogoff extends StatefulWidget {
@@ -135,11 +135,7 @@ class _LogoffState extends State<MineLogoff> {
                   padding: EdgeInsets.only(bottom: 10.0, top:20.0),
                   child: ElevatedButton(
                     onPressed: () {
-                       Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Conlogoff()),
-                                );
+                     BYRoute.toNamed('/ConLogoff');
                     },
                     style: ButtonStyle(
                       backgroundColor:

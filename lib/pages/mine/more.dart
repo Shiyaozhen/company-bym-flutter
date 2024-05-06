@@ -1,5 +1,4 @@
 import 'package:BYM/components/ByDialog.dart';
-import 'package:BYM/pages/mine/logoff.dart';
 import 'package:BYM/utils/by_util.dart';
 import 'package:flutter/material.dart';
 
@@ -52,11 +51,7 @@ class MineMore extends StatelessWidget {
                                   BYRoute.toNamed('/FeedBack');
                                   break;
                                 case 1:
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MineLogoff()),
-                                  );
+                                  BYRoute.toNamed('/MineLogoff');
                                   break;
                                 default:
                                   break;
