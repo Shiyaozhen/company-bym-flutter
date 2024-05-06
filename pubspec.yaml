@@ -53,8 +53,6 @@ dependencies:
   shared_preferences: ^2.0.7
   fl_chart: ^0.67.0
   crypto: ^3.0.3
-  mobile_scanner: ^5.1.0
-  tdesign_flutter: ^0.1.0
   flutter_svg: ^2.0.10+1
 dev_dependencies:
   flutter_test:
@@ -78,9 +76,10 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/mine.svg
-    - assets/overview.svg
-    - assets/station.svg
+    - assets/ic_mine.svg
+    - assets/ic_overview.svg
+    - assets/ic_station.svg
+    - assets/ic_fail.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:BYM/pages/fl/flLineIndex.dart';
-import 'package:BYM/pages/fl/flbarIndex.dart';
 import 'package:BYM/pages/mytest/index.dart';
+import 'package:BYM/pages/mine/more.dart';
 import 'package:BYM/utils/hmac.dart';
 
 class LoginPage extends StatefulWidget {
@@ -25,33 +24,13 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  void toFL() {
+  void toMore() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => Flindex()),
+      MaterialPageRoute(builder: (context) => MineMore()),
     );
   }
 
-  void toFLBar() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => FlBarindex()),
-    );
-  }
-
-  void toTest() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => MyTest()),
-    );
-  }
-
-    void scan() {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(builder: (context) => CustomBarcodeScannerPage()),
-    // );
-  }
   // 登录校验方法
   bool _validateInputs() {
     bool isValid = true;
@@ -123,32 +102,11 @@ class _LoginPageState extends State<LoginPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                // fl线性图表开发
-                toFL();
+                toMore();
               },
-              child: const Text('fl线性图表'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // fl柱状图表开发
-                toFLBar();
-              },
-              child: const Text('fl柱状图表'),
-            ),
-             ElevatedButton(
-              onPressed: () {
-                // 扫码
-                scan();
-              },
-              child: const Text('扫码'),
-            ),
-             ElevatedButton(
-              onPressed: () {
-                // 测试
-                toTest();
-              },
-              child: const Text('测试方法'),
-            ),
+              
+              child: const Text('更多'),
+            )
           ],
         ),
       ),

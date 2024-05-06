@@ -16,16 +16,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   // 获取列表
-   login() async {
-  var res = await userApi.login('admin', '123456'); // 替换为实际的用户名和密码
-}
+  login() async {
+    var res = await userApi.login('admin', '123456'); // 替换为实际的用户名和密码
+  }
+
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // title: const Text('Home'),
-      ),
+          // title: const Text('Home'),
+          ),
       body: Column(
         children: [
           Expanded(

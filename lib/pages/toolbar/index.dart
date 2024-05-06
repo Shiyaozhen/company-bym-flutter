@@ -14,9 +14,9 @@ class CustomBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> _svgAssets = [
-      'assets/mine.svg',
-      'assets/overview.svg',
-      'assets/station.svg'
+      'assets/ic_mine.svg',
+      'assets/ic_overview.svg',
+      'assets/ic_station.svg'
     ];
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed, // 设置为fixed
@@ -26,19 +26,20 @@ class CustomBottomNavigationBar extends StatelessWidget {
         BottomNavigationBarItem(
           icon: Padding(
               padding: EdgeInsets.only(top: 10.0),
-              child: SvgPicture.asset('assets/overview.svg',
+              child: SvgPicture.asset('assets/ic_overview.svg',
                   width: 28,
                   height: 28,
                   // ignore: deprecated_member_use
                   color: selectedIndex == 0
                       ? Color(0xFF55AAFF)
-                      : Color(0xFF9cb4c9))),
+                      : Color(0xFF9cb4c9))
+                      ),
           label: '',
         ),
         BottomNavigationBarItem(
           icon: Padding(
               padding: EdgeInsets.only(top: 10.0),
-              child: SvgPicture.asset('assets/station.svg',
+              child: SvgPicture.asset('assets/ic_station.svg',
                   width: 28,
                   height: 28,
                   // ignore: deprecated_member_use
@@ -50,7 +51,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
         BottomNavigationBarItem(
           icon: Padding(
               padding: EdgeInsets.only(top: 10.0),
-              child: SvgPicture.asset('assets/mine.svg',
+              child: SvgPicture.asset('assets/ic_mine.svg',
                   width: 28,
                   height: 28,
                   // ignore: deprecated_member_use

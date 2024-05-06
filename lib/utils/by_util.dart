@@ -1,0 +1,1 @@
+export 'package:BYM/get_pages.dart';
