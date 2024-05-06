@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/generated/l10n.dart';
-import 'package:flutter_application_1/get_pages.dart';
+import 'package:BYM/generated/l10n.dart';
+import 'package:BYM/get_pages.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/route_manager.dart';
 void main() {

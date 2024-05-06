@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final int selectedIndex;
@@ -12,26 +13,51 @@ class CustomBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> _svgAssets = [
+      'assets/mine.svg',
+      'assets/overview.svg',
+      'assets/station.svg'
+    ];
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed, // 设置为fixed
       currentIndex: selectedIndex,
       onTap: onTabSelected,
-      items: const [
+      items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
+          icon: Padding(
+              padding: EdgeInsets.only(top: 10.0),
+              child: SvgPicture.asset('assets/overview.svg',
+                  width: 28,
+                  height: 28,
+                  // ignore: deprecated_member_use
+                  color: selectedIndex == 0
+                      ? Color(0xFF55AAFF)
+                      : Color(0xFF9cb4c9))),
+          label: '',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.list),
-          label: 'WifiList',
+          icon: Padding(
+              padding: EdgeInsets.only(top: 10.0),
+              child: SvgPicture.asset('assets/station.svg',
+                  width: 28,
+                  height: 28,
+                  // ignore: deprecated_member_use
+                  color: selectedIndex == 1
+                      ? Color(0xFF55AAFF)
+                      : Color(0xFF9cb4c9))),
+          label: '',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.wifi),
-          label: 'Connect',
-        ),
-          BottomNavigationBarItem(
-          icon: Icon(Icons.bluetooth),
-          label: 'Connect',
+          icon: Padding(
+              padding: EdgeInsets.only(top: 10.0),
+              child: SvgPicture.asset('assets/mine.svg',
+                  width: 28,
+                  height: 28,
+                  // ignore: deprecated_member_use
+                  color: selectedIndex == 2
+                      ? Color(0xFF55AAFF)
+                      : Color(0xFF9cb4c9))),
+          label: '',
         )
       ],
     );

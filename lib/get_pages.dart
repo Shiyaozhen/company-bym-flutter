@@ -1,6 +1,6 @@
-import 'package:flutter_application_1/pages/coupon/index.dart';
-import 'package:flutter_application_1/pages/list/index.dart';
-import 'package:flutter_application_1/pages/tcp/index.dart';
+import 'package:BYM/pages/coupon/index.dart';
+import 'package:BYM/pages/list/index.dart';
+import 'package:BYM/pages/tcp/index.dart';
 import 'package:get/get.dart';
 
 List<GetPage<dynamic>> pages = [

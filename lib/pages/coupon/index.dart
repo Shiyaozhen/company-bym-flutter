@@ -1,10 +1,10 @@
+import 'package:BYM/api/app.dart';
+import 'package:BYM/pages/blue/index.dart';
+import 'package:BYM/pages/list/index.dart';
+import 'package:BYM/pages/login/index.dart';
+import 'package:BYM/pages/mine/index.dart';
+import 'package:BYM/pages/toolbar/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/api/app.dart';
-import 'package:flutter_application_1/pages/blue/index.dart';
-import 'package:flutter_application_1/pages/list/index.dart';
-import 'package:flutter_application_1/pages/login/index.dart';
-import 'package:flutter_application_1/pages/tcp/index.dart';
-import 'package:flutter_application_1/pages/toolbar/index.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        // title: const Text('Home'),
       ),
       body: Column(
         children: [
@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                 //       child: const Text('登录'))
                 // ])),
                 const SetPages(),
-                const TcpPage(),
+                const MineIndex(),
                 const BluetoothPage()
               ],
             ),
