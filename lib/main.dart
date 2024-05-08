@@ -9,14 +9,12 @@ void main() {
     title: 'Flutter Luckin Coffee',
     initialRoute: '/Home',
     getPages: pages,
-    //国际化配置
     localizationsDelegates: const [
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
       S.delegate
     ],
-    //将en设置第一项
-    supportedLocales: [const Locale('en', ''), ...S.delegate.supportedLocales],
+    supportedLocales: [const Locale('zh', ''), ...S.delegate.supportedLocales],
   ));
 }

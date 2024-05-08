@@ -51,7 +51,7 @@ class MineMore extends StatelessWidget {
                                   BYRoute.toNamed('/FeedBack');
                                   break;
                                 case 1:
-                                  BYRoute.toNamed('/MineLogoff');
+                                BYRoute.toNamed('/MineLogoff');
                                   break;
                                 default:
                                   break;

@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:BYM/pages/mytest/index.dart';
-import 'package:BYM/pages/mine/more.dart';
+import 'package:BYM/utils/by_util.dart';
 import 'package:BYM/utils/hmac.dart';
+import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -25,12 +24,16 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void toMore() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => MineMore()),
-    );
+    BYRoute.toNamed('/MineMore');
   }
 
+  void toConnect(){
+    BYRoute.toNamed('/Connect');
+  }
+ 
+  void toSet(){
+    BYRoute.toNamed('/Language');
+  }
   // 登录校验方法
   bool _validateInputs() {
     bool isValid = true;
@@ -106,7 +109,19 @@ class _LoginPageState extends State<LoginPage> {
               },
               
               child: const Text('更多'),
-            )
+            ),
+              ElevatedButton(
+              onPressed: () {
+                toConnect();
+              },
+              child: const Text('联系我们'),
+            ),
+              ElevatedButton(
+              onPressed: () {
+                toSet();
+              },
+              child: const Text('设置语言'),
+            ),
           ],
         ),
       ),

@@ -54,6 +54,7 @@ dependencies:
   fl_chart: ^0.67.0
   crypto: ^3.0.3
   flutter_svg: ^2.0.10+1
+  image_picker: ^1.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -80,6 +81,9 @@ flutter:
     - assets/ic_overview.svg
     - assets/ic_station.svg
     - assets/ic_fail.svg
+    - assets/ic_logo.png
+
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

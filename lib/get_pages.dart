@@ -1,8 +1,11 @@
 import 'package:BYM/pages/coupon/index.dart';
 import 'package:BYM/pages/list/index.dart';
 import 'package:BYM/pages/mine/conlogoff.dart';
+import 'package:BYM/pages/mine/connect.dart';
 import 'package:BYM/pages/mine/feedback.dart';
+import 'package:BYM/pages/mine/language.dart';
 import 'package:BYM/pages/mine/logoff.dart';
+import 'package:BYM/pages/mine/more.dart';
 import 'package:BYM/pages/tcp/index.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +16,9 @@ List<GetPage<dynamic>> pages = [
   GetPage(name: '/FeedBack', page: () => MineFeedback(),transition: Transition.rightToLeftWithFade),
   GetPage(name: '/MineLogoff', page: () => MineLogoff(),transition: Transition.rightToLeftWithFade),
   GetPage(name: '/ConLogoff', page: () => Conlogoff(),transition: Transition.rightToLeftWithFade),
+  GetPage(name: '/Connect', page: () => Connect(),transition: Transition.rightToLeftWithFade),
+  GetPage(name: '/MineMore', page: () => MineMore(),transition: Transition.rightToLeftWithFade),
+  GetPage(name: '/Language', page: () => Language(),transition: Transition.rightToLeftWithFade),
 ];
 
 class BYRoute {
