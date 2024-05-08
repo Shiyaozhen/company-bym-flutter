@@ -23,11 +23,11 @@ class _LanguageState extends State<Language> {
     List<String> itemsKey = ['zh', 'en'];
     print(Localization);
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
+         appBar: AppBar(
+          title: Text(
             '设置语言',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20, color: Color(0xFF383838)),
+            style: Theme.of(context).textTheme.headline5,
           ),
           centerTitle: true,
           leading: IconButton(
@@ -50,17 +50,14 @@ class _LanguageState extends State<Language> {
                           ListTile(
                             title: Text(
                               items[index],
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                color: Color(0xFF383838),
-                              ),
+                              style:  Theme.of(context).textTheme.headline4,
                             ),
                             trailing: Visibility(
                               visible: getCurrentLocale(context) == itemsKey[index],
                               child: Icon(
                                 Icons.check,
                                 color: Color(0xFF5475F8),
-                                size: 18.0,
+                                size: 22.0,
                               ),
                             ),
                             onTap: () {

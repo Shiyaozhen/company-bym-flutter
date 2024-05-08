@@ -12,7 +12,7 @@ class MineMore extends StatelessWidget {
           title: Text(
             '',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20, color: Color(0xFF383838)),
+            style: Theme.of(context).textTheme.headline5,
           ),
           centerTitle: true,
           leading: IconButton(
@@ -33,17 +33,12 @@ class MineMore extends StatelessWidget {
                       return Column(
                         children: [
                           ListTile(
-                            title: Text(
-                              items[index],
-                              style: TextStyle(
-                                fontSize: 14.0,
-                                color: Color(0xFF383838),
-                              ),
-                            ),
+                            title: Text(items[index],
+                                style: Theme.of(context).textTheme.headline4),
                             trailing: Icon(
                               Icons.arrow_forward_ios,
                               color: Color(0xFF383838),
-                              size: 14.0,
+                              size: 18.0,
                             ),
                             onTap: () {
                               switch (index) {
@@ -51,7 +46,7 @@ class MineMore extends StatelessWidget {
                                   BYRoute.toNamed('/FeedBack');
                                   break;
                                 case 1:
-                                BYRoute.toNamed('/MineLogoff');
+                                  BYRoute.toNamed('/MineLogoff');
                                   break;
                                 default:
                                   break;
@@ -75,9 +70,10 @@ class MineMore extends StatelessWidget {
           Container(
             alignment: Alignment.bottomCenter,
             margin: EdgeInsets.only(bottom: 16.0),
-            child: FractionallySizedBox(
-              widthFactor: 0.9,
-              child: ElevatedButton(
+            child: ElevatedButton(
+               style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Color(0xFFF5F7FF)), // 覆盖背景色
+          ),
                 onPressed: () {
                   showDialog(
                     context: context,
@@ -98,22 +94,15 @@ class MineMore extends StatelessWidget {
                     },
                   );
                 },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Color(0xFFF5F7FF)),
-                  foregroundColor: MaterialStateProperty.all(Color(0xFFFF5733)),
-                  minimumSize: MaterialStateProperty.all(Size.fromHeight(45.0)),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0), // 设置圆角半径为20.0
-                    ),
-                  ),
-                ),
                 child: Text(
                   '退出登录',
-                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.headline5?.copyWith(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFFF5733),
+                      ),
                 ),
               ),
-            ),
           ),
         ]));
   }

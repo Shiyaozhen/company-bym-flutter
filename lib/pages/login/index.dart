@@ -27,13 +27,14 @@ class _LoginPageState extends State<LoginPage> {
     BYRoute.toNamed('/MineMore');
   }
 
-  void toConnect(){
+  void toConnect() {
     BYRoute.toNamed('/Connect');
   }
- 
-  void toSet(){
+
+  void toSet() {
     BYRoute.toNamed('/Language');
   }
+
   // 登录校验方法
   bool _validateInputs() {
     bool isValid = true;
@@ -88,35 +89,34 @@ class _LoginPageState extends State<LoginPage> {
               obscureText: true,
             ),
             const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                // 校验用户名和密码
-                if (_validateInputs()) {
-                  // 执行登录操作
-                  final username = _usernameController.text;
-                  final password = _passwordController.text;
-                  // TODO: 添加登录逻辑
-                  // 清空输入框
-                  _usernameController.clear();
-                  _passwordController.clear();
-                }
-              },
-              child: const Text('登录'),
-            ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     // 校验用户名和密码
+            //     if (_validateInputs()) {
+            //       // 执行登录操作
+            //       final username = _usernameController.text;
+            //       final password = _passwordController.text;
+            //       // TODO: 添加登录逻辑
+            //       // 清空输入框
+            //       _usernameController.clear();
+            //       _passwordController.clear();
+            //     }
+            //   },
+            //   child: const Text('登录'),
+            // ),
             ElevatedButton(
               onPressed: () {
                 toMore();
               },
-              
               child: const Text('更多'),
             ),
-              ElevatedButton(
+            ElevatedButton(
               onPressed: () {
                 toConnect();
               },
               child: const Text('联系我们'),
             ),
-              ElevatedButton(
+            ElevatedButton(
               onPressed: () {
                 toSet();
               },

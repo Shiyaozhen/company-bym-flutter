@@ -39,7 +39,7 @@ class _FeedbackState extends State<MineFeedback> {
           title: Text(
             '意见反馈',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20, color: Color(0xFF383838)),
+            style: Theme.of(context).textTheme.headline5,
           ),
           centerTitle: true,
           leading: IconButton(
@@ -60,10 +60,7 @@ class _FeedbackState extends State<MineFeedback> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     '问题及建议',
-                    style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xFF383838)),
+                    style: Theme.of(context).textTheme.headline3,
                   ),
                 ),
               ),
@@ -93,10 +90,7 @@ class _FeedbackState extends State<MineFeedback> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     '上传图片(0/${_images.length})',
-                    style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xFF383838)),
+                    style: Theme.of(context).textTheme.headline3,
                   ),
                 ),
               ),
@@ -180,10 +174,7 @@ class _FeedbackState extends State<MineFeedback> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     '联系方式',
-                    style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xFF383838)),
+                    style: Theme.of(context).textTheme.headline3,
                   ),
                 ),
               ),
@@ -205,24 +196,24 @@ class _FeedbackState extends State<MineFeedback> {
             ],
           ),
         ),
-              floatingActionButton:  Container(
+         floatingActionButton:  Container(
             alignment: Alignment.bottomCenter,
             child: FractionallySizedBox(
               widthFactor: 0.9,
               child: ElevatedButton(
                 onPressed: () {
                 },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Color(0xFF5475F8)),
-                  foregroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
-                  minimumSize: MaterialStateProperty.all(Size.fromHeight(45.0)),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25.0), // 设置圆角半径为20.0
-                    ),
-                  ),
-                ),
-                child: Text('提交',style:TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+                // style: ButtonStyle(
+                //   backgroundColor: MaterialStateProperty.all(Color(0xFF5475F8)),
+                //   foregroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
+                //   minimumSize: MaterialStateProperty.all(Size.fromHeight(45.0)),
+                //   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                //     RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(25.0), // 设置圆角半径为20.0
+                //     ),
+                //   ),
+                // ),
+                child: Text('提交',style:Theme.of(context).textTheme.headline5?.copyWith(color: Color(0xFFFFFFFF),fontWeight: FontWeight.bold)),
               ),
             )),
        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

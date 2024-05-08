@@ -1,5 +1,4 @@
 import 'package:BYM/api/app.dart';
-import 'package:BYM/pages/blue/index.dart';
 import 'package:BYM/pages/list/index.dart';
 import 'package:BYM/pages/login/index.dart';
 import 'package:BYM/pages/mine/index.dart';
@@ -60,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                 // ])),
                 const SetPages(),
                 const MineIndex(),
-                const BluetoothPage()
+                // const BluetoothPage()
               ],
             ),
           ),

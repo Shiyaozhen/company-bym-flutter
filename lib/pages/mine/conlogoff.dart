@@ -16,7 +16,7 @@ class _ConlogoffState extends State<Conlogoff> {
         title: Text(
           '账号注销',
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20, color: Color(0xFF383838)),
+          style:  Theme.of(context).textTheme.headline5,
         ),
         centerTitle: true,
         leading: IconButton(
@@ -40,10 +40,7 @@ class _ConlogoffState extends State<Conlogoff> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         '账号安全验证',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xFF383838)),
+                        style:  Theme.of(context).textTheme.headline5,
                       ),
                     ),
                   ),
@@ -53,10 +50,7 @@ class _ConlogoffState extends State<Conlogoff> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         '请输入登录密码',
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xFF383838)),
+                        style:  Theme.of(context).textTheme.headline3,
                       ),
                     ),
                   )
@@ -108,7 +102,7 @@ class _ConlogoffState extends State<Conlogoff> {
                     ),
                   ),
                 ),
-                child: Text('确认注销',style:TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+                child: Text('确认注销',style: Theme.of(context).textTheme.headline5?.copyWith(fontWeight: FontWeight.bold,color: Color(0xFFFFFFFF))),
               ),
             )),
        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

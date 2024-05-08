@@ -15,7 +15,7 @@ class _ConnectState extends State<Connect> {
           title: Text(
             '联系我们',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20, color: Color(0xFF383838)),
+            style: Theme.of(context).textTheme.headline5,
           ),
           centerTitle: true,
           leading: IconButton(
@@ -46,7 +46,7 @@ class _ConnectState extends State<Connect> {
                           borderRadius:
                               BorderRadius.all(Radius.circular(10)), // 设置圆角
                           child: Container(
-                              height: 350,
+                              height: 320,
                               decoration:
                                   BoxDecoration(color: Color(0xFFF5F7FF)),
                               child: Padding(
@@ -67,13 +67,13 @@ class _ConnectState extends State<Connect> {
                                         child: Align(
                                           alignment: Alignment.centerLeft,
                                           child: Text(
-                                            'Copyright©2022Zjbeny All Right Rserved.',
-                                            style: TextStyle(
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.w400,
-                                              color: Color(0xFF878787),
-                                            ),
-                                          ),
+                                              'Copyright©2022Zjbeny All Right Rserved.',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline1
+                                                  ?.copyWith(
+                                                      color:
+                                                          Color(0xFF878787))),
                                         ),
                                       )
                                     ],
