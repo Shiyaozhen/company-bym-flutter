@@ -35,6 +35,10 @@ class _LoginPageState extends State<LoginPage> {
     BYRoute.toNamed('/Language');
   }
 
+  void toChangePwd() {
+    BYRoute.toNamed('/ChangePwd');
+  }
+
   // 登录校验方法
   bool _validateInputs() {
     bool isValid = true;
@@ -79,16 +83,16 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
-              controller: _usernameController,
-              decoration: const InputDecoration(labelText: '用户名'),
-            ),
-            TextField(
-              controller: _passwordController,
-              decoration: const InputDecoration(labelText: '密码'),
-              obscureText: true,
-            ),
-            const SizedBox(height: 16.0),
+            // TextField(
+            //   controller: _usernameController,
+            //   decoration: const InputDecoration(labelText: '用户名'),
+            // ),
+            // TextField(
+            //   controller: _passwordController,
+            //   decoration: const InputDecoration(labelText: '密码'),
+            //   obscureText: true,
+            // ),
+            // const SizedBox(height: 16.0),
             // ElevatedButton(
             //   onPressed: () {
             //     // 校验用户名和密码
@@ -122,6 +126,17 @@ class _LoginPageState extends State<LoginPage> {
               },
               child: const Text('设置语言'),
             ),
+            ElevatedButton(
+              onPressed: () {
+                toChangePwd();
+              },
+              child: const Text('修改密码'),
+            ),
+            TextField(
+              decoration: InputDecoration(
+                hintText: '请输入问题描述', // 设置提示文字
+              ),
+            )
           ],
         ),
       ),

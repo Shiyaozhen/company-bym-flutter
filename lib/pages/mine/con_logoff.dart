@@ -62,14 +62,6 @@ class _ConlogoffState extends State<Conlogoff> {
               child: TextField(
                 obscureText: _isObscure,
                 decoration: InputDecoration(
-                  filled: true,
-                  //Colors.grey[200]
-                  fillColor: const Color(0xFFF5F7FF),
-                  labelText: '',
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
                   suffixIcon: IconButton(
                     icon: Icon(_isObscure ? Icons.visibility_off_outlined : Icons.visibility_outlined,color: Color(0xFF7989B2)),
                     onPressed: () {
