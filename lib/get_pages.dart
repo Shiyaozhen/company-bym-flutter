@@ -1,5 +1,9 @@
 import 'package:BYM/pages/coupon/index.dart';
 import 'package:BYM/pages/list/index.dart';
+//登录
+import 'package:BYM/pages/login/login.dart';
+//注册
+import 'package:BYM/pages/login/sign_up.dart';
 //我的
 import 'package:BYM/pages/mine/bind_email.dart';
 import 'package:BYM/pages/mine/bind_success.dart';
@@ -27,6 +31,14 @@ List<GetPage<dynamic>> pages = [
   GetPage(
       name: '/TcpPage',
       page: () => TcpPage(),
+      transition: Transition.rightToLeftWithFade),
+  GetPage(
+      name: '/Login',
+      page: () => Login(),
+      transition: Transition.rightToLeftWithFade),
+  GetPage(
+      name: '/SignUp',
+      page: () => SignUp(),
       transition: Transition.rightToLeftWithFade),
   GetPage(
       name: '/FeedBack',
@@ -63,7 +75,7 @@ List<GetPage<dynamic>> pages = [
   GetPage(
       name: '/BindSuccess',
       page: () => BindSuccess(),
-      transition: Transition.rightToLeftWithFade),
+      transition: Transition.rightToLeftWithFade)
 ];
 
 class BYRoute {
@@ -73,6 +85,10 @@ class BYRoute {
 
   static back(String page) {
     Get.back();
+  }
+  
+  static off(Widget page) {
+    Get.off(page);
   }
 
   static push(Widget page, Transition transition) {

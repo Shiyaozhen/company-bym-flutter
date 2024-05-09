@@ -7,7 +7,7 @@ import 'package:get/route_manager.dart';
 void main() {
   runApp(GetMaterialApp(
     title: 'Flutter Luckin Coffee',
-    initialRoute: '/Home',
+    initialRoute: '/Login',
     getPages: pages,
     localizationsDelegates: [
       GlobalMaterialLocalizations.delegate,
