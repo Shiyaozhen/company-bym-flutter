@@ -1,22 +1,55 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
-class ChangePwd extends StatefulWidget {
-  const ChangePwd({Key? key}) : super(key: key);
+import '../../utils/by_util.dart';
+
+class BindEmail extends StatefulWidget {
+  const BindEmail({Key? key}) : super(key: key);
 
   @override
-  _ChangePwdState createState() => _ChangePwdState();
+  _BindEmailState createState() => _BindEmailState();
 }
 
-class _ChangePwdState extends State<ChangePwd> {
-  bool isObscure_old = true;
-  bool isObscure_new = true;
-  bool isObscure_con_new = true;
+class _BindEmailState extends State<BindEmail> {
+  bool isObscure_con = true;
+  bool isObscure = true;
+  bool canResend = true;
+  int countdown = 59;
+  Timer? timer;
+  //倒计时
+  void startCountdown() {
+    timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+      setState(() {
+        if (countdown > 0) {
+          countdown--;
+        } else {
+          canResend = true;
+          timer?.cancel();
+        }
+      });
+    });
+  }
+
+  void sendCode() {
+    if (canResend) {
+      setState(() {
+        canResend = false;
+        countdown = 59;
+      });
+      startCountdown();
+    }
+  }
+
+  void tobind() {
+    BYRoute.toNamed('/BindSuccess');
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          '修改密码',
+          '绑定邮箱',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headline5,
         ),
@@ -30,7 +63,8 @@ class _ChangePwdState extends State<ChangePwd> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 20.0,bottom: 0,left: 13.0,right: 13.0),
+        padding: const EdgeInsets.only(
+            top: 20.0, bottom: 0, left: 16.0, right: 16.0),
         child: Column(
           children: [
             Padding(
@@ -38,26 +72,44 @@ class _ChangePwdState extends State<ChangePwd> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  '旧密码',
+                  '邮箱',
                   style: Theme.of(context).textTheme.headline3,
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 20.0),
+              padding: const EdgeInsets.only(bottom: 30.0),
               child: TextField(
-                obscureText: isObscure_old,
                 decoration: InputDecoration(
-                  hintText: '请输入旧密码',
+                  hintText: '请输入密码',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '请输入密码',
+                  style: Theme.of(context).textTheme.headline3,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30.0),
+              child: TextField(
+                obscureText: isObscure,
+                decoration: InputDecoration(
+                  hintText: '请确认密码',
                   suffixIcon: IconButton(
                     icon: Icon(
-                        isObscure_old
+                        isObscure
                             ? Icons.visibility_off_outlined
                             : Icons.visibility_outlined,
                         color: Color(0xFF7989B2)),
                     onPressed: () {
                       setState(() {
-                        isObscure_old = !isObscure_old;
+                        isObscure = !isObscure;
                       });
                     },
                   ),
@@ -69,26 +121,26 @@ class _ChangePwdState extends State<ChangePwd> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  '请输入新密码',
+                  '请确认密码',
                   style: Theme.of(context).textTheme.headline3,
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 20.0),
+              padding: const EdgeInsets.only(bottom: 30.0),
               child: TextField(
-                obscureText: isObscure_new,
+                obscureText: isObscure_con,
                 decoration: InputDecoration(
-                  hintText: '请输入新密码',
+                  hintText: '请确认密码',
                   suffixIcon: IconButton(
                     icon: Icon(
-                        isObscure_new
+                        isObscure_con
                             ? Icons.visibility_off_outlined
                             : Icons.visibility_outlined,
                         color: Color(0xFF7989B2)),
                     onPressed: () {
                       setState(() {
-                        isObscure_new = !isObscure_new;
+                        isObscure_con = !isObscure_con;
                       });
                     },
                   ),
@@ -100,32 +152,38 @@ class _ChangePwdState extends State<ChangePwd> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  '请确认新密码',
+                  '验证码',
                   style: Theme.of(context).textTheme.headline3,
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 20.0),
-              child: TextField(
-                obscureText: isObscure_con_new,
-                decoration: InputDecoration(
-                  hintText: '请再次输入您的新密码',
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                        isObscure_con_new
-                            ? Icons.visibility_off_outlined
-                            : Icons.visibility_outlined,
-                        color: Color(0xFF7989B2)),
-                    onPressed: () {
-                      setState(() {
-                        isObscure_con_new = !isObscure_con_new;
-                      });
-                    },
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: '请输入验证码',
+                    suffixIcon: Container(
+                      width: 120,
+                      alignment: Alignment.centerRight,
+                      child: InkWell(
+                          onTap: () {
+                            sendCode();
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 17),
+                            child: Text(canResend ? '发送' : '重发($countdown s)',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline3
+                                    ?.copyWith(
+                                      color: canResend
+                                          ? Color(0xFF5475F8)
+                                          : Color(0xFF7989B2),
+                                    )),
+                          )),
+                    ),
                   ),
-                ),
-              ),
-            ),
+                )),
           ],
         ),
       ),
@@ -135,6 +193,7 @@ class _ChangePwdState extends State<ChangePwd> {
             widthFactor: 0.9,
             child: ElevatedButton(
               onPressed: () {
+                tobind();
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Color(0xFF5475F8)),
@@ -142,11 +201,11 @@ class _ChangePwdState extends State<ChangePwd> {
                 minimumSize: MaterialStateProperty.all(Size.fromHeight(45.0)),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25.0), // 设置圆角半径为20.0
+                    borderRadius: BorderRadius.circular(25.0),
                   ),
                 ),
               ),
-              child: Text('保存',
+              child: Text('绑定',
                   style: Theme.of(context).textTheme.headline5?.copyWith(
                       fontWeight: FontWeight.bold, color: Color(0xFFFFFFFF))),
             ),

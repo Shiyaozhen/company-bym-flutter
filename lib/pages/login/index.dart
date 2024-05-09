@@ -38,8 +38,11 @@ class _LoginPageState extends State<LoginPage> {
   void toChangePwd() {
     BYRoute.toNamed('/ChangePwd');
   }
-
-  // 登录校验方法
+ 
+  void toBind(){
+    BYRoute.toNamed('/BindEmail');
+  }
+  
   bool _validateInputs() {
     bool isValid = true;
 
@@ -132,11 +135,12 @@ class _LoginPageState extends State<LoginPage> {
               },
               child: const Text('修改密码'),
             ),
-            TextField(
-              decoration: InputDecoration(
-                hintText: '请输入问题描述', // 设置提示文字
-              ),
-            )
+             ElevatedButton(
+              onPressed: () {
+                toBind();
+              },
+              child: const Text('绑定邮箱'),
+            ),
           ],
         ),
       ),

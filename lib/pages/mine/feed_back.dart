@@ -116,6 +116,7 @@ class _FeedbackState extends State<MineFeedback> {
                             child: const Icon(
                               Icons.add,
                               color: Color(0xFF7989B2),
+                              size: 30, 
                             ),
                           ),
                         ),

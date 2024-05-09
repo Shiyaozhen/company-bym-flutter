@@ -81,7 +81,7 @@ flutter:
     - assets/ic_station.svg
     - assets/ic_fail.svg
     - assets/ic_logo.png
-
+    - assets/ic_success.svg
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
