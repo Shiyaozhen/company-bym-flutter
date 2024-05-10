@@ -1,4 +1,4 @@
-import 'package:BYM/pages/coupon/index.dart';
+import 'package:BYM/pages/home/index.dart';
 import 'package:BYM/utils/by_util.dart';
 import 'package:flutter/material.dart';
 

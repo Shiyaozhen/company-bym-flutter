@@ -82,7 +82,9 @@ flutter:
     - assets/ic_fail.svg
     - assets/ic_logo.png
     - assets/ic_success.svg
-    
+    - assets/ic_current_power.svg
+    - assets/ic_capacity.svg 
+    - assets/ic_photovoltaic_panels.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

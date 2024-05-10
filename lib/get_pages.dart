@@ -1,19 +1,21 @@
-import 'package:BYM/pages/coupon/index.dart';
+import 'package:BYM/pages/home/index.dart';
 import 'package:BYM/pages/list/index.dart';
 //登录
 import 'package:BYM/pages/login/login.dart';
 //注册
 import 'package:BYM/pages/login/sign_up.dart';
 //我的
-import 'package:BYM/pages/mine/bind_email.dart';
-import 'package:BYM/pages/mine/bind_success.dart';
-import 'package:BYM/pages/mine/change_pwd.dart';
-import 'package:BYM/pages/mine/con_logoff.dart';
-import 'package:BYM/pages/mine/connect.dart';
-import 'package:BYM/pages/mine/feed_back.dart';
-import 'package:BYM/pages/mine/language.dart';
-import 'package:BYM/pages/mine/logoff.dart';
-import 'package:BYM/pages/mine/more.dart';
+import 'package:BYM/pages/home/mine/bind_email.dart';
+import 'package:BYM/pages/home/mine/bind_success.dart';
+import 'package:BYM/pages/home/mine/change_pwd.dart';
+import 'package:BYM/pages/home/mine/con_logoff.dart';
+import 'package:BYM/pages/home/mine/connect.dart';
+import 'package:BYM/pages/home/mine/feed_back.dart';
+import 'package:BYM/pages/home/mine/language.dart';
+import 'package:BYM/pages/home/mine/logoff.dart';
+import 'package:BYM/pages/home/mine/more.dart';
+//首页概览
+import 'package:BYM/pages/home/overview/index.dart';
 //测试
 import 'package:BYM/pages/tcp/index.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +41,10 @@ List<GetPage<dynamic>> pages = [
   GetPage(
       name: '/SignUp',
       page: () => SignUp(),
+      transition: Transition.rightToLeftWithFade),
+  GetPage(
+      name: '/OverView',
+      page: () => OverViewIndex(),
       transition: Transition.rightToLeftWithFade),
   GetPage(
       name: '/FeedBack',
@@ -86,7 +92,7 @@ class BYRoute {
   static back(String page) {
     Get.back();
   }
-  
+
   static off(Widget page) {
     Get.off(page);
   }
