@@ -54,6 +54,7 @@ dependencies:
   crypto: ^3.0.3
   flutter_svg: ^2.0.10+1
   image_picker: ^1.1.1
+  table_calendar: ^3.0.9
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -84,7 +85,11 @@ flutter:
     - assets/ic_success.svg
     - assets/ic_current_power.svg
     - assets/ic_capacity.svg 
-    - assets/ic_photovoltaic_panels.svg
+    - assets/ic_photovoltaic_panels.png
+    - assets/ic_device_online.svg
+    - assets/ic_device_offline.svg
+    - assets/ic_device_fault.svg
+    - assets/ic_energy_static.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see
