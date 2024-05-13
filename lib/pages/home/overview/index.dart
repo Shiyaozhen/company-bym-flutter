@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:BYM/components/ByDashedLine.dart';
 import 'package:BYM/components/ByDayPicker.dart';
 import 'package:BYM/components/ByMask.dart';
@@ -20,14 +22,126 @@ class _IndexState extends State<OverViewIndex> {
     0: Text(
       '日',
     ),
-    1: Text('月'),
-    2: Text('周'),
-    3: Text('年'),
+    1: Text('周'),
+    2: Text('月')
   };
-
   int currentSegment = 0;
+  //修改日
+  void changeDay() {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        ),
+      ),
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height *
+                0.64, // 设置最大高度的比例，此处为屏幕高度的80%
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(
+                // 如果要读上层的变量 可以不用 Flexible
+                child: DayPicker(
+                  onConfirm: (startDay) {
+                    print('Selected Week: $startDay');
+                  },
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  //修改周
+  void changeWeek() {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        ),
+      ),
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height *
+                0.64, // 设置最大高度的比例，此处为屏幕高度的80%
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(
+                // 如果要读上层的变量 可以不用 Flexible
+                child: WeekPicker(
+                  onConfirm: (startOfWeek, endOfWeek) {
+                    print('Selected Week: $startOfWeek - $endOfWeek');
+                  },
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  //修改月
+  void changeMonth() {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        ),
+      ),
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.64,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(child: MonthPicker(
+                onConfirm: (startOfMonth, endOfMonth) {
+                  print('Selected Week: $startOfMonth - $endOfMonth');
+                },
+              ))
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    //日
+    DateTime now = DateTime.now();
+    String formattedDateDay = "${now.year}.${now.month}.${now.day}";
+    //月
+    String formattedDateMonth = "${now.year}.${now.month}";
+    //周
+    DateTime startOfWeek = now.subtract(Duration(days: now.weekday));
+    DateTime endOfWeek =
+        now.add(Duration(days: DateTime.daysPerWeek - now.weekday - 1));
+    String formattedDateSWeek =
+        "${startOfWeek.year}.${startOfWeek.month}.${startOfWeek.day}";
+    String formattedDateEWeek =
+        "${endOfWeek.year}.${endOfWeek.month}.${endOfWeek.day}";
     return GuidedOverlay(
       child: Scaffold(
           body: Stack(
@@ -39,7 +153,7 @@ class _IndexState extends State<OverViewIndex> {
                 end: Alignment.bottomCenter,
                 stops: [0, 0.83],
                 colors: [
-                  Color(0xFFD6DDFF),
+                  const Color(0xFFD6DDFF),
                   Color(0xFFFFFFFF),
                 ],
               ),
@@ -631,6 +745,7 @@ class _IndexState extends State<OverViewIndex> {
                                                   onValueChanged: (value) {
                                                     setState(() {
                                                       currentSegment = value;
+                                                      print(currentSegment);
                                                     });
                                                   },
                                                   groupValue: currentSegment,
@@ -645,124 +760,114 @@ class _IndexState extends State<OverViewIndex> {
                                         },
                                       )),
                                   Visibility(
-                                    visible: true,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        showModalBottomSheet(
-                                          context: context,
-                                          shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(15),
-                                              topRight: Radius.circular(15),
-                                            ),
-                                          ),
-                                          isScrollControlled: true,
-                                          builder: (BuildContext context) {
-                                            return ConstrainedBox(
-                                              constraints: BoxConstraints(
-                                                maxHeight:
-                                                    MediaQuery.of(context)
-                                                            .size
-                                                            .height *
-                                                        0.64,
+                                    visible: currentSegment == 0,
+                                    child: Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 16.0, bottom: 10.0),
+                                        child: InkWell(
+                                          onTap: changeDay,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                formattedDateDay,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline3
+                                                    ?.copyWith(
+                                                        color:
+                                                            Color(0xFF939393)),
                                               ),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Flexible(child: MonthPicker(
-                                                    onConfirm: (startOfMonth,
-                                                        endOfMonth) {
-                                                      print(
-                                                          'Selected Week: $startOfMonth - $endOfMonth');
-                                                    },
-                                                  ))
-                                                ],
+                                              Icon(
+                                                Icons.expand_more,
+                                                size: 24,
+                                                color: Color(0xFF939393),
                                               ),
-                                            );
-                                          },
-                                        );
-                                      },
-                                      child: Text('月选择器'),
-                                    ),
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      showModalBottomSheet(
-                                        context: context,
-                                        shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(15),
-                                            topRight: Radius.circular(15),
+                                            ],
                                           ),
-                                        ),
-                                        isScrollControlled: true,
-                                        builder: (BuildContext context) {
-                                          return ConstrainedBox(
-                                            constraints: BoxConstraints(
-                                              maxHeight: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.64, // 设置最大高度的比例，此处为屏幕高度的80%
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Flexible(
-                                                  // 如果要读上层的变量 可以不用 Flexible
-                                                  child: DayPicker(
-                                                    onConfirm: (startDay) {
-                                                      print(
-                                                          'Selected Week: $startDay');
-                                                    },
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                    child: Text('日选择器'),
+                                        )),
                                   ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      showModalBottomSheet(
-                                        context: context,
-                                        shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(15),
-                                            topRight: Radius.circular(15),
+                                  Visibility(
+                                    visible: currentSegment == 1,
+                                    child: Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 16.0, bottom: 10.0),
+                                        child: InkWell(
+                                          onTap: changeWeek,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                formattedDateSWeek,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline3
+                                                    ?.copyWith(
+                                                        color:
+                                                            Color(0xFF939393)),
+                                              ),
+                                              Icon(
+                                                Icons.expand_more,
+                                                size: 24,
+                                                color: Color(0xFF939393),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(
+                                                    left: 3.0, right: 8.0),
+                                                color: Color(0xFF939393), // 背景色
+                                                child: SizedBox(
+                                                  width: 20,
+                                                  height: 1.6,
+                                                ),
+                                              ),
+                                              Text(
+                                                formattedDateEWeek,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline3
+                                                    ?.copyWith(
+                                                        color:
+                                                            Color(0xFF939393)),
+                                              ),
+                                              Icon(
+                                                Icons.expand_more,
+                                                size: 24,
+                                                color: Color(0xFF939393),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                        isScrollControlled: true,
-                                        builder: (BuildContext context) {
-                                          return ConstrainedBox(
-                                            constraints: BoxConstraints(
-                                              maxHeight: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.64, // 设置最大高度的比例，此处为屏幕高度的80%
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Flexible(
-                                                  // 如果要读上层的变量 可以不用 Flexible
-                                                  child: WeekPicker(
-                                                    onConfirm: (startOfWeek,
-                                                        endOfWeek) {
-                                                      print(
-                                                          'Selected Week: $startOfWeek - $endOfWeek');
-                                                    },
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                    child: Text('周选择器'),
+                                        )),
+                                  ),
+                                  Visibility(
+                                    visible: currentSegment == 2,
+                                    child: Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 16.0, bottom: 10.0),
+                                        child: InkWell(
+                                          onTap: changeMonth,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                formattedDateMonth,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline3
+                                                    ?.copyWith(
+                                                        color:
+                                                            Color(0xFF939393)),
+                                              ),
+                                              Icon(
+                                                Icons.expand_more,
+                                                size: 24,
+                                                color: Color(0xFF939393),
+                                              ),
+                                            ],
+                                          ),
+                                        )),
                                   ),
                                 ],
                               ),

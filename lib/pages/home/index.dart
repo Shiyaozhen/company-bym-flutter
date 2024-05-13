@@ -1,8 +1,8 @@
 import 'package:BYM/api/app.dart';
 import 'package:BYM/pages/home/mine/index.dart';
 import 'package:BYM/pages/home/overview/index.dart';
+import 'package:BYM/pages/home/plant/index.dart';
 import 'package:BYM/pages/home/toolbar/index.dart';
-import 'package:BYM/pages/list/index.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                 //       },
                 //       child: const Text('登录'))
                 // ])),
-                const SetPages(),
+                const PlantIndex(),
                 const MineIndex(),
                 // const BluetoothPage()
               ],

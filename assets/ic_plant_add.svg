@@ -1,0 +1,17 @@
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="&#229;&#138;&#160;&#229;&#143;&#183;">
+<g clip-path="url(#clip0_324_5770)">
+<rect width="80" height="80" rx="40" fill="url(#paint0_linear_324_5770)"/>
+<path id="Union" fill-rule="evenodd" clip-rule="evenodd" d="M37.5924 57.6817C37.5924 58.7862 38.4878 59.6817 39.5924 59.6817C40.697 59.6817 41.5924 58.7862 41.5924 57.6817V41.593H57.6817C58.7862 41.593 59.6817 40.6976 59.6817 39.593C59.6817 38.4884 58.7862 37.593 57.6817 37.593H41.5924V21.5C41.5924 20.3954 40.697 19.5 39.5924 19.5C38.4878 19.5 37.5924 20.3954 37.5924 21.5V37.593H21.5C20.3954 37.593 19.5 38.4884 19.5 39.593C19.5 40.6976 20.3954 41.593 21.5 41.593H37.5924V57.6817Z" fill="white"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_324_5770" x1="40" y1="6.40277e-07" x2="40" y2="80.0002" gradientUnits="userSpaceOnUse">
+<stop stop-color="#7DACFF"/>
+<stop offset="1" stop-color="#5475F8"/>
+</linearGradient>
+<clipPath id="clip0_324_5770">
+<rect width="80" height="80" rx="40" fill="white"/>
+</clipPath>
+</defs>
+</svg>

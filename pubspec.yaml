@@ -90,6 +90,10 @@ flutter:
     - assets/ic_device_offline.svg
     - assets/ic_device_fault.svg
     - assets/ic_energy_static.svg
+    - assets/ic_plant_more.svg
+    - assets/ic_plant_add.svg
+    - assets/ic_plant_avatar.png
+    - assets/ic_plant_nocircle_more.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

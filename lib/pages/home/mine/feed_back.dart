@@ -77,7 +77,7 @@ class _FeedbackState extends State<MineFeedback> {
                       onChanged: _updateRemainingCharacters,
                       decoration: InputDecoration(
                         counterText: '剩余字符：$_remainingCharacters',
-                         hintText: '请输入问题描述', // 设置提示文字
+                        hintText: '请输入问题描述', // 设置提示文字
                       ),
                     ),
                   )),
@@ -116,7 +116,7 @@ class _FeedbackState extends State<MineFeedback> {
                             child: const Icon(
                               Icons.add,
                               color: Color(0xFF7989B2),
-                              size: 30, 
+                              size: 30,
                             ),
                           ),
                         ),
