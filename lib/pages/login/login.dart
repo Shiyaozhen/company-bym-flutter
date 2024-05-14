@@ -3,17 +3,18 @@ import 'package:BYM/utils/by_util.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+  const Login({super.key});
 
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   bool _showClearButton = false;
   bool isObscure = true;
   bool _isChecked = false;
+
   @override
   void initState() {
     super.initState();
@@ -31,10 +32,11 @@ class _LoginState extends State<Login> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('登录'),
+          title: const Text(''),
         ),
         body: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -58,9 +60,10 @@ class _LoginState extends State<Login> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
-                    padding: const EdgeInsets.only(top: 37.0, bottom: 7.0),
-                    child: Text('邮箱',
-                        style: Theme.of(context).textTheme.headline3)),
+                  padding: const EdgeInsets.only(top: 37.0, bottom: 7.0),
+                  child:
+                      Text('邮箱', style: Theme.of(context).textTheme.headline3),
+                ),
               ),
               Padding(
                   padding: const EdgeInsets.only(bottom: 20.0),
@@ -70,7 +73,8 @@ class _LoginState extends State<Login> {
                       hintText: '请输入您的邮箱',
                       suffixIcon: _showClearButton
                           ? IconButton(
-                              icon: Icon(Icons.clear, color: Color(0xFF7989B2)),
+                              icon: const Icon(Icons.clear,
+                                  color: Color(0xFF7989B2)),
                               onPressed: _clearTextField,
                             )
                           : null,
@@ -79,9 +83,10 @@ class _LoginState extends State<Login> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 7.0),
                 child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text('密码',
-                        style: Theme.of(context).textTheme.headline3)),
+                  alignment: Alignment.centerLeft,
+                  child:
+                      Text('密码', style: Theme.of(context).textTheme.headline3),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 20.0),
@@ -93,7 +98,7 @@ class _LoginState extends State<Login> {
                             isObscure
                                 ? Icons.visibility_off_outlined
                                 : Icons.visibility_outlined,
-                            color: Color(0xFF7989B2)),
+                            color: const Color(0xFF7989B2)),
                         onPressed: () {
                           setState(() {
                             isObscure = !isObscure;
@@ -116,7 +121,7 @@ class _LoginState extends State<Login> {
                               style: Theme.of(context)
                                   .textTheme
                                   .headline4
-                                  ?.copyWith(color: Color(0xFF5475F7)))),
+                                  ?.copyWith(color: const Color(0xFF5475F7)))),
                       Container(
                           child: Text('忘记密码?',
                               style: Theme.of(context)
@@ -160,7 +165,7 @@ class _LoginState extends State<Login> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: EdgeInsets.only(bottom: 26.0, top: 26.0),
+                  padding: const EdgeInsets.only(bottom: 26.0, top: 26.0),
                   child: ElevatedButton(
                     onPressed: () {
                       BYRoute.off(const HomePage());
@@ -169,7 +174,7 @@ class _LoginState extends State<Login> {
                       '登录',
                       style: Theme.of(context).textTheme.headline5?.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFFFFFFFF)),
+                          color: const Color(0xFFFFFFFF)),
                     ),
                   ),
                 ),
@@ -179,7 +184,7 @@ class _LoginState extends State<Login> {
                     style: Theme.of(context)
                         .textTheme
                         .headline4
-                        ?.copyWith(color: Color(0xFF5475F7))),
+                        ?.copyWith(color: const Color(0xFF5475F7))),
               )
             ],
           ),

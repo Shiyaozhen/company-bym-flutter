@@ -9,7 +9,7 @@ void main() {
     title: 'Flutter Luckin Coffee',
     initialRoute: '/Login',
     getPages: pages,
-    localizationsDelegates: [
+    localizationsDelegates: const [
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
@@ -20,7 +20,7 @@ void main() {
       ...S.delegate.supportedLocales,
     ],
     theme: ThemeData(
-      //按钮
+      // 按钮
       buttonTheme: ButtonThemeData(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
@@ -40,8 +40,8 @@ void main() {
           ),
         ),
       ),
-      //文字
-      textTheme: TextTheme(
+      // 文字
+      textTheme: const TextTheme(
           headline1: TextStyle(
             fontSize: 12.0,
             color: Color(0xFF383838),
@@ -66,10 +66,10 @@ void main() {
               fontSize: 22.0,
               fontWeight: FontWeight.w400,
               color: Color(0xFF383838))),
-      //输入框
+      // 输入框
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: Color(0xFFF5F7FF),
+        fillColor: const Color(0xFFF5F7FF),
         border: InputBorder.none,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide.none,
@@ -79,12 +79,13 @@ void main() {
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.circular(6.0),
         ),
-        contentPadding: EdgeInsets.symmetric(vertical: 15.0,horizontal: 10.0),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
         //请输入内容
         hintStyle: TextStyle(color: Color(0xFF7989B2), fontSize: 16),
       ),
-      //输入光标颜色
-      textSelectionTheme: TextSelectionThemeData(
+      // 输入光标颜色
+      textSelectionTheme: const TextSelectionThemeData(
         cursorColor: Color(0xFF5475F8),
       ),
     ),

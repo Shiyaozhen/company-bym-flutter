@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../utils/by_util.dart';
 
 class BindEmail extends StatefulWidget {
-  const BindEmail({Key? key}) : super(key: key);
+  const BindEmail({super.key});
 
   @override
   _BindEmailState createState() => _BindEmailState();

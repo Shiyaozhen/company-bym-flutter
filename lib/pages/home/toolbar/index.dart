@@ -18,6 +18,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
       'assets/ic_overview.svg',
       'assets/ic_station.svg'
     ];
+
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed, // 设置为fixed
       currentIndex: selectedIndex,
@@ -50,7 +51,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Padding(
-              padding: EdgeInsets.only(top: 10.0),
+              padding: const EdgeInsets.only(top: 10.0),
               child: SvgPicture.asset('assets/ic_mine.svg',
                   width: 28,
                   height: 28,
@@ -59,7 +60,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                       ? Color(0xFF55AAFF)
                       : Color(0xFF9cb4c9))),
           label: '',
-        )
+        ),
       ],
     );
   }

@@ -20,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   int selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,35 +29,10 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: IndexedStack(
               index: selectedIndex,
-              children: [
+              children: const [
                 OverViewIndex(),
-                // Center(
-                //     child: Column(children: [
-                //   Text(S.of(context).name),
-                //   const Divider(),
-                //   ElevatedButton(
-                //       onPressed: () {
-                //         setState(() {
-                //           S.load(const Locale('zh', ''));
-                //         });
-                //       },
-                //       child: const Text('切换简体中文')),
-                //   ElevatedButton(
-                //       onPressed: () {
-                //         setState(() {
-                //           S.load(const Locale('en', ''));
-                //         });
-                //       },
-                //       child: const Text('切换英文')),
-                //        ElevatedButton(
-                //       onPressed: () {
-                //         login();
-                //       },
-                //       child: const Text('登录'))
-                // ])),
-                const SetPages(),
-                const MineIndex(),
-                // const BluetoothPage()
+                SetPages(),
+                Mine(),
               ],
             ),
           ),
