@@ -18,10 +18,17 @@ import 'package:BYM/pages/home/mine/feed_back.dart';
 import 'package:BYM/pages/home/mine/language.dart';
 import 'package:BYM/pages/home/mine/logoff.dart';
 import 'package:BYM/pages/home/mine/more.dart';
-
 //首页概览
 import 'package:BYM/pages/home/overview/index.dart';
-
+//修改电站信息
+import 'package:BYM/pages/home/plant/change_info.dart';
+//首页电站
+import 'package:BYM/pages/home/plant/index.dart';
+import 'package:BYM/pages/list/index.dart';
+//登录
+import 'package:BYM/pages/login/login.dart';
+//注册
+import 'package:BYM/pages/login/sign_up.dart';
 //测试
 import 'package:BYM/pages/tcp/index.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +58,14 @@ List<GetPage<dynamic>> pages = [
   GetPage(
       name: '/OverView',
       page: () => OverViewIndex(),
+      transition: Transition.rightToLeftWithFade),
+  GetPage(
+      name: '/Plant',
+      page: () => PlantIndex(),
+      transition: Transition.rightToLeftWithFade),
+  GetPage(
+      name: '/ChangeInfo',
+      page: () => ChangeInfo(),
       transition: Transition.rightToLeftWithFade),
   GetPage(
       name: '/FeedBack',

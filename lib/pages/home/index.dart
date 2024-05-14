@@ -1,3 +1,4 @@
+import 'package:BYM/api/app.dart';
 import 'package:BYM/pages/home/mine/index.dart';
 import 'package:BYM/pages/home/overview/index.dart';
 import 'package:BYM/pages/home/toolbar/index.dart';
@@ -32,6 +33,33 @@ class _HomePageState extends State<HomePage> {
                 OverViewIndex(),
                 SetPages(),
                 Mine(),
+                // Center(
+                //     child: Column(children: [
+                //   Text(S.of(context).name),
+                //   const Divider(),
+                //   ElevatedButton(
+                //       onPressed: () {
+                //         setState(() {
+                //           S.load(const Locale('zh', ''));
+                //         });
+                //       },
+                //       child: const Text('切换简体中文')),
+                //   ElevatedButton(
+                //       onPressed: () {
+                //         setState(() {
+                //           S.load(const Locale('en', ''));
+                //         });
+                //       },
+                //       child: const Text('切换英文')),
+                //        ElevatedButton(
+                //       onPressed: () {
+                //         login();
+                //       },
+                //       child: const Text('登录'))
+                // ])),
+                const PlantIndex(),
+                const MineIndex(),
+                // const BluetoothPage()
               ],
             ),
           ),

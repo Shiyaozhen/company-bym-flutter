@@ -35,8 +35,10 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: const Text(''),
+          backgroundColor: Colors.white,
         ),
         body: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -61,9 +63,8 @@ class _LoginState extends State<Login> {
                 alignment: Alignment.centerLeft,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 37.0, bottom: 7.0),
-                  child:
-                      Text('邮箱', style: Theme.of(context).textTheme.displaySmall),
-                ),
+                  child: Text('邮箱', style: Theme.of(context).textTheme.displaySmall),
+      ),
               ),
               Padding(
                   padding: const EdgeInsets.only(bottom: 20.0),
