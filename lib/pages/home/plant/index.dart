@@ -1,3 +1,4 @@
+import 'package:BYM/get_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -365,15 +366,19 @@ class _IndexState extends State<PlantIndex> {
                                                                                 Theme.of(context).textTheme.headline5,
                                                                           ),
                                                                           Padding(
-                                                                            padding:
-                                                                                EdgeInsets.only(top: 39),
-                                                                            child:
-                                                                                Text(
-                                                                              '修改信息',
-                                                                              textAlign: TextAlign.center,
-                                                                              style: Theme.of(context).textTheme.headline5?.copyWith(color: Color(0xFF5475F7)),
-                                                                            ),
-                                                                          ),
+                                                                              padding: EdgeInsets.only(top: 39),
+                                                                              child: InkWell(
+                                                                                  onTap: () {},
+                                                                                  child: InkWell(
+                                                                                    onTap: () {
+                                                                                      BYRoute.toNamed('/ChangeInfo');
+                                                                                    },
+                                                                                    child: Text(
+                                                                                      '修改信息',
+                                                                                      textAlign: TextAlign.center,
+                                                                                      style: Theme.of(context).textTheme.headline5?.copyWith(color: Color(0xFF5475F7)),
+                                                                                    ),
+                                                                                  ))),
                                                                           Container(
                                                                             width:
                                                                                 310,
@@ -443,24 +448,26 @@ class _IndexState extends State<PlantIndex> {
                                                                                                                   hintText: '请输入您的密码'),
                                                                                                             ),
                                                                                                           ),
-                                                                                                          Align(alignment: Alignment.centerRight,
-                                                                                                          child: ElevatedButton(
-                                                                                                            onPressed: () {
-                                                                                                              Navigator.pop(context);
-                                                                                                            },
-                                                                                                            style: ElevatedButton.styleFrom(
-                                                                                                              backgroundColor: Color(0xFF5475F7),
-                                                                                                              minimumSize: Size(80, 50),
-                                                                                                              shape: RoundedRectangleBorder(
-                                                                                                                borderRadius: BorderRadius.circular(100),
-                                                                                                                side: BorderSide(color: Color(0xFF5475F7)),
+                                                                                                          Align(
+                                                                                                            alignment: Alignment.centerRight,
+                                                                                                            child: ElevatedButton(
+                                                                                                              onPressed: () {
+                                                                                                                Navigator.pop(context);
+                                                                                                              },
+                                                                                                              style: ElevatedButton.styleFrom(
+                                                                                                                backgroundColor: Color(0xFF5475F7),
+                                                                                                                minimumSize: Size(80, 50),
+                                                                                                                shape: RoundedRectangleBorder(
+                                                                                                                  borderRadius: BorderRadius.circular(100),
+                                                                                                                  side: BorderSide(color: Color(0xFF5475F7)),
+                                                                                                                ),
+                                                                                                              ),
+                                                                                                              child: Text(
+                                                                                                                '确定',
+                                                                                                                style: Theme.of(context).textTheme.headline5?.copyWith(color: Colors.white),
                                                                                                               ),
                                                                                                             ),
-                                                                                                            child: Text(
-                                                                                                              '确定',
-                                                                                                              style: Theme.of(context).textTheme.headline5?.copyWith(color: Colors.white),
-                                                                                                            ),
-                                                                                                          ),)
+                                                                                                          )
                                                                                                         ],
                                                                                                       )),
                                                                                                 ));

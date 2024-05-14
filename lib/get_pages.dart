@@ -11,6 +11,8 @@ import 'package:BYM/pages/home/mine/logoff.dart';
 import 'package:BYM/pages/home/mine/more.dart';
 //首页概览
 import 'package:BYM/pages/home/overview/index.dart';
+//修改电站信息
+import 'package:BYM/pages/home/plant/change_info.dart';
 //首页电站
 import 'package:BYM/pages/home/plant/index.dart';
 import 'package:BYM/pages/list/index.dart';
@@ -48,9 +50,13 @@ List<GetPage<dynamic>> pages = [
       name: '/OverView',
       page: () => OverViewIndex(),
       transition: Transition.rightToLeftWithFade),
-        GetPage(
+  GetPage(
       name: '/Plant',
       page: () => PlantIndex(),
+      transition: Transition.rightToLeftWithFade),
+  GetPage(
+      name: '/ChangeInfo',
+      page: () => ChangeInfo(),
       transition: Transition.rightToLeftWithFade),
   GetPage(
       name: '/FeedBack',
