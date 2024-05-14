@@ -36,7 +36,7 @@ class ByDialog extends StatelessWidget {
           onPressed: onCancelPressed,
           child: Text(
             cancelText,
-            style: Theme.of(context).textTheme.headline2?.copyWith(color: Color(0xFF5475F8)),
+            style: Theme.of(context).textTheme.displayMedium?.copyWith(color: Color(0xFF5475F8)),
           ),
         ),
         Container(
@@ -49,7 +49,7 @@ class ByDialog extends StatelessWidget {
             onPressed: onConfirmPressed,
             child: Text(
               confirmText,
-              style: Theme.of(context).textTheme.headline2?.copyWith(color: Colors.white),
+              style: Theme.of(context).textTheme.displayMedium?.copyWith(color: Colors.white),
             ),
           ),
         )

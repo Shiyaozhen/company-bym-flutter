@@ -123,7 +123,7 @@ class _IndexState extends State<PlantIndex> {
                                 '全部',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline1
+                                    .displaySmall
                                     ?.copyWith(color: Color(0xFF878787)),
                               )
                             ],
@@ -156,7 +156,7 @@ class _IndexState extends State<PlantIndex> {
                                 '在线',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline1
+                                    .displaySmall
                                     ?.copyWith(color: Color(0xFF878787)),
                               )
                             ],
@@ -189,7 +189,7 @@ class _IndexState extends State<PlantIndex> {
                                 '离线',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline1
+                                    .displaySmall
                                     ?.copyWith(color: Color(0xFF878787)),
                               )
                             ],
@@ -222,7 +222,7 @@ class _IndexState extends State<PlantIndex> {
                                 '故障',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline1
+                                    .displaySmall
                                     ?.copyWith(color: Color(0xFF878787)),
                               )
                             ],
@@ -250,7 +250,7 @@ class _IndexState extends State<PlantIndex> {
                                   '暂无设备，请添加',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline5
+                                      .headlineMedium
                                       ?.copyWith(color: Color(0xFF878787)),
                                 )
                               ],
@@ -312,7 +312,7 @@ class _IndexState extends State<PlantIndex> {
                                                           style: Theme.of(
                                                                   context)
                                                               .textTheme
-                                                              .headline2
+                                                              .displayMedium
                                                               ?.copyWith(
                                                                   color: Color(
                                                                       0xFFFFFFFF))),
@@ -363,7 +363,7 @@ class _IndexState extends State<PlantIndex> {
                                                                             textAlign:
                                                                                 TextAlign.center,
                                                                             style:
-                                                                                Theme.of(context).textTheme.headline5,
+                                                                                Theme.of(context).textTheme.headlineMedium,
                                                                           ),
                                                                           Padding(
                                                                               padding: EdgeInsets.only(top: 39),
@@ -376,7 +376,7 @@ class _IndexState extends State<PlantIndex> {
                                                                                     child: Text(
                                                                                       '修改信息',
                                                                                       textAlign: TextAlign.center,
-                                                                                      style: Theme.of(context).textTheme.headline5?.copyWith(color: Color(0xFF5475F7)),
+                                                                                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Color(0xFF5475F7)),
                                                                                     ),
                                                                                   ))),
                                                                           Container(
@@ -410,7 +410,7 @@ class _IndexState extends State<PlantIndex> {
                                                                                                         children: [
                                                                                                           Text(
                                                                                                             '删除电站',
-                                                                                                            style: Theme.of(context).textTheme.headline5,
+                                                                                                            style: Theme.of(context).textTheme.headlineMedium,
                                                                                                           ),
                                                                                                           Padding(
                                                                                                             padding: EdgeInsets.only(top: 20.0),
@@ -418,7 +418,7 @@ class _IndexState extends State<PlantIndex> {
                                                                                                               alignment: Alignment.centerLeft,
                                                                                                               child: Text(
                                                                                                                 '信息安全验证',
-                                                                                                                style: Theme.of(context).textTheme.headline4,
+                                                                                                                style: Theme.of(context).textTheme.headlineSmall,
                                                                                                               ),
                                                                                                             ),
                                                                                                           ),
@@ -428,7 +428,7 @@ class _IndexState extends State<PlantIndex> {
                                                                                                               alignment: Alignment.centerLeft,
                                                                                                               child: Text(
                                                                                                                 '请输入登录密码',
-                                                                                                                style: Theme.of(context).textTheme.headline3?.copyWith(color: Color(0xFF939393)),
+                                                                                                                style: Theme.of(context).textTheme.displayLarge?.copyWith(color: Color(0xFF939393)),
                                                                                                               ),
                                                                                                             ),
                                                                                                           ),
@@ -464,7 +464,7 @@ class _IndexState extends State<PlantIndex> {
                                                                                                               ),
                                                                                                               child: Text(
                                                                                                                 '确定',
-                                                                                                                style: Theme.of(context).textTheme.headline5?.copyWith(color: Colors.white),
+                                                                                                                style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white),
                                                                                                               ),
                                                                                                             ),
                                                                                                           )
@@ -477,7 +477,7 @@ class _IndexState extends State<PlantIndex> {
                                                                               child: Text(
                                                                                 '删除',
                                                                                 textAlign: TextAlign.center,
-                                                                                style: Theme.of(context).textTheme.headline5?.copyWith(color: Color(0xFFF5222D)),
+                                                                                style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Color(0xFFF5222D)),
                                                                               ),
                                                                             ),
                                                                           ),
@@ -499,7 +499,7 @@ class _IndexState extends State<PlantIndex> {
                                                                               ),
                                                                               child: Text(
                                                                                 '取消',
-                                                                                style: Theme.of(context).textTheme.headline5?.copyWith(color: Color(0xFF5475F7)),
+                                                                                style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Color(0xFF5475F7)),
                                                                               ),
                                                                             ),
                                                                           )
@@ -557,7 +557,7 @@ class _IndexState extends State<PlantIndex> {
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
-                                                                .headline1
+                                                                .displaySmall
                                                                 ?.copyWith(
                                                                     color: Color(
                                                                         0xFF939393)),
@@ -576,13 +576,13 @@ class _IndexState extends State<PlantIndex> {
                                                               style: Theme.of(
                                                                       context)
                                                                   .textTheme
-                                                                  .headline4),
+                                                                  .headlineSmall),
                                                           Text(
                                                             'kW',
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
-                                                                .headline3
+                                                                .displayLarge
                                                                 ?.copyWith(
                                                                     color: Color(
                                                                         0xFF939393)),
@@ -622,7 +622,7 @@ class _IndexState extends State<PlantIndex> {
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
-                                                                .headline1
+                                                                .displaySmall
                                                                 ?.copyWith(
                                                                     color: Color(
                                                                         0xFF939393)),
@@ -641,13 +641,13 @@ class _IndexState extends State<PlantIndex> {
                                                               style: Theme.of(
                                                                       context)
                                                                   .textTheme
-                                                                  .headline4),
+                                                                  .headlineSmall),
                                                           Text(
                                                             'kW',
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
-                                                                .headline3
+                                                                .displayLarge
                                                                 ?.copyWith(
                                                                     color: Color(
                                                                         0xFF939393)),

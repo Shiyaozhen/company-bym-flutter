@@ -16,7 +16,7 @@ class _LogoffState extends State<MineLogoff> {
           title: Text(
             '账号注销',
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headline5,
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
           centerTitle: true,
           leading: IconButton(
@@ -44,7 +44,7 @@ class _LogoffState extends State<MineLogoff> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     '注销后您的账号将发生如下变化:',
-                    style:  Theme.of(context).textTheme.headline4,
+                    style:  Theme.of(context).textTheme.headlineSmall,
                   ),
                 ),
               ),
@@ -54,7 +54,7 @@ class _LogoffState extends State<MineLogoff> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     '永久注销，无法登录',
-                    style: Theme.of(context).textTheme.headline3,
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
                 ),
               ),
@@ -64,7 +64,7 @@ class _LogoffState extends State<MineLogoff> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     '注销本账号后，出法律法规及账号注销协议另有规定外，基于该账号的信息相关数据也将进行删除或者匿名化处理。您无法再检索、访问、获取、继续使用，前述其他信息包括但不限于:头像昵称、或使用中添加的电站信息及微逆信息等内容。',
-                    style: Theme.of(context).textTheme.headline3?.copyWith(color: Color(0xFF939393)),
+                    style: Theme.of(context).textTheme.displayLarge?.copyWith(color: Color(0xFF939393)),
                   ),
                 ),
               ),
@@ -74,7 +74,7 @@ class _LogoffState extends State<MineLogoff> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     '此账号关联的信息将被删除',
-                    style: Theme.of(context).textTheme.headline3,
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
                 ),
               ),
@@ -84,7 +84,7 @@ class _LogoffState extends State<MineLogoff> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     '1.该账号下电站数据',
-                    style: Theme.of(context).textTheme.headline3,
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
                 ),
               ),
@@ -94,7 +94,7 @@ class _LogoffState extends State<MineLogoff> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     '2.EMU设备数据',
-                    style: Theme.of(context).textTheme.headline3,
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
                 ),
               ),
@@ -104,7 +104,7 @@ class _LogoffState extends State<MineLogoff> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     '3.光伏板发电数据',
-                    style: Theme.of(context).textTheme.headline3,
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
                 ),
               ),
@@ -132,7 +132,7 @@ class _LogoffState extends State<MineLogoff> {
                     ),
                     child: Text(
                       '我已知晓，确认注销',
-                      style: Theme.of(context).textTheme.headline5?.copyWith(fontWeight: FontWeight.bold,color: Color(0xFFFFFFFF)),
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold,color: Color(0xFFFFFFFF)),
                     ),
                   ),
                 ),

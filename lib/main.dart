@@ -42,27 +42,27 @@ void main() {
       ),
       //文字
       textTheme: TextTheme(
-          headline1: TextStyle(
+          displaySmall: TextStyle(
             fontSize: 12.0,
             color: Color(0xFF383838),
           ),
-          headline2: TextStyle(
+          displayMedium: TextStyle(
               fontSize: 14.0,
               fontWeight: FontWeight.w400,
               color: Color(0xFF383838)),
-          headline3: TextStyle(
+          displayLarge: TextStyle(
               fontSize: 16.0,
               fontWeight: FontWeight.w400,
               color: Color(0xFF383838)),
-          headline4: TextStyle(
+          headlineSmall: TextStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.w400,
               color: Color(0xFF383838)),
-          headline5: TextStyle(
+          headlineMedium: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.w400,
               color: Color(0xFF383838)),
-          headline6: TextStyle(
+          headlineLarge: TextStyle(
               fontSize: 22.0,
               fontWeight: FontWeight.w400,
               color: Color(0xFF383838))),

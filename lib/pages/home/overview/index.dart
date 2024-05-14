@@ -220,7 +220,7 @@ class _IndexState extends State<OverViewIndex> {
                                                   '当前功率',
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline2
+                                                      .displayMedium
                                                       ?.copyWith(
                                                           color: Color(
                                                               0xFF939393)),
@@ -248,7 +248,7 @@ class _IndexState extends State<OverViewIndex> {
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
-                                                                  .headline1
+                                                                  .displaySmall
                                                                   ?.copyWith(
                                                                       fontSize:
                                                                           24.0),
@@ -258,7 +258,7 @@ class _IndexState extends State<OverViewIndex> {
                                                         'kW',
                                                         style: Theme.of(context)
                                                             .textTheme
-                                                            .headline5,
+                                                            .headlineMedium,
                                                       ),
                                                     ],
                                                   ))),
@@ -290,7 +290,7 @@ class _IndexState extends State<OverViewIndex> {
                                                     '装机容量',
                                                     style: Theme.of(context)
                                                         .textTheme
-                                                        .headline2
+                                                        .displayMedium
                                                         ?.copyWith(
                                                             color: Color(
                                                                 0xFF939393)),
@@ -318,7 +318,7 @@ class _IndexState extends State<OverViewIndex> {
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
-                                                                .headline1
+                                                                .displaySmall
                                                                 ?.copyWith(
                                                                     fontSize:
                                                                         24.0),
@@ -329,7 +329,7 @@ class _IndexState extends State<OverViewIndex> {
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
-                                                                  .headline5,
+                                                                  .headlineMedium,
                                                         ),
                                                       ],
                                                     ))),
@@ -370,7 +370,7 @@ class _IndexState extends State<OverViewIndex> {
                                           '当日发电量',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline1
+                                              .displaySmall
                                               ?.copyWith(
                                                   color: Color(0xFF939393),
                                                   fontSize: 13.0),
@@ -391,7 +391,7 @@ class _IndexState extends State<OverViewIndex> {
                                                   '0.00',
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline1
+                                                      .displaySmall
                                                       ?.copyWith(
                                                           fontSize: 18.0),
                                                 ),
@@ -400,7 +400,7 @@ class _IndexState extends State<OverViewIndex> {
                                                 'kW',
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline1
+                                                    .displaySmall
                                                     ?.copyWith(fontSize: 15.0),
                                               ),
                                             ],
@@ -438,7 +438,7 @@ class _IndexState extends State<OverViewIndex> {
                                               '当月发电量',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline1
+                                                  .displaySmall
                                                   ?.copyWith(
                                                       color: Color(0xFF939393),
                                                       fontSize: 13.0),
@@ -460,7 +460,7 @@ class _IndexState extends State<OverViewIndex> {
                                                       '0.00',
                                                       style: Theme.of(context)
                                                           .textTheme
-                                                          .headline1
+                                                          .displaySmall
                                                           ?.copyWith(
                                                               fontSize: 18.0),
                                                     ),
@@ -469,7 +469,7 @@ class _IndexState extends State<OverViewIndex> {
                                                     'kW',
                                                     style: Theme.of(context)
                                                         .textTheme
-                                                        .headline1
+                                                        .displaySmall
                                                         ?.copyWith(
                                                             fontSize: 15.0),
                                                   ),
@@ -511,7 +511,7 @@ class _IndexState extends State<OverViewIndex> {
                                               '累计发电量',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline1
+                                                  .displaySmall
                                                   ?.copyWith(
                                                       color: Color(0xFF939393),
                                                       fontSize: 13.0),
@@ -533,7 +533,7 @@ class _IndexState extends State<OverViewIndex> {
                                                       '0.00',
                                                       style: Theme.of(context)
                                                           .textTheme
-                                                          .headline1
+                                                          .displaySmall
                                                           ?.copyWith(
                                                               fontSize: 18.0),
                                                     ),
@@ -542,7 +542,7 @@ class _IndexState extends State<OverViewIndex> {
                                                     'kWh',
                                                     style: Theme.of(context)
                                                         .textTheme
-                                                        .headline1
+                                                        .displaySmall
                                                         ?.copyWith(
                                                             fontSize: 15.0),
                                                   ),
@@ -594,7 +594,7 @@ class _IndexState extends State<OverViewIndex> {
                                             '在线设备',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline1
+                                                .displaySmall
                                                 ?.copyWith(
                                                     fontSize: 14.0,
                                                     color: Color(0xFF939393)),
@@ -604,7 +604,7 @@ class _IndexState extends State<OverViewIndex> {
                                           '20',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline1
+                                              .displaySmall
                                               ?.copyWith(fontSize: 20.0),
                                         )
                                       ],
@@ -634,7 +634,7 @@ class _IndexState extends State<OverViewIndex> {
                                             '离线',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline1
+                                                .displaySmall
                                                 ?.copyWith(
                                                     fontSize: 14.0,
                                                     color: Color(0xFF939393)),
@@ -644,7 +644,7 @@ class _IndexState extends State<OverViewIndex> {
                                           '5',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline1
+                                              .displaySmall
                                               ?.copyWith(fontSize: 20.0),
                                         )
                                       ],
@@ -674,7 +674,7 @@ class _IndexState extends State<OverViewIndex> {
                                             '异常设备',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline1
+                                                .displaySmall
                                                 ?.copyWith(
                                                     fontSize: 14.0,
                                                     color: Color(0xFF939393)),
@@ -684,7 +684,7 @@ class _IndexState extends State<OverViewIndex> {
                                           '2',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline1
+                                              .displaySmall
                                               ?.copyWith(fontSize: 20.0),
                                         )
                                       ],
@@ -722,7 +722,7 @@ class _IndexState extends State<OverViewIndex> {
                                           '发电量统计',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline4,
+                                              .headlineSmall,
                                         ),
                                       )
                                     ],
@@ -774,7 +774,7 @@ class _IndexState extends State<OverViewIndex> {
                                                 formattedDateDay,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline3
+                                                    .displayLarge
                                                     ?.copyWith(
                                                         color:
                                                             Color(0xFF939393)),
@@ -803,7 +803,7 @@ class _IndexState extends State<OverViewIndex> {
                                                 formattedDateSWeek,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline3
+                                                    .displayLarge
                                                     ?.copyWith(
                                                         color:
                                                             Color(0xFF939393)),
@@ -826,7 +826,7 @@ class _IndexState extends State<OverViewIndex> {
                                                 formattedDateEWeek,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline3
+                                                    .displayLarge
                                                     ?.copyWith(
                                                         color:
                                                             Color(0xFF939393)),
@@ -855,7 +855,7 @@ class _IndexState extends State<OverViewIndex> {
                                                 formattedDateMonth,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headline3
+                                                    .displayLarge
                                                     ?.copyWith(
                                                         color:
                                                             Color(0xFF939393)),
