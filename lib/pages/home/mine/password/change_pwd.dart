@@ -18,7 +18,7 @@ class _ChangePwdState extends State<ChangePwd> {
         title: Text(
           '修改密码',
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
         centerTitle: true,
         leading: IconButton(
@@ -39,7 +39,7 @@ class _ChangePwdState extends State<ChangePwd> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '旧密码',
-                  style: Theme.of(context).textTheme.displayLarge,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
             ),
@@ -70,7 +70,7 @@ class _ChangePwdState extends State<ChangePwd> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '请输入新密码',
-                  style: Theme.of(context).textTheme.displayLarge,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
             ),
@@ -101,7 +101,7 @@ class _ChangePwdState extends State<ChangePwd> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '请确认新密码',
-                  style: Theme.of(context).textTheme.displayLarge,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
             ),
@@ -147,7 +147,7 @@ class _ChangePwdState extends State<ChangePwd> {
                 ),
               ),
               child: Text('保存',
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold, color: Color(0xFFFFFFFF))),
             ),
           )),

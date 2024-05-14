@@ -12,7 +12,7 @@ class MineMore extends StatelessWidget {
           title: Text(
             '',
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headlineMedium,
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
           centerTitle: true,
           leading: IconButton(
@@ -34,7 +34,7 @@ class MineMore extends StatelessWidget {
                         children: [
                           ListTile(
                             title: Text(items[index],
-                                style: Theme.of(context).textTheme.headlineSmall),
+                                style: Theme.of(context).textTheme.headlineMedium),
                             trailing: Icon(
                               Icons.arrow_forward_ios,
                               color: Color(0xFF383838),
@@ -96,7 +96,7 @@ class MineMore extends StatelessWidget {
                 },
                 child: Text(
                   '退出登录',
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFFFF5733),

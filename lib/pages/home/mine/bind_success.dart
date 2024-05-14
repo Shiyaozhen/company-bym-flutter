@@ -44,7 +44,7 @@ class _BindSuccessState extends State<BindSuccess> {
         title: Text(
           '',
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
         centerTitle: true,
         leading: IconButton(
@@ -74,7 +74,7 @@ class _BindSuccessState extends State<BindSuccess> {
                         '邮箱绑定成功!',
                         style: Theme.of(context)
                             .textTheme
-                            .displaySmall
+                            .displayLarge
                             ?.copyWith(fontSize: 24),
                       ),
                     ),
@@ -87,7 +87,7 @@ class _BindSuccessState extends State<BindSuccess> {
               child: Text(countdown.toString() + 's后自动进入',
                   style: Theme.of(context)
                       .textTheme
-                      .displayLarge
+                      .displaySmall
                       ?.copyWith(color: Color(0xFF7989B2))),
             ),
           ],
@@ -110,7 +110,7 @@ class _BindSuccessState extends State<BindSuccess> {
                 ),
               ),
               child: Text('确定',
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold, color: Color(0xFFFFFFFF))),
             ),
           )),

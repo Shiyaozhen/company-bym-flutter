@@ -27,7 +27,7 @@ class _LanguageState extends State<Language> {
           title: Text(
             '设置语言',
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headlineMedium,
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
           centerTitle: true,
           leading: IconButton(
@@ -50,7 +50,7 @@ class _LanguageState extends State<Language> {
                           ListTile(
                             title: Text(
                               items[index],
-                              style:  Theme.of(context).textTheme.headlineSmall,
+                              style:  Theme.of(context).textTheme.headlineMedium,
                             ),
                             trailing: Visibility(
                               visible: getCurrentLocale(context) == itemsKey[index],

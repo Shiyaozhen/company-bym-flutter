@@ -13,11 +13,12 @@ class CustomBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> _svgAssets = [
+    /*List<String> _svgAssets = [
       'assets/ic_mine.svg',
       'assets/ic_overview.svg',
       'assets/ic_station.svg'
-    ];
+    ];*/
+
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       currentIndex: selectedIndex,
@@ -49,7 +50,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Padding(
-              padding: EdgeInsets.only(top: 10.0),
+              padding: const EdgeInsets.only(top: 10.0),
               child: SvgPicture.asset('assets/ic_mine.svg',
                   width: 28,
                   height: 28,
@@ -58,7 +59,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                       ? Color(0xFF5475F7)
                       : Color(0xFFCAD2E5))),
           label: '',
-        )
+        ),
       ],
     );
   }

@@ -1,8 +1,17 @@
 import 'package:BYM/pages/home/index.dart';
+import 'package:BYM/pages/list/index.dart';
+
+//登录
+import 'package:BYM/pages/login/login.dart';
+
+//注册
+import 'package:BYM/pages/login/sign_up.dart';
+
 //我的
 import 'package:BYM/pages/home/mine/bind_email.dart';
 import 'package:BYM/pages/home/mine/bind_success.dart';
-import 'package:BYM/pages/home/mine/change_pwd.dart';
+import 'package:BYM/pages/home/mine/password/change_pwd.dart';
+import 'package:BYM/pages/home/mine/bindAgent/index.dart';
 import 'package:BYM/pages/home/mine/con_logoff.dart';
 import 'package:BYM/pages/home/mine/connect.dart';
 import 'package:BYM/pages/home/mine/feed_back.dart';
@@ -71,29 +80,40 @@ List<GetPage<dynamic>> pages = [
       page: () => Conlogoff(),
       transition: Transition.rightToLeftWithFade),
   GetPage(
-      name: '/Connect',
-      page: () => Connect(),
-      transition: Transition.rightToLeftWithFade),
+    name: '/ChangePwd',
+    page: () => const ChangePwd(),
+    transition: Transition.rightToLeftWithFade,
+  ),
   GetPage(
-      name: '/MineMore',
-      page: () => MineMore(),
-      transition: Transition.rightToLeftWithFade),
+    name: '/Language',
+    page: () => const Language(),
+    transition: Transition.rightToLeftWithFade,
+  ),
   GetPage(
-      name: '/Language',
-      page: () => Language(),
-      transition: Transition.rightToLeftWithFade),
+    name: '/BindEmail',
+    page: () => const BindEmail(),
+    transition: Transition.rightToLeftWithFade,
+  ),
   GetPage(
-      name: '/ChangePwd',
-      page: () => ChangePwd(),
-      transition: Transition.rightToLeftWithFade),
+    name: '/BindAgent',
+    page: () => const BindAgent(),
+    transition: Transition.rightToLeftWithFade,
+  ),
   GetPage(
-      name: '/BindEmail',
-      page: () => BindEmail(),
-      transition: Transition.rightToLeftWithFade),
+    name: '/Connect',
+    page: () => Connect(),
+    transition: Transition.rightToLeftWithFade,
+  ),
   GetPage(
-      name: '/BindSuccess',
-      page: () => BindSuccess(),
-      transition: Transition.rightToLeftWithFade)
+    name: '/MineMore',
+    page: () => MineMore(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+  GetPage(
+    name: '/BindSuccess',
+    page: () => BindSuccess(),
+    transition: Transition.rightToLeftWithFade,
+  ),
 ];
 
 class BYRoute {
@@ -109,7 +129,7 @@ class BYRoute {
     Get.off(page);
   }
 
-  static push(Widget page, Transition transition) {
+  static push(Widget page) {
     Get.to(page);
   }
 }

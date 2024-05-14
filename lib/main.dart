@@ -9,7 +9,7 @@ void main() {
     title: 'Flutter Luckin Coffee',
     initialRoute: '/Login',
     getPages: pages,
-    localizationsDelegates: [
+    localizationsDelegates: const [
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
@@ -20,7 +20,7 @@ void main() {
       ...S.delegate.supportedLocales,
     ],
     theme: ThemeData(
-      //按钮
+      // 按钮
       buttonTheme: ButtonThemeData(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
@@ -40,36 +40,41 @@ void main() {
           ),
         ),
       ),
-      //文字
-      textTheme: TextTheme(
-          displaySmall: TextStyle(
-            fontSize: 12.0,
+      // 文字
+      textTheme: const TextTheme(
+        displayLarge: TextStyle(
+          fontSize: 12.0,
+          color: Color(0xFF383838),
+        ),
+        displayMedium: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.w400,
             color: Color(0xFF383838),
-          ),
-          displayMedium: TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.w400,
-              color: Color(0xFF383838)),
-          displayLarge: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w400,
-              color: Color(0xFF383838)),
-          headlineSmall: TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.w400,
-              color: Color(0xFF383838)),
-          headlineMedium: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.w400,
-              color: Color(0xFF383838)),
-          headlineLarge: TextStyle(
-              fontSize: 22.0,
-              fontWeight: FontWeight.w400,
-              color: Color(0xFF383838))),
-      //输入框
+        ),
+        displaySmall: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF383838),
+        ),
+        headlineMedium: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF383838),
+        ),
+        headlineSmall: TextStyle(
+          fontSize: 20.0,
+          fontWeight: FontWeight.w400,
+          color: Color(0xFF383838),
+        ),
+        titleLarge: TextStyle(
+          fontSize: 22.0,
+          fontWeight: FontWeight.w400,
+          color: Color(0xFF383838),),
+      ),
+      // 输入框
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: Color(0xFFF5F7FF),
+        fillColor: const Color(0xFFF5F7FF),
         border: InputBorder.none,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide.none,
@@ -79,12 +84,13 @@ void main() {
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.circular(6.0),
         ),
-        contentPadding: EdgeInsets.symmetric(vertical: 15.0,horizontal: 10.0),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
         //请输入内容
         hintStyle: TextStyle(color: Color(0xFF7989B2), fontSize: 16),
       ),
-      //输入光标颜色
-      textSelectionTheme: TextSelectionThemeData(
+      // 输入光标颜色
+      textSelectionTheme: const TextSelectionThemeData(
         cursorColor: Color(0xFF5475F8),
       ),
     ),

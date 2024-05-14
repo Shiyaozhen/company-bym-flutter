@@ -52,7 +52,7 @@ class _SignUpState extends State<SignUp> {
         title: Text(
           '注册',
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
         centerTitle: true,
         leading: IconButton(
@@ -73,14 +73,14 @@ class _SignUpState extends State<SignUp> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text('账号注册',
-                      style: Theme.of(context).textTheme.headlineMedium),
+                      style: Theme.of(context).textTheme.headlineSmall),
                 )),
             Padding(
                 padding: const EdgeInsets.only(bottom: 30.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text('输入您的电子邮箱，我们将向您发送验证码.',
-                      style: Theme.of(context).textTheme.displayLarge?.copyWith(color: Color(0xFF7989B2))),
+                      style: Theme.of(context).textTheme.displaySmall?.copyWith(color: Color(0xFF7989B2))),
                 )),
             Padding(
               padding: const EdgeInsets.only(bottom: 10.0),
@@ -88,7 +88,7 @@ class _SignUpState extends State<SignUp> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '邮箱',
-                  style: Theme.of(context).textTheme.displayLarge,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
             ),
@@ -106,7 +106,7 @@ class _SignUpState extends State<SignUp> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '请输入密码',
-                  style: Theme.of(context).textTheme.displayLarge,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
             ),
@@ -137,7 +137,7 @@ class _SignUpState extends State<SignUp> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '请确认密码',
-                  style: Theme.of(context).textTheme.displayLarge,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
             ),
@@ -168,7 +168,7 @@ class _SignUpState extends State<SignUp> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '验证码',
-                  style: Theme.of(context).textTheme.displayLarge,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
             ),
@@ -189,7 +189,7 @@ class _SignUpState extends State<SignUp> {
                             child: Text(canResend ? '发送' : '重发($countdown s)',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .displayLarge
+                                    .displaySmall
                                     ?.copyWith(
                                       color: canResend
                                           ? Color(0xFF5475F8)
@@ -221,7 +221,7 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
               child: Text('注册',
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold, color: Color(0xFFFFFFFF))),
             ),
           )),

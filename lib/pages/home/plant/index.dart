@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class PlantIndex extends StatefulWidget {
-  const PlantIndex({Key? key}) : super(key: key);
+  const PlantIndex({super.key});
 
   @override
   _IndexState createState() => _IndexState();

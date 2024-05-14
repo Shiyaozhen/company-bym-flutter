@@ -39,7 +39,7 @@ class _FeedbackState extends State<MineFeedback> {
         title: Text(
           '意见反馈',
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
         centerTitle: true,
         leading: IconButton(
@@ -60,7 +60,7 @@ class _FeedbackState extends State<MineFeedback> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '问题及建议',
-                  style: Theme.of(context).textTheme.displayLarge,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
             ),
@@ -77,7 +77,7 @@ class _FeedbackState extends State<MineFeedback> {
                       onChanged: _updateRemainingCharacters,
                       decoration: InputDecoration(
                         counterText: '剩余字符：$_remainingCharacters',
-                        hintText: '请输入问题描述', // 设置提示文字
+                         hintText: '请输入问题描述', // 设置提示文字
                       ),
                     ),
                   )),
@@ -88,7 +88,7 @@ class _FeedbackState extends State<MineFeedback> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '上传图片(0/${_images.length})',
-                  style: Theme.of(context).textTheme.displayLarge,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
             ),
@@ -116,7 +116,7 @@ class _FeedbackState extends State<MineFeedback> {
                             child: const Icon(
                               Icons.add,
                               color: Color(0xFF7989B2),
-                              size: 30,
+                              size: 30, 
                             ),
                           ),
                         ),
@@ -173,7 +173,7 @@ class _FeedbackState extends State<MineFeedback> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '联系方式',
-                  style: Theme.of(context).textTheme.displayLarge,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
             ),
@@ -220,7 +220,7 @@ class _FeedbackState extends State<MineFeedback> {
               //   ),
               // ),
               child: Text('提交',
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       color: Color(0xFFFFFFFF), fontWeight: FontWeight.bold)),
             ),
           )),
