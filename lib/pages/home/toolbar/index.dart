@@ -19,7 +19,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
       'assets/ic_station.svg'
     ];
     return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed, // 设置为fixed
+      type: BottomNavigationBarType.fixed,
       currentIndex: selectedIndex,
       onTap: onTabSelected,
       items: [
@@ -29,10 +29,9 @@ class CustomBottomNavigationBar extends StatelessWidget {
               child: SvgPicture.asset('assets/ic_overview.svg',
                   width: 28,
                   height: 28,
-                  // ignore: deprecated_member_use
                   color: selectedIndex == 0
-                      ? Color(0xFF55AAFF)
-                      : Color(0xFF9cb4c9))
+                      ? Color(0xFF5475F7)
+                      : Color(0xFFCAD2E5))
                       ),
           label: '',
         ),
@@ -44,8 +43,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   height: 28,
                   // ignore: deprecated_member_use
                   color: selectedIndex == 1
-                      ? Color(0xFF55AAFF)
-                      : Color(0xFF9cb4c9))),
+                      ? Color(0xFF5475F7)
+                      : Color(0xFFCAD2E5))),
           label: '',
         ),
         BottomNavigationBarItem(
@@ -56,8 +55,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   height: 28,
                   // ignore: deprecated_member_use
                   color: selectedIndex == 2
-                      ? Color(0xFF55AAFF)
-                      : Color(0xFF9cb4c9))),
+                      ? Color(0xFF5475F7)
+                      : Color(0xFFCAD2E5))),
           label: '',
         )
       ],
