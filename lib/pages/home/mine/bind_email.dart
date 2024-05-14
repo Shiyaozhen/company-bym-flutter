@@ -51,7 +51,7 @@ class _BindEmailState extends State<BindEmail> {
         title: Text(
           '绑定邮箱',
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headline5,
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
         centerTitle: true,
         leading: IconButton(
@@ -73,7 +73,7 @@ class _BindEmailState extends State<BindEmail> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '邮箱',
-                  style: Theme.of(context).textTheme.headline3,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
             ),
@@ -91,7 +91,7 @@ class _BindEmailState extends State<BindEmail> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '请输入密码',
-                  style: Theme.of(context).textTheme.headline3,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
             ),
@@ -122,7 +122,7 @@ class _BindEmailState extends State<BindEmail> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '请确认密码',
-                  style: Theme.of(context).textTheme.headline3,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
             ),
@@ -153,7 +153,7 @@ class _BindEmailState extends State<BindEmail> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '验证码',
-                  style: Theme.of(context).textTheme.headline3,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
             ),
@@ -174,7 +174,7 @@ class _BindEmailState extends State<BindEmail> {
                             child: Text(canResend ? '发送' : '重发($countdown s)',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline3
+                                    .displaySmall
                                     ?.copyWith(
                                       color: canResend
                                           ? Color(0xFF5475F8)
@@ -206,8 +206,8 @@ class _BindEmailState extends State<BindEmail> {
                 ),
               ),
               child: Text('绑定',
-                  style: Theme.of(context).textTheme.headline5?.copyWith(
-                      fontWeight: FontWeight.bold, color: Color(0xFFFFFFFF))),
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold, color: const Color(0xFFFFFFFF))),
             ),
           )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

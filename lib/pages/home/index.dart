@@ -1,4 +1,3 @@
-import 'package:BYM/api/app.dart';
 import 'package:BYM/pages/home/mine/index.dart';
 import 'package:BYM/pages/home/overview/index.dart';
 import 'package:BYM/pages/home/toolbar/index.dart';
@@ -16,7 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // 获取列表
   login() async {
-    var res = await userApi.login('admin', '123456'); // 替换为实际的用户名和密码
+    // var res = await userApi.login('admin', '123456'); // 替换为实际的用户名和密码
   }
 
   int selectedIndex = 0;

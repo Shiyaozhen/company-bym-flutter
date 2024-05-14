@@ -13,11 +13,11 @@ class CustomBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> _svgAssets = [
+    /*List<String> _svgAssets = [
       'assets/ic_mine.svg',
       'assets/ic_overview.svg',
       'assets/ic_station.svg'
-    ];
+    ];*/
 
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed, // 设置为fixed

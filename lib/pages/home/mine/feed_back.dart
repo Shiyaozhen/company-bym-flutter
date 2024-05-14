@@ -39,7 +39,7 @@ class _FeedbackState extends State<MineFeedback> {
         title: Text(
           '意见反馈',
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headline5,
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
         centerTitle: true,
         leading: IconButton(
@@ -60,7 +60,7 @@ class _FeedbackState extends State<MineFeedback> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '问题及建议',
-                  style: Theme.of(context).textTheme.headline3,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
             ),
@@ -88,7 +88,7 @@ class _FeedbackState extends State<MineFeedback> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '上传图片(0/${_images.length})',
-                  style: Theme.of(context).textTheme.headline3,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
             ),
@@ -173,7 +173,7 @@ class _FeedbackState extends State<MineFeedback> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '联系方式',
-                  style: Theme.of(context).textTheme.headline3,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
             ),
@@ -220,7 +220,7 @@ class _FeedbackState extends State<MineFeedback> {
               //   ),
               // ),
               child: Text('提交',
-                  style: Theme.of(context).textTheme.headline5?.copyWith(
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       color: Color(0xFFFFFFFF), fontWeight: FontWeight.bold)),
             ),
           )),

@@ -54,7 +54,7 @@ class _LoginState extends State<Login> {
                 'BYM Cloud',
                 style: Theme.of(context)
                     .textTheme
-                    .headline4
+                    .headlineMedium
                     ?.copyWith(fontWeight: FontWeight.w400),
               )),
               Align(
@@ -62,7 +62,7 @@ class _LoginState extends State<Login> {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 37.0, bottom: 7.0),
                   child:
-                      Text('邮箱', style: Theme.of(context).textTheme.headline3),
+                      Text('邮箱', style: Theme.of(context).textTheme.displaySmall),
                 ),
               ),
               Padding(
@@ -85,7 +85,7 @@ class _LoginState extends State<Login> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child:
-                      Text('密码', style: Theme.of(context).textTheme.headline3),
+                      Text('密码', style: Theme.of(context).textTheme.displaySmall),
                 ),
               ),
               Padding(
@@ -120,13 +120,13 @@ class _LoginState extends State<Login> {
                           child: Text('立即注册',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline4
+                                  .headlineMedium
                                   ?.copyWith(color: const Color(0xFF5475F7)))),
                       Container(
                           child: Text('忘记密码?',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline4
+                                  .headlineMedium
                                   ?.copyWith(color: Color(0xFF5475F7)))),
                     ],
                   )),
@@ -152,12 +152,12 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                       Text('我已阅读并且同意',
-                          style: Theme.of(context).textTheme.headline3),
+                          style: Theme.of(context).textTheme.displaySmall),
                       Text(
                         '《隐私协议》',
                         style: Theme.of(context)
                             .textTheme
-                            .headline3
+                            .displaySmall
                             ?.copyWith(color: Color(0xFF5475F7)),
                       ),
                     ],
@@ -172,7 +172,7 @@ class _LoginState extends State<Login> {
                     },
                     child: Text(
                       '登录',
-                      style: Theme.of(context).textTheme.headline5?.copyWith(
+                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: const Color(0xFFFFFFFF)),
                     ),
@@ -183,7 +183,7 @@ class _LoginState extends State<Login> {
                 child: Text('体验电站',
                     style: Theme.of(context)
                         .textTheme
-                        .headline4
+                        .headlineMedium
                         ?.copyWith(color: const Color(0xFF5475F7))),
               )
             ],

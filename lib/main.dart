@@ -42,30 +42,35 @@ void main() {
       ),
       // 文字
       textTheme: const TextTheme(
-          headline1: TextStyle(
-            fontSize: 12.0,
+        displayLarge: TextStyle(
+          fontSize: 12.0,
+          color: Color(0xFF383838),
+        ),
+        displayMedium: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.w400,
             color: Color(0xFF383838),
-          ),
-          headline2: TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.w400,
-              color: Color(0xFF383838)),
-          headline3: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w400,
-              color: Color(0xFF383838)),
-          headline4: TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.w400,
-              color: Color(0xFF383838)),
-          headline5: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.w400,
-              color: Color(0xFF383838)),
-          headline6: TextStyle(
-              fontSize: 22.0,
-              fontWeight: FontWeight.w400,
-              color: Color(0xFF383838))),
+        ),
+        displaySmall: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF383838),
+        ),
+        headlineMedium: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF383838),
+        ),
+        headlineSmall: TextStyle(
+          fontSize: 20.0,
+          fontWeight: FontWeight.w400,
+          color: Color(0xFF383838),
+        ),
+        titleLarge: TextStyle(
+          fontSize: 22.0,
+          fontWeight: FontWeight.w400,
+          color: Color(0xFF383838),),
+      ),
       // 输入框
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
