@@ -39,24 +39,27 @@ class _IndexState extends State<OverViewIndex> {
       isScrollControlled: true,
       builder: (BuildContext context) {
         return ConstrainedBox(
-          constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height *
-                0.64, // 设置最大高度的比例，此处为屏幕高度的80%
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Flexible(
-                // 如果要读上层的变量 可以不用 Flexible
-                child: DayPicker(
-                  onConfirm: (startDay) {
-                    print('Selected Week: $startDay');
-                  },
-                ),
-              )
-            ],
-          ),
-        );
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height * 0.64,
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(
+                    child: DayPicker(
+                      onConfirm: (startDay) {
+                        print('Selected Week: $startDay');
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ));
       },
     );
   }
@@ -74,24 +77,27 @@ class _IndexState extends State<OverViewIndex> {
       isScrollControlled: true,
       builder: (BuildContext context) {
         return ConstrainedBox(
-          constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height *
-                0.64, // 设置最大高度的比例，此处为屏幕高度的80%
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Flexible(
-                // 如果要读上层的变量 可以不用 Flexible
-                child: WeekPicker(
-                  onConfirm: (startOfWeek, endOfWeek) {
-                    print('Selected Week: $startOfWeek - $endOfWeek');
-                  },
-                ),
-              )
-            ],
-          ),
-        );
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height * 0.64,
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(
+                    child: WeekPicker(
+                      onConfirm: (startOfWeek, endOfWeek) {
+                        print('Selected Week: $startOfWeek - $endOfWeek');
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ));
       },
     );
   }
@@ -109,20 +115,25 @@ class _IndexState extends State<OverViewIndex> {
       isScrollControlled: true,
       builder: (BuildContext context) {
         return ConstrainedBox(
-          constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height * 0.64,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Flexible(child: MonthPicker(
-                onConfirm: (startOfMonth, endOfMonth) {
-                  print('Selected Week: $startOfMonth - $endOfMonth');
-                },
-              ))
-            ],
-          ),
-        );
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height * 0.64,
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(child: MonthPicker(
+                    onConfirm: (startOfMonth, endOfMonth) {
+                      print('Selected Week: $startOfMonth - $endOfMonth');
+                    },
+                  ))
+                ],
+              ),
+            ));
       },
     );
   }
@@ -326,10 +337,10 @@ class _IndexState extends State<OverViewIndex> {
                                                         ),
                                                         Text(
                                                           'kW',
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .headlineMedium,
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .headlineMedium,
                                                         ),
                                                       ],
                                                     ))),
@@ -359,7 +370,7 @@ class _IndexState extends State<OverViewIndex> {
                             Expanded(
                               flex: 1,
                               child: Container(
-                                height: 40,
+                                height: 60,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -415,7 +426,7 @@ class _IndexState extends State<OverViewIndex> {
                             Expanded(
                               flex: 1,
                               child: Container(
-                                height: 40,
+                                height: 50,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -426,7 +437,7 @@ class _IndexState extends State<OverViewIndex> {
                                           padding: EdgeInsets.only(right: 10.0),
                                           child: Container(
                                             width: 1,
-                                            height: 40,
+                                            height: 50,
                                             child: CustomPaint(
                                               painter: DashedLinePainter(),
                                             ),
@@ -488,7 +499,7 @@ class _IndexState extends State<OverViewIndex> {
                               flex: 1,
                               child: Container(
                                 margin: EdgeInsets.only(left: 5.0, right: 5.0),
-                                height: 40,
+                                height: 50,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -499,7 +510,7 @@ class _IndexState extends State<OverViewIndex> {
                                           padding: EdgeInsets.only(right: 10.0),
                                           child: Container(
                                             width: 1,
-                                            height: 40,
+                                            height: 50,
                                             child: CustomPaint(
                                               painter: DashedLinePainter(),
                                             ),

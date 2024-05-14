@@ -33,7 +33,9 @@ class _LoginState extends State<Login> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
+          backgroundColor: Colors.white,
           title: const Text('登录'),
         ),
         body: Padding(
@@ -167,9 +169,12 @@ class _LoginState extends State<Login> {
                     },
                     child: Text(
                       '登录',
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFFFFFFFF)),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium
+                          ?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFFFFFFF)),
                     ),
                   ),
                 ),

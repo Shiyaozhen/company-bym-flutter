@@ -23,6 +23,7 @@ class _IndexState extends State<PlantIndex> {
   int offline = 30;
   int fault = 40;
   bool isObscure = true;
+  bool isKeyboardVisible = false;
   //电站列表
   List<Plant> plantList = [
     Plant('快乐星球'),
@@ -32,7 +33,7 @@ class _IndexState extends State<PlantIndex> {
     Plant('个个都是'),
     Plant('借古讽今'),
   ];
-  @override
+
   Widget build(BuildContext context) {
     print(plantList.length);
     return Stack(children: [
@@ -63,13 +64,13 @@ class _IndexState extends State<PlantIndex> {
                   children: [
                     Container(
                       width: 290,
-                      height: 50,
+                      height: 40,
                       child: TextField(
                         controller: _controllerPlant,
                         decoration: InputDecoration(
                           hintText: '输入电站名称',
                           hintStyle:
-                              TextStyle(color: Color(0xFF7989B2), fontSize: 16),
+                              TextStyle(color: Color(0xFF7989B2), fontSize: 14),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(60.0),
                             borderSide:
@@ -85,11 +86,12 @@ class _IndexState extends State<PlantIndex> {
                             size: 24,
                           ),
                           prefixIconColor: Color(0xFF7989B2),
+                          contentPadding: EdgeInsets.symmetric(vertical: 15.0),
                         ),
                       ),
                     ),
                     SvgPicture.asset(
-                        width: 45, height: 45, 'assets/ic_plant_more.svg')
+                        width: 36, height: 36, 'assets/ic_plant_more.svg')
                   ],
                 ),
                 Padding(
@@ -118,13 +120,12 @@ class _IndexState extends State<PlantIndex> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(all.toString()),
+                              Text(all.toString(),
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall),
                               Text(
                                 '全部',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displaySmall
-                                    ?.copyWith(color: Color(0xFF878787)),
+                                style: Theme.of(context).textTheme.displaySmall,
                               )
                             ],
                           ),
@@ -151,14 +152,16 @@ class _IndexState extends State<PlantIndex> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(online.toString()),
-                              Text(
-                                '在线',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displaySmall
-                                    ?.copyWith(color: Color(0xFF878787)),
-                              )
+                              Text(online.toString(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(color: Color(0xFF5475F7))),
+                              Text('在线',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(color: Color(0xFF5475F7)))
                             ],
                           ),
                         ),
@@ -184,14 +187,16 @@ class _IndexState extends State<PlantIndex> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(offline.toString()),
-                              Text(
-                                '离线',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displaySmall
-                                    ?.copyWith(color: Color(0xFF878787)),
-                              )
+                              Text(offline.toString(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(color: Color(0xFFAAAAAA))),
+                              Text('离线',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(color: Color(0xFFAAAAAA)))
                             ],
                           ),
                         ),
@@ -217,14 +222,16 @@ class _IndexState extends State<PlantIndex> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(fault.toString()),
-                              Text(
-                                '故障',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displaySmall
-                                    ?.copyWith(color: Color(0xFF878787)),
-                              )
+                              Text(fault.toString(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(color: Color(0xFFFF7979))),
+                              Text('故障',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(color: Color(0xFFFF7979)))
                             ],
                           ),
                         ),
@@ -272,12 +279,14 @@ class _IndexState extends State<PlantIndex> {
                               itemBuilder: (context, index) {
                                 Plant plant = plantList[index];
                                 return Container(
+                                    width: 380,
                                     height: 100,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(6),
                                     ),
-                                    margin: EdgeInsets.all(8),
+                                    margin: EdgeInsets.only(
+                                        top: 8, bottom: 8, left: 0, right: 0),
                                     child: Padding(
                                       padding:
                                           EdgeInsets.only(left: 12, right: 12),
@@ -343,6 +352,14 @@ class _IndexState extends State<PlantIndex> {
                                                                   (BuildContext
                                                                       context) {
                                                                 return Container(
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10),
+                                                                  ),
                                                                   width: 350,
                                                                   height: 300,
                                                                   child:
@@ -371,6 +388,7 @@ class _IndexState extends State<PlantIndex> {
                                                                                   onTap: () {},
                                                                                   child: InkWell(
                                                                                     onTap: () {
+                                                                                      Navigator.pop(context);
                                                                                       BYRoute.toNamed('/ChangeInfo');
                                                                                     },
                                                                                     child: Text(
@@ -398,78 +416,88 @@ class _IndexState extends State<PlantIndex> {
                                                                                 Navigator.pop(context);
                                                                                 showModalBottomSheet(
                                                                                     context: context,
+                                                                                    isScrollControlled: true,
                                                                                     builder: (context) => StatefulBuilder(
                                                                                           builder: (context, setState) {
-                                                                                            return Container(
-                                                                                                height: 500,
-                                                                                                child: Padding(
-                                                                                                  padding: EdgeInsets.only(top: 23.0, left: 16.0, right: 16.0),
-                                                                                                  child: Align(
-                                                                                                      alignment: Alignment.center,
-                                                                                                      child: Column(
-                                                                                                        children: [
-                                                                                                          Text(
-                                                                                                            '删除电站',
-                                                                                                            style: Theme.of(context).textTheme.headlineMedium,
-                                                                                                          ),
-                                                                                                          Padding(
-                                                                                                            padding: EdgeInsets.only(top: 20.0),
-                                                                                                            child: Align(
-                                                                                                              alignment: Alignment.centerLeft,
-                                                                                                              child: Text(
-                                                                                                                '信息安全验证',
-                                                                                                                style: Theme.of(context).textTheme.headlineSmall,
-                                                                                                              ),
+                                                                                            return ConstrainedBox(
+                                                                                                constraints: BoxConstraints(
+                                                                                                  maxWidth: 350,
+                                                                                                  maxHeight: MediaQuery.of(context).size.height * 0.65,
+                                                                                                ),
+                                                                                                child: Container(
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    color: Colors.white,
+                                                                                                    borderRadius: BorderRadius.circular(10),
+                                                                                                  ),
+                                                                                                  child: Padding(
+                                                                                                    padding: EdgeInsets.only(top: 23.0, left: 16.0, right: 16.0),
+                                                                                                    child: Align(
+                                                                                                        alignment: Alignment.center,
+                                                                                                        child: Column(
+                                                                                                          children: [
+                                                                                                            Text(
+                                                                                                              '删除电站',
+                                                                                                              style: Theme.of(context).textTheme.headlineMedium,
                                                                                                             ),
-                                                                                                          ),
-                                                                                                          Padding(
-                                                                                                            padding: EdgeInsets.only(top: 13.0),
-                                                                                                            child: Align(
-                                                                                                              alignment: Alignment.centerLeft,
-                                                                                                              child: Text(
-                                                                                                                '请输入登录密码',
-                                                                                                                style: Theme.of(context).textTheme.displayLarge?.copyWith(color: Color(0xFF939393)),
-                                                                                                              ),
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                          Padding(
-                                                                                                            padding: EdgeInsets.only(bottom: 20.0, top: 10.0),
-                                                                                                            child: TextField(
-                                                                                                              obscureText: isObscure,
-                                                                                                              decoration: InputDecoration(
-                                                                                                                  suffixIcon: IconButton(
-                                                                                                                    icon: Icon(isObscure ? Icons.visibility_off_outlined : Icons.visibility_outlined, color: Color(0xFF7989B2)),
-                                                                                                                    onPressed: () {
-                                                                                                                      setState(() {
-                                                                                                                        isObscure = !isObscure;
-                                                                                                                      });
-                                                                                                                    },
-                                                                                                                  ),
-                                                                                                                  hintText: '请输入您的密码'),
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                          Align(
-                                                                                                            alignment: Alignment.centerRight,
-                                                                                                            child: ElevatedButton(
-                                                                                                              onPressed: () {
-                                                                                                                Navigator.pop(context);
-                                                                                                              },
-                                                                                                              style: ElevatedButton.styleFrom(
-                                                                                                                backgroundColor: Color(0xFF5475F7),
-                                                                                                                minimumSize: Size(80, 50),
-                                                                                                                shape: RoundedRectangleBorder(
-                                                                                                                  borderRadius: BorderRadius.circular(100),
-                                                                                                                  side: BorderSide(color: Color(0xFF5475F7)),
+                                                                                                            Padding(
+                                                                                                              padding: EdgeInsets.only(top: 20.0),
+                                                                                                              child: Align(
+                                                                                                                alignment: Alignment.centerLeft,
+                                                                                                                child: Text(
+                                                                                                                  '信息安全验证',
+                                                                                                                  style: Theme.of(context).textTheme.headlineSmall,
                                                                                                                 ),
                                                                                                               ),
-                                                                                                              child: Text(
-                                                                                                                '确定',
-                                                                                                                style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white),
+                                                                                                            ),
+                                                                                                            Padding(
+                                                                                                              padding: EdgeInsets.only(top: 13.0),
+                                                                                                              child: Align(
+                                                                                                                alignment: Alignment.centerLeft,
+                                                                                                                child: Text(
+                                                                                                                  '请输入登录密码',
+                                                                                                                  style: Theme.of(context).textTheme.displayLarge?.copyWith(color: Color(0xFF939393)),
+                                                                                                                ),
                                                                                                               ),
                                                                                                             ),
-                                                                                                          )
-                                                                                                        ],
-                                                                                                      )),
+                                                                                                            Padding(
+                                                                                                              padding: EdgeInsets.only(bottom: 60.0, top: 10.0),
+                                                                                                              child: TextField(
+                                                                                                                obscureText: isObscure,
+                                                                                                                decoration: InputDecoration(
+                                                                                                                    suffixIcon: IconButton(
+                                                                                                                      icon: Icon(isObscure ? Icons.visibility_off_outlined : Icons.visibility_outlined, color: Color(0xFF7989B2)),
+                                                                                                                      onPressed: () {
+                                                                                                                        setState(() {
+                                                                                                                          isObscure = !isObscure;
+                                                                                                                        });
+                                                                                                                      },
+                                                                                                                    ),
+                                                                                                                    hintText: '请输入您的密码'),
+                                                                                                              ),
+                                                                                                            ),
+                                                                                                            Align(
+                                                                                                              alignment: Alignment.centerRight,
+                                                                                                              child: ElevatedButton(
+                                                                                                                onPressed: () {
+                                                                                                                  Navigator.pop(context);
+                                                                                                                },
+                                                                                                                style: ElevatedButton.styleFrom(
+                                                                                                                  backgroundColor: Color(0xFF5475F7),
+                                                                                                                  minimumSize: Size(80, 50),
+                                                                                                                  shape: RoundedRectangleBorder(
+                                                                                                                    borderRadius: BorderRadius.circular(100),
+                                                                                                                    side: BorderSide(color: Color(0xFF5475F7)),
+                                                                                                                  ),
+                                                                                                                ),
+                                                                                                                child: Text(
+                                                                                                                  '确定',
+                                                                                                                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.white),
+                                                                                                                ),
+                                                                                                              ),
+                                                                                                            )
+                                                                                                          ],
+                                                                                                        )),
+                                                                                                  ),
                                                                                                 ));
                                                                                           },
                                                                                         ));
