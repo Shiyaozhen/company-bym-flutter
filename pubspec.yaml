@@ -55,6 +55,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   image_picker: ^1.1.1
   table_calendar: ^3.0.9
+  percent_indicator: ^4.2.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -95,6 +96,13 @@ flutter:
     - assets/ic_plant_add.svg
     - assets/ic_plant_avatar.png
     - assets/ic_plant_nocircle_more.svg
+    - assets/ic_plant_list.svg
+    - assets/ic_plant_setting.svg
+    - assets/ic_plant_detail.svg
+    - assets/ic_plant_gif.png 
+    - assets/ic_plant_energy_month.svg
+    - assets/ic_plant_energy_day.svg
+    - assets/ic_plant_energy_total.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

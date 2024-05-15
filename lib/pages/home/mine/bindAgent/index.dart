@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'review.dart';
 
 class BindAgent extends StatelessWidget {
@@ -9,7 +10,19 @@ class BindAgent extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('申请绑定'),
+          title: Text(
+            '绑定经销商',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            color: Color(0xFF383838),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
       ),
       body: const Padding(
         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),

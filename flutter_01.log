@@ -1,0 +1,92 @@
+Flutter crash report.
+Please report a bug at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter run --machine --start-paused -d R3CT10394WK --devtools-server-address http://127.0.0.1:9100/ --target D:\flutterMI\cloud-portal-fluent\lib\main.dart
+
+## exception
+
+FileSystemException: FileSystemException: writeFrom failed, path = 'C:\Users\admin\AppData\Roaming\.dart-tool\dart-flutter-telemetry.log' (OS Error: 磁盘空间不足。
+, errno = 112)
+
+```
+#0      _RandomAccessFile.writeFromSync (dart:io/file_impl.dart:905:7)
+#1      _File.writeAsBytesSync (dart:io/file_impl.dart:646:14)
+#2      _File.writeAsStringSync (dart:io/file_impl.dart:668:5)
+#3      ForwardingFile.writeAsStringSync (package:file/src/forwarding/forwarding_file.dart:150:16)
+#4      LogHandler.save (package:unified_analytics/src/log_handler.dart:296:15)
+#5      AnalyticsImpl.send (package:unified_analytics/src/analytics.dart:622:17)
+#6      HotRunner.run.<anonymous closure> (package:flutter_tools/src/run_hot.dart:445:18)
+#7      _rootRunUnary (dart:async/zone.dart:1407:47)
+#8      Future._propagateToListeners.handleValueCallback (dart:async/future_impl.dart:847:45)
+#9      Future._propagateToListeners (dart:async/future_impl.dart:876:13)
+#10     Future._completeWithValue (dart:async/future_impl.dart:652:5)
+#11     Future._asyncCompleteWithValue.<anonymous closure> (dart:async/future_impl.dart:722:7)
+#12     _rootRun (dart:async/zone.dart:1399:13)
+#13     _CustomZone.run (dart:async/zone.dart:1301:19)
+#14     _CustomZone.runGuarded (dart:async/zone.dart:1209:7)
+#15     _CustomZone.bindCallbackGuarded.<anonymous closure> (dart:async/zone.dart:1249:23)
+#16     _microtaskLoop (dart:async/schedule_microtask.dart:40:21)
+#17     _startMicrotaskLoop (dart:async/schedule_microtask.dart:49:5)
+#18     _runPendingImmediateCallback (dart:isolate-patch/isolate_patch.dart:118:13)
+#19     _RawReceivePort._handleMessage (dart:isolate-patch/isolate_patch.dart:185:5)
+```
+
+## flutter doctor
+
+```
+[!] Flutter (Channel stable, 3.22.0, on Microsoft Windows [版本 10.0.22631.3447], locale zh-CN)
+    • Flutter version 3.22.0 on channel stable at D:\flutter
+    ! Warning: `dart` on your path resolves to D:\Dart\dart-sdk\bin\dart.exe, which is not inside your current Flutter SDK checkout at D:\flutter. Consider adding D:\flutter\bin to the front of your path.
+    • Upstream repository https://github.com/flutter/flutter.git
+    • Framework revision 5dcb86f68f (6 days ago), 2024-05-09 07:39:20 -0500
+    • Engine revision f6344b75dc
+    • Dart version 3.4.0
+    • DevTools version 2.34.3
+    • Flutter download mirror https://storage.flutter-io.cn
+    • If those were intentional, you can disregard the above warnings; however it is recommended to use "git" directly to perform update checks and upgrades.
+
+[✓] Windows Version (Installed version of Windows is version 10 or higher)
+
+[!] Android toolchain - develop for Android devices (Android SDK version 33.0.2)
+    • Android SDK at C:\Users\admin\AppData\Local\Android\sdk
+    • Platform android-34, build-tools 33.0.2
+    • Java binary at: C:\Program Files\Android\Android Studio\jbr\bin\java
+    • Java version OpenJDK Runtime Environment (build 17.0.6+0-b2043.56-9586694)
+    ! Some Android licenses not accepted. To resolve this, run: flutter doctor --android-licenses
+
+[✓] Chrome - develop for the web
+    • Chrome at C:\Program Files\Google\Chrome\Application\chrome.exe
+
+[✗] Visual Studio - develop Windows apps
+    ✗ Visual Studio not installed; this is necessary to develop Windows apps.
+      Download at https://visualstudio.microsoft.com/downloads/.
+      Please install the "Desktop development with C++" workload, including all of its default components
+
+[✓] Android Studio (version 2022.2)
+    • Android Studio at C:\Program Files\Android\Android Studio
+    • Flutter plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/9212-flutter
+    • Dart plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/6351-dart
+    • Java version OpenJDK Runtime Environment (build 17.0.6+0-b2043.56-9586694)
+
+[✓] IntelliJ IDEA Ultimate Edition (version 2020.1)
+    • IntelliJ at D:\tools\IntelliJ IDEA 2020.1.2
+    • Flutter plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/9212-flutter
+    • Dart plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/6351-dart
+
+[✓] Connected device (4 available)
+    • SM S906U (mobile) • R3CT10394WK • android-arm64  • Android 12 (API 31)
+    • Windows (desktop) • windows     • windows-x64    • Microsoft Windows [版本 10.0.22631.3447]
+    • Chrome (web)      • chrome      • web-javascript • Google Chrome 124.0.6367.158
+    • Edge (web)        • edge        • web-javascript • Microsoft Edge 124.0.2478.97
+
+[✓] Network resources
+    • All expected network resources are available.
+
+! Doctor found issues in 3 categories.
+```

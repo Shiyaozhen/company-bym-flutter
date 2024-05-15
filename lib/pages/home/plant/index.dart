@@ -278,7 +278,10 @@ class _IndexState extends State<PlantIndex> {
                               itemCount: plantList.length,
                               itemBuilder: (context, index) {
                                 Plant plant = plantList[index];
-                                return Container(
+                                return InkWell(onTap: (){
+                                  print(plant.name);
+                                     BYRoute.toNamed('/PowerStationIndex', arguments: {'stationName': plant.name});
+                                },child: Container(
                                     width: 380,
                                     height: 100,
                                     decoration: BoxDecoration(
@@ -389,7 +392,7 @@ class _IndexState extends State<PlantIndex> {
                                                                                   child: InkWell(
                                                                                     onTap: () {
                                                                                       Navigator.pop(context);
-                                                                                      BYRoute.toNamed('/ChangeInfo');
+                                                                                      BYRoute.toNamed('/ChangeInfo', arguments: {});
                                                                                     },
                                                                                     child: Text(
                                                                                       '修改信息',
@@ -574,7 +577,7 @@ class _IndexState extends State<PlantIndex> {
                                                           Container(
                                                             margin:
                                                                 EdgeInsets.only(
-                                                                    top: 1.5),
+                                                                    top: 2.5,right: 2),
                                                             child: SvgPicture.asset(
                                                                 width: 12,
                                                                 height: 12,
@@ -637,9 +640,9 @@ class _IndexState extends State<PlantIndex> {
                                                                 .alphabetic,
                                                         children: [
                                                           Container(
-                                                            margin:
+                                                                margin:
                                                                 EdgeInsets.only(
-                                                                    top: 4),
+                                                                    top: 5,right: 3),
                                                             child: SvgPicture.asset(
                                                                 width: 12,
                                                                 height: 7.23,
@@ -690,8 +693,8 @@ class _IndexState extends State<PlantIndex> {
                                           )
                                         ],
                                       ),
-                                    ));
-                              },
+                                    )));
+                              }
                             ),
                           )),
                     ))

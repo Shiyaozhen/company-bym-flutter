@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../../../utils/by_util.dart';
+import '../../../../utils/by_util.dart';
 
 class BindEmail extends StatefulWidget {
   const BindEmail({super.key});
@@ -42,7 +42,7 @@ class _BindEmailState extends State<BindEmail> {
   }
 
   void tobind() {
-    BYRoute.toNamed('/BindSuccess');
+    BYRoute.toNamed('/BindSuccess', arguments: {});
   }
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class _BindEmailState extends State<BindEmail> {
         title: Text(
           '绑定邮箱',
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headlineSmall,
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
         centerTitle: true,
         leading: IconButton(
@@ -73,7 +73,7 @@ class _BindEmailState extends State<BindEmail> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '邮箱',
-                  style: Theme.of(context).textTheme.displaySmall,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
               ),
             ),
@@ -91,7 +91,7 @@ class _BindEmailState extends State<BindEmail> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '请输入密码',
-                  style: Theme.of(context).textTheme.displaySmall,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
               ),
             ),
@@ -122,7 +122,7 @@ class _BindEmailState extends State<BindEmail> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '请确认密码',
-                  style: Theme.of(context).textTheme.displaySmall,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
               ),
             ),
@@ -153,7 +153,7 @@ class _BindEmailState extends State<BindEmail> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '验证码',
-                  style: Theme.of(context).textTheme.displaySmall,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
               ),
             ),
@@ -174,7 +174,7 @@ class _BindEmailState extends State<BindEmail> {
                             child: Text(canResend ? '发送' : '重发($countdown s)',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .displaySmall
+                                    .displayLarge
                                     ?.copyWith(
                                       color: canResend
                                           ? Color(0xFF5475F8)
@@ -206,7 +206,7 @@ class _BindEmailState extends State<BindEmail> {
                 ),
               ),
               child: Text('绑定',
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       fontWeight: FontWeight.bold, color: const Color(0xFFFFFFFF))),
             ),
           )),

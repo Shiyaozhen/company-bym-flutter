@@ -13,11 +13,18 @@ class ChangeInfo extends StatefulWidget {
 class _ChangeInfoState extends State<ChangeInfo> {
   TextEditingController _controllerPlant = TextEditingController();
   TextEditingController _controllerAccount = TextEditingController();
+  TextEditingController _controllerCountry = TextEditingController();
+  TextEditingController _controllerTimeZone = TextEditingController();
   bool _showClearPlantButton = false;
   bool _showClearAccountButton = false;
+  int CountryIndex = 0;
+    int TimeZoneIndex = 0;
   List<File> _images = [];
   int _remainingCharacters = 0;
-
+  TextEditingController _controller = TextEditingController();
+  List<String> countries = ['法国', '英国', '美国', '意大利'];
+    List<String> timezone = ['UTC-02:00', 'UTC-01:00', 'UTC-04:00', 'UTC-08:00'];
+  int selectedIndex = -1;
   Future _pickImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
@@ -58,12 +65,207 @@ class _ChangeInfoState extends State<ChangeInfo> {
       _showClearAccountButton = false;
     });
   }
- 
+
   //选择国家
-  void selectCountry(){
-    
+
+  void selectCountry() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) {
+          ScrollController scrollController = ScrollController();
+          return Container(
+            width: 350,
+            height: 500,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+            ),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 19,
+                ),
+                Text(
+                  '选择国家',
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                SizedBox(
+                  height: 24,
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: countries.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return InkWell(
+                        onTap: () {
+                          setState(() {
+                            CountryIndex = index;
+                          });
+                        },
+                        child: Container(
+                            color: CountryIndex == index
+                                ? Color(0xFFF5F7FF)
+                                : Colors.transparent,
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  title: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(countries[index]),
+                                  ),
+                                ),
+                                Container(
+                                  width: 320,
+                                  height: 1,
+                                  color: Color(0xFFD4DBED),
+                                )
+                              ],
+                            )),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      width: 170,
+                      height: 50,
+                      margin: EdgeInsets.only(bottom: 20),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          _controllerCountry.text = countries[CountryIndex];
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF5475F7),
+                          minimumSize: Size(80, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                            side: BorderSide(color: Color(0xFF5475F7)),
+                          ),
+                        ),
+                        child: Text(
+                          '确定',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium
+                              ?.copyWith(color: Colors.white),
+                        ),
+                      ),
+                    ))
+              ],
+            ),
+          );
+        },
+      ),
+    );
   }
   
+
+  //选择时区
+  
+   void selectTimeZone() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) {
+          ScrollController scrollController = ScrollController();
+          return Container(
+            width: 350,
+            height: 500,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+            ),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 19,
+                ),
+                Text(
+                  '选择时区',
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                SizedBox(
+                  height: 24,
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: countries.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return InkWell(
+                        onTap: () {
+                          setState(() {
+                            TimeZoneIndex = index;
+                          });
+                        },
+                        child: Container(
+                            color: TimeZoneIndex == index
+                                ? Color(0xFFF5F7FF)
+                                : Colors.transparent,
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  title: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(timezone[index]),
+                                  ),
+                                ),
+                                Container(
+                                  width: 320,
+                                  height: 1,
+                                  color: Color(0xFFD4DBED),
+                                )
+                              ],
+                            )),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      width: 170,
+                      height: 50,
+                      margin: EdgeInsets.only(bottom: 20),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          _controllerTimeZone.text = timezone[TimeZoneIndex];
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF5475F7),
+                          minimumSize: Size(80, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                            side: BorderSide(color: Color(0xFF5475F7)),
+                          ),
+                        ),
+                        child: Text(
+                          '确定',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium
+                              ?.copyWith(color: Colors.white),
+                        ),
+                      ),
+                    ))
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+  
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -153,16 +355,20 @@ class _ChangeInfoState extends State<ChangeInfo> {
             ),
             Padding(
               padding: EdgeInsets.only(top: 11.0, bottom: 22.0),
-              child: TextField(
-                enabled: false,
-                // controller: _controller,
-                decoration: InputDecoration(
-                    hintText: '请选择国家',
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.keyboard_arrow_down,
+              child: InkWell(
+                onTap: selectCountry,
+                child: IgnorePointer(
+                  child: TextField(
+                    controller: _controllerCountry,
+                    enabled: false,
+                    style: TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      hintText: '请选择国家',
+                      suffixIcon: Icon(Icons.keyboard_arrow_down,
                           color: Color(0xFF7989B2)),
-                      onPressed: selectCountry,
-                    )),
+                    ),
+                  ),
+                ),
               ),
             ),
             Row(
@@ -191,15 +397,21 @@ class _ChangeInfoState extends State<ChangeInfo> {
             ),
             Padding(
               padding: EdgeInsets.only(top: 11.0, bottom: 22.0),
-              child: TextField(
-                enabled: false,
-                decoration: InputDecoration(
-                    hintText: '请选择时区',
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.keyboard_arrow_down,
+              child: 
+              InkWell(
+                onTap: selectTimeZone,
+                child: IgnorePointer(
+                  child: TextField(
+                    controller: _controllerTimeZone,
+                    enabled: false,
+                    style: TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      hintText: '请选择时区',
+                      suffixIcon: Icon(Icons.keyboard_arrow_down,
                           color: Color(0xFF7989B2)),
-                      onPressed: _clearPlantTextField,
-                    )),
+                    ),
+                  ),
+                ),
               ),
             ),
             Row(

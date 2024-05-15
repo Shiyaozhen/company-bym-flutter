@@ -20,6 +20,10 @@ void main() {
       ...S.delegate.supportedLocales,
     ],
     theme: ThemeData(
+      scaffoldBackgroundColor: Colors.white,
+       appBarTheme: AppBarTheme(
+          backgroundColor: Colors.white, // 设置AppBar背景色
+        ),
       // 按钮
       buttonTheme: ButtonThemeData(
         shape: RoundedRectangleBorder(
@@ -42,7 +46,7 @@ void main() {
       ),
       // 文字
       textTheme: const TextTheme(
-        displayLarge: TextStyle(
+        displaySmall: TextStyle(
           fontSize: 12.0,
           color: Color(0xFF383838),
         ),
@@ -51,22 +55,22 @@ void main() {
             fontWeight: FontWeight.w400,
             color: Color(0xFF383838),
         ),
-        displaySmall: TextStyle(
+        displayLarge: TextStyle(
             fontSize: 16.0,
             fontWeight: FontWeight.w400,
             color: Color(0xFF383838),
         ),
-        headlineMedium: TextStyle(
-            fontSize: 18.0,
+        headlineSmall: TextStyle(
+            fontSize: 18.0, 
             fontWeight: FontWeight.w400,
             color: Color(0xFF383838),
         ),
-        headlineSmall: TextStyle(
+        headlineMedium: TextStyle(
           fontSize: 20.0,
           fontWeight: FontWeight.w400,
           color: Color(0xFF383838),
         ),
-        titleLarge: TextStyle(
+        headlineLarge: TextStyle(
           fontSize: 22.0,
           fontWeight: FontWeight.w400,
           color: Color(0xFF383838),),

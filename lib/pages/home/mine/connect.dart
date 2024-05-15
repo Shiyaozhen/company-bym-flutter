@@ -15,7 +15,7 @@ class _ConnectState extends State<Connect> {
           title: Text(
             '联系我们',
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headlineSmall,
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
           centerTitle: true,
           leading: IconButton(
@@ -70,7 +70,7 @@ class _ConnectState extends State<Connect> {
                                               'Copyright©2022Zjbeny All Right Rserved.',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .displayLarge
+                                                  .displaySmall
                                                   ?.copyWith(
                                                       color:
                                                           Color(0xFF878787))),

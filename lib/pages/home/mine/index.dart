@@ -155,7 +155,7 @@ class MineListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        BYRoute.toNamed(route);
+        BYRoute.toNamed(route, arguments: {});
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),

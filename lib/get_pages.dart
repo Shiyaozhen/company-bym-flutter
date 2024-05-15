@@ -1,23 +1,15 @@
 import 'package:BYM/pages/home/index.dart';
-import 'package:BYM/pages/list/index.dart';
-
-//登录
-import 'package:BYM/pages/login/login.dart';
-
-//注册
-import 'package:BYM/pages/login/sign_up.dart';
-
-//我的
-import 'package:BYM/pages/home/mine/bind_email.dart';
-import 'package:BYM/pages/home/mine/bind_success.dart';
-import 'package:BYM/pages/home/mine/password/change_pwd.dart';
 import 'package:BYM/pages/home/mine/bindAgent/index.dart';
+//我的
+import 'package:BYM/pages/home/mine/bindemail/bind_email.dart';
+import 'package:BYM/pages/home/mine/bindemail/bind_success.dart';
 import 'package:BYM/pages/home/mine/con_logoff.dart';
 import 'package:BYM/pages/home/mine/connect.dart';
 import 'package:BYM/pages/home/mine/feed_back.dart';
 import 'package:BYM/pages/home/mine/language.dart';
 import 'package:BYM/pages/home/mine/logoff.dart';
 import 'package:BYM/pages/home/mine/more.dart';
+import 'package:BYM/pages/home/mine/password/change_pwd.dart';
 //首页概览
 import 'package:BYM/pages/home/overview/index.dart';
 //修改电站信息
@@ -29,6 +21,9 @@ import 'package:BYM/pages/list/index.dart';
 import 'package:BYM/pages/login/login.dart';
 //注册
 import 'package:BYM/pages/login/sign_up.dart';
+//电站详情
+import 'package:BYM/pages/powerstation/detail/index.dart';
+import 'package:BYM/pages/powerstation/index.dart';
 //测试
 import 'package:BYM/pages/tcp/index.dart';
 import 'package:flutter/material.dart';
@@ -100,6 +95,16 @@ List<GetPage<dynamic>> pages = [
     transition: Transition.rightToLeftWithFade,
   ),
   GetPage(
+    name: '/DetailIndex',
+    page: () => const DetailIndex(arguments: {},),
+    transition: Transition.rightToLeftWithFade,
+  ),
+   GetPage(
+    name: '/PowerStationIndex',
+    page: () => const PowerStationIndex(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+  GetPage(
     name: '/Connect',
     page: () => Connect(),
     transition: Transition.rightToLeftWithFade,
@@ -117,19 +122,20 @@ List<GetPage<dynamic>> pages = [
 ];
 
 class BYRoute {
-  static toNamed(String page) {
-    Get.toNamed(page);
+  static toNamed(String page, {dynamic arguments}) {
+    Get.toNamed(page, arguments: arguments);
   }
 
-  static back(String page) {
+  static back() {
     Get.back();
   }
 
-  static off(Widget page) {
-    Get.off(page);
+  static off(Widget page, {dynamic arguments}) {
+    Get.off(page, arguments: arguments);
   }
 
-  static push(Widget page) {
-    Get.to(page);
+  static push(Widget page, {dynamic arguments}) {
+    Get.to(page, arguments: arguments);
   }
 }
+

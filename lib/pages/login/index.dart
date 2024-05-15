@@ -24,23 +24,23 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void toMore() {
-    BYRoute.toNamed('/MineMore');
+    BYRoute.toNamed('/MineMore', arguments: {});
   }
 
   void toConnect() {
-    BYRoute.toNamed('/Connect');
+    BYRoute.toNamed('/Connect', arguments: {});
   }
 
   void toSet() {
-    BYRoute.toNamed('/Language');
+    BYRoute.toNamed('/Language', arguments: {});
   }
 
   void toChangePwd() {
-    BYRoute.toNamed('/ChangePwd');
+    BYRoute.toNamed('/ChangePwd', arguments: {});
   }
  
   void toBind(){
-    BYRoute.toNamed('/BindEmail');
+    BYRoute.toNamed('/BindEmail', arguments: {});
   }
   
   bool _validateInputs() {

@@ -18,7 +18,7 @@ class _ChangePwdState extends State<ChangePwd> {
         title: Text(
           '修改密码',
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headlineSmall,
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
         centerTitle: true,
         leading: IconButton(
@@ -30,7 +30,8 @@ class _ChangePwdState extends State<ChangePwd> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 20.0,bottom: 0,left: 13.0,right: 13.0),
+        padding: const EdgeInsets.only(
+            top: 20.0, bottom: 0, left: 13.0, right: 13.0),
         child: Column(
           children: [
             Padding(
@@ -39,7 +40,7 @@ class _ChangePwdState extends State<ChangePwd> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '旧密码',
-                  style: Theme.of(context).textTheme.displaySmall,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
               ),
             ),
@@ -70,7 +71,7 @@ class _ChangePwdState extends State<ChangePwd> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '请输入新密码',
-                  style: Theme.of(context).textTheme.displaySmall,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
               ),
             ),
@@ -101,7 +102,7 @@ class _ChangePwdState extends State<ChangePwd> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '请确认新密码',
-                  style: Theme.of(context).textTheme.displaySmall,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
               ),
             ),
@@ -134,8 +135,7 @@ class _ChangePwdState extends State<ChangePwd> {
           child: FractionallySizedBox(
             widthFactor: 0.9,
             child: ElevatedButton(
-              onPressed: () {
-              },
+              onPressed: () {},
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Color(0xFF5475F8)),
                 foregroundColor: MaterialStateProperty.all(Color(0xFFFFFFFF)),
@@ -147,7 +147,7 @@ class _ChangePwdState extends State<ChangePwd> {
                 ),
               ),
               child: Text('保存',
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       fontWeight: FontWeight.bold, color: Color(0xFFFFFFFF))),
             ),
           )),

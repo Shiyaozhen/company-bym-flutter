@@ -42,7 +42,7 @@ class _SignUpState extends State<SignUp> {
   }
 
   void tobind() {
-    BYRoute.toNamed('/BindSuccess');
+    BYRoute.toNamed('/BindSuccess', arguments: {});
   }
 
   @override

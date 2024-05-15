@@ -50,7 +50,7 @@ class _LanguageState extends State<Language> {
                           ListTile(
                             title: Text(
                               items[index],
-                              style:  Theme.of(context).textTheme.headlineMedium,
+                              style:  Theme.of(context).textTheme.headlineSmall,
                             ),
                             trailing: Visibility(
                               visible: getCurrentLocale(context) == itemsKey[index],

@@ -87,7 +87,7 @@ class _BindSuccessState extends State<BindSuccess> {
               child: Text(countdown.toString() + 's后自动进入',
                   style: Theme.of(context)
                       .textTheme
-                      .displaySmall
+                      .displayMedium
                       ?.copyWith(color: Color(0xFF7989B2))),
             ),
           ],
@@ -110,7 +110,7 @@ class _BindSuccessState extends State<BindSuccess> {
                 ),
               ),
               child: Text('确定',
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       fontWeight: FontWeight.bold, color: Color(0xFFFFFFFF))),
             ),
           )),
