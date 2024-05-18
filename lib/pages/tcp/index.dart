@@ -20,7 +20,7 @@ class _TcpPageState extends State<TcpPage> {
   final TextEditingController messageController =
       TextEditingController(text: 'Hello Server');
   final TextEditingController wifiNameController =
-      TextEditingController(text: 'AP_A0028076');
+      TextEditingController(text: 'AP_A0999661');
   final TextEditingController passwordController =
       TextEditingController(text: '');
   Socket? socket;
@@ -100,6 +100,7 @@ class _TcpPageState extends State<TcpPage> {
     if (socket != null) {
       await socket!.close();
       print('已断开连接');
+      Fluttertoast.showToast(msg: '已断开连接');
     } else {
       print('未连接到服务器');
     }
@@ -182,11 +183,11 @@ class _TcpPageState extends State<TcpPage> {
                   child: Text('SendHeart'),
                 ),
                 SizedBox(width: 16.0),
-                ElevatedButton(
-                  onPressed: disconnectFromTcpServer,
-                  child: Text('Disconnect'),
-                ),
               ],
+            ),
+            ElevatedButton(
+              onPressed: disconnectFromTcpServer,
+              child: Text('Disconnect'),
             ),
           ],
         ),

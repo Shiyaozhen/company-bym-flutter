@@ -1,4 +1,5 @@
 import 'package:BYM/components/ByCircular.dart';
+import 'package:BYM/get_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -311,48 +312,53 @@ class _IndexState extends State<DetailIndex> {
               height: 19,
             ),
             Container(
-              width: 350,
-              height: 70,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Row(
+                width: 350,
+                height: 70,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                ),
+                child: InkWell(
+                  onTap: () => {
+                    BYRoute.toNamed('/TotalEnergy',
+                        arguments: {'stationName': stationName})
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      SvgPicture.asset(
-                          width: 20.0,
-                          height: 20.0,
-                          'assets/ic_plant_energy_total.svg'),
-                      SizedBox(
-                        width: 10,
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                              width: 20.0,
+                              height: 20.0,
+                              'assets/ic_plant_energy_total.svg'),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            '累计发电量',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayLarge
+                                ?.copyWith(color: Color(0xFF939393)),
+                          )
+                        ],
                       ),
-                      Text(
-                        '累计发电量',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayLarge
-                            ?.copyWith(color: Color(0xFF939393)),
+                      Row(
+                        children: [
+                          Text(
+                            '00.00',
+                            style: Theme.of(context).textTheme.headlineLarge,
+                          ),
+                          Text(
+                            'kWh',
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                        ],
                       )
                     ],
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        '00.00',
-                        style: Theme.of(context).textTheme.headlineLarge,
-                      ),
-                      Text(
-                        'kWh',
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            )
+                ))
           ],
         ),
       ]),

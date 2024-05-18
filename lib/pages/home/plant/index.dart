@@ -90,8 +90,10 @@ class _IndexState extends State<PlantIndex> {
                         ),
                       ),
                     ),
-                    SvgPicture.asset(
-                        width: 36, height: 36, 'assets/ic_plant_more.svg')
+                    InkWell(onTap: ()=>{
+                      BYRoute.toNamed('/Scan')
+                    },child: SvgPicture.asset(
+                        width: 36, height: 36, 'assets/ic_plant_more.svg'),)
                   ],
                 ),
                 Padding(

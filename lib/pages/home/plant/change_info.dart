@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:BYM/components/ByDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -18,12 +19,12 @@ class _ChangeInfoState extends State<ChangeInfo> {
   bool _showClearPlantButton = false;
   bool _showClearAccountButton = false;
   int CountryIndex = 0;
-    int TimeZoneIndex = 0;
+  int TimeZoneIndex = 0;
   List<File> _images = [];
   int _remainingCharacters = 0;
   TextEditingController _controller = TextEditingController();
   List<String> countries = ['法国', '英国', '美国', '意大利'];
-    List<String> timezone = ['UTC-02:00', 'UTC-01:00', 'UTC-04:00', 'UTC-08:00'];
+  List<String> timezone = ['UTC-02:00', 'UTC-01:00', 'UTC-04:00', 'UTC-08:00'];
   int selectedIndex = -1;
   Future _pickImage() async {
     final ImagePicker picker = ImagePicker();
@@ -164,11 +165,10 @@ class _ChangeInfoState extends State<ChangeInfo> {
       ),
     );
   }
-  
 
   //选择时区
-  
-   void selectTimeZone() {
+
+  void selectTimeZone() {
     showModalBottomSheet(
       context: context,
       builder: (context) => StatefulBuilder(
@@ -264,7 +264,31 @@ class _ChangeInfoState extends State<ChangeInfo> {
       ),
     );
   }
-  
+
+  //保存
+  void save() {
+    if (_controllerPlant.text == '') {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return ByDialog(
+            titleText: '温馨提示',
+            contentText: '电站名称不能为空!',
+            cancelText: '',
+            confirmText: '确认',
+            onCancelPressed: () {
+              Navigator.of(context).pop();
+            },
+            onConfirmPressed: () {
+              print("执行退出登录的操作");
+              Navigator.of(context).pop();
+            },
+          );
+        },
+      );
+      return;
+    }
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -397,8 +421,7 @@ class _ChangeInfoState extends State<ChangeInfo> {
             ),
             Padding(
               padding: EdgeInsets.only(top: 11.0, bottom: 22.0),
-              child: 
-              InkWell(
+              child: InkWell(
                 onTap: selectTimeZone,
                 child: IgnorePointer(
                   child: TextField(
@@ -428,7 +451,7 @@ class _ChangeInfoState extends State<ChangeInfo> {
               ],
             ),
             Padding(
-              padding: EdgeInsets.only(top: 10.0),
+              padding: EdgeInsets.only(top: 22.0),
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -513,7 +536,9 @@ class _ChangeInfoState extends State<ChangeInfo> {
           child: FractionallySizedBox(
             widthFactor: 0.9,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                save();
+              },
               child: Text('保存',
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       color: Color(0xFFFFFFFF), fontWeight: FontWeight.bold)),

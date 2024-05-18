@@ -69,7 +69,7 @@ void main() {
           fontSize: 20.0,
           fontWeight: FontWeight.w400,
           color: Color(0xFF383838),
-        ),
+        ), 
         headlineLarge: TextStyle(
           fontSize: 22.0,
           fontWeight: FontWeight.w400,

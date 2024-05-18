@@ -31,7 +31,7 @@ class _LoginState extends State<Login> {
       _showClearButton = false;
     });
   }
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -169,7 +169,8 @@ class _LoginState extends State<Login> {
                   padding: const EdgeInsets.only(bottom: 26.0, top: 26.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      BYRoute.off(const HomePage());
+                      // BYRoute.off(const HomePage());
+                      BYRoute.toNamed('/TcpPage');
                     },
                     child: Text(
                       '登录',

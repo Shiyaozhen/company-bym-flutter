@@ -10,27 +10,30 @@ class WeekPicker extends StatefulWidget {
 }
 
 class _WeekPickerState extends State<WeekPicker> {
-  late DateTime _selectedWeek;
+  late DateTime _selectedWeek = DateTime.now().subtract(Duration(days: 1));
   late DateTime _startOfWeek;
   late DateTime _endOfWeek;
 
   @override
   void initState() {
     super.initState();
-    _selectedWeek = DateTime.now();
     _calculateWeekRange();
   }
 
   void _calculateWeekRange() {
-    _startOfWeek = _selectedWeek.subtract(Duration(days: _selectedWeek.weekday % 7));
+    _startOfWeek =
+        _selectedWeek.subtract(Duration(days: _selectedWeek.weekday % 7));
     _endOfWeek = _startOfWeek.add(Duration(days: DateTime.daysPerWeek - 1));
   }
 
   bool isSameWeek(DateTime selectedWeek, DateTime date) {
-    DateTime startOfWeek = selectedWeek.subtract(Duration(days: selectedWeek.weekday % 7));
-    DateTime endOfWeek = startOfWeek.add(Duration(days: DateTime.daysPerWeek - 1));
-
-    return date.isAfter(startOfWeek.subtract(Duration(days: 1))) && date.isBefore(endOfWeek.add(Duration(days: 1)));
+    DateTime startOfWeek =
+        selectedWeek.subtract(Duration(days: selectedWeek.weekday % 7));
+    DateTime endOfWeek =
+        startOfWeek.add(Duration(days: DateTime.daysPerWeek - 1));
+   print(startOfWeek);
+    return date.isAfter(startOfWeek.subtract(Duration(days: 1))) &&
+        date.isBefore(endOfWeek.add(Duration(days: 1)));
   }
 
   @override
@@ -107,9 +110,9 @@ class _WeekPickerState extends State<WeekPicker> {
               );
             },
           ),
-          calendarFormat: CalendarFormat.month,
+          calendarFormat: CalendarFormat.week,
           availableCalendarFormats: const {
-            CalendarFormat.month: '',
+            CalendarFormat.week: '',
           },
           selectedDayPredicate: (day) => isSameWeek(_selectedWeek, day),
           onDaySelected: (selectedDay, focusedDay) {
