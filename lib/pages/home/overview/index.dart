@@ -575,7 +575,7 @@ class _IndexState extends State<OverViewIndex> {
                       Padding(
                         padding: EdgeInsets.only(top: 21.0),
                         child: Container(
-                          height: 130,
+                          height: 140,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(12),

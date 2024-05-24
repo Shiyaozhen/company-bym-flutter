@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
               children: const [
                 OverViewIndex(),
                 PlantIndex(),
-                Mine(),
+                Mine(arguments: {},),
                 // const BluetoothPage()
               ],
             ),

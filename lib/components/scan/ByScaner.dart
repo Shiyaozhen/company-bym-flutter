@@ -1,11 +1,14 @@
 import 'package:BYM/components/ByDialog.dart';
 import 'package:BYM/components/scan/scanner_button_widgets.dart';
 import 'package:BYM/components/scan/scanner_error_widget.dart';
+import 'package:BYM/get_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class BarcodeScannerListViewer extends StatefulWidget {
-  const BarcodeScannerListViewer({Key? key}) : super(key: key);
+  final String type;
+  const BarcodeScannerListViewer({Key? key, required this.type})
+      : super(key: key);
 
   @override
   _BarcodeScannerListViewState createState() => _BarcodeScannerListViewState();
@@ -14,7 +17,6 @@ class BarcodeScannerListViewer extends StatefulWidget {
 class _BarcodeScannerListViewState extends State<BarcodeScannerListViewer> {
   final MobileScannerController controller =
       MobileScannerController(torchEnabled: false);
-
   Barcode? _barcode;
   bool _showDialog = false;
   bool _isScanning = true;
@@ -25,12 +27,19 @@ class _BarcodeScannerListViewState extends State<BarcodeScannerListViewer> {
     if (mounted) {
       setState(() {
         _barcode = barcodes.barcodes.firstOrNull;
-        if (_barcode?.displayValue?[8] == '1' ||
-            _barcode?.displayValue?[8] == '4') {
-          _showDialog = true;
-          _isScanning = false;
+        print(_barcode?.displayValue?.length);
+        if (_barcode?.displayValue?.length == 8) {
+          print('这是网关');
+        } else if (_barcode?.displayValue?.length == 16) {
+          if (_barcode?.displayValue?[8] == '1' ||
+              _barcode?.displayValue?[8] == '4') {
+            _showDialog = true;
+            _isScanning = false;
+          } else {
+            _showDialog = false;
+          }
         } else {
-          _showDialog = false;
+          print('什么都不是');
         }
       });
     }
@@ -38,28 +47,29 @@ class _BarcodeScannerListViewState extends State<BarcodeScannerListViewer> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.type);
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       if (_showDialog) {
-          showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return ByDialog(
-            titleText: '温馨提示',
-            contentText: '扫码设备为终端设备(MI)，连接在通讯设备-网关(EMU)下面.请先添加网关！',
-            cancelText: '',
-            confirmText: '确认',
-            onCancelPressed: () {
-              Navigator.of(context).pop();
-              _isScanning = true;
-            },
-            onConfirmPressed: () {
-              print("执行退出登录的操作");
-              Navigator.of(context).pop();
-                 _isScanning = true;
-            },
-          );
-        },
-      );
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ByDialog(
+              titleText: '温馨提示',
+              contentText: '扫码设备为终端设备(MI)，连接在通讯设备-网关(EMU)下面.请先添加网关！',
+              cancelText: '',
+              confirmText: '确认',
+              onCancelPressed: () {
+                Navigator.of(context).pop();
+                _isScanning = true;
+              },
+              onConfirmPressed: () {
+                print("执行退出登录的操作");
+                Navigator.of(context).pop();
+                _isScanning = true;
+              },
+            );
+          },
+        );
       }
     });
 
@@ -178,7 +188,9 @@ class _BarcodeScannerListViewState extends State<BarcodeScannerListViewer> {
                           ),
                           color: Colors.white,
                           onPressed: () {
-                            Navigator.pop(context);
+                            // Navigator.pop(context);
+                            BYRoute.toNamed('/ByHand',
+                                arguments: {'type': '1'});
                           },
                         ),
                         Text(

@@ -36,7 +36,7 @@ class _IndexState extends State<DetailIndex> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: Icon(Icons.add_circle_outline),
             color: Color(0xFF383838),
             onPressed: () {
               // Handle the button press

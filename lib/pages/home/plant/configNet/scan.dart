@@ -12,7 +12,8 @@ class _ScanState extends State<Scan> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: BarcodeScannerListViewer(),
+      //1.wifi版/普通网关  2.微逆
+      child: BarcodeScannerListViewer(type: '1'),
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:BYM/get_pages.dart';
 import 'package:flutter/material.dart';
 
 class Mine extends StatelessWidget {
-  const Mine({super.key});
+  const Mine({super.key, required Map<String, dynamic> arguments});
 
   @override
   Widget build(BuildContext context) {

@@ -15,6 +15,7 @@ import 'package:BYM/pages/home/overview/index.dart';
 //修改电站信息
 import 'package:BYM/pages/home/plant/change_info.dart';
 import 'package:BYM/pages/home/plant/configNet/scan.dart';
+import 'package:BYM/pages/home/plant/configNet/byhand.dart';
 //首页电站
 import 'package:BYM/pages/home/plant/index.dart';
 import 'package:BYM/pages/list/index.dart';
@@ -25,6 +26,9 @@ import 'package:BYM/pages/login/sign_up.dart';
 //电站详情
 import 'package:BYM/pages/powerstation/detail/index.dart';
 import 'package:BYM/pages/powerstation/detail/total_energy.dart';
+import 'package:BYM/pages/powerstation/device/index.dart';
+import 'package:BYM/pages/powerstation/device/mi_detail.dart';
+import 'package:BYM/pages/powerstation/device/mi_list.dart';
 import 'package:BYM/pages/powerstation/index.dart';
 //测试
 import 'package:BYM/pages/tcp/index.dart';
@@ -98,17 +102,34 @@ List<GetPage<dynamic>> pages = [
   ),
   GetPage(
     name: '/DetailIndex',
-    page: () => const DetailIndex(arguments: {},),
+    page: () => const DetailIndex(
+      arguments: {},
+    ),
     transition: Transition.rightToLeftWithFade,
   ),
-    GetPage(
+  GetPage(
     name: '/TotalEnergy',
     page: () => const TotalEnergy(),
     transition: Transition.rightToLeftWithFade,
   ),
-   GetPage(
+  GetPage(
     name: '/PowerStationIndex',
     page: () => const PowerStationIndex(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+  GetPage(
+    name: '/Device',
+    page: () => Device(arguments: {}, onHideElements: (shouldHide) {}),
+    transition: Transition.rightToLeftWithFade,
+  ),
+  GetPage(
+    name: '/MIList',
+    page: () => MIList(arguments: {}),
+    transition: Transition.rightToLeftWithFade,
+  ),
+    GetPage(
+    name: '/MIDetail',
+    page: () => MIDetail(arguments: {}),
     transition: Transition.rightToLeftWithFade,
   ),
   GetPage(
@@ -127,9 +148,14 @@ List<GetPage<dynamic>> pages = [
     transition: Transition.rightToLeftWithFade,
   ),
   //扫码测试
-    GetPage(
+  GetPage(
     name: '/Scan',
     page: () => Scan(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+  GetPage(
+    name: '/ByHand',
+    page: () => Byhand(),
     transition: Transition.rightToLeftWithFade,
   ),
 ];
@@ -151,4 +177,3 @@ class BYRoute {
     Get.to(page, arguments: arguments);
   }
 }
-
