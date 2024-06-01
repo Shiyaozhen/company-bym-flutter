@@ -2,6 +2,7 @@ import 'package:BYM/pages/home/mine/index.dart';
 import 'package:BYM/pages/home/plant/index.dart';
 import 'package:BYM/pages/powerstation/detail/index.dart';
 import 'package:BYM/pages/powerstation/device/index.dart';
+import 'package:BYM/pages/powerstation/setting/index.dart';
 import 'package:BYM/pages/powerstation/toolbar/index.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -41,8 +42,7 @@ class _IndexState extends State<PowerStationIndex> {
                   arguments: {'stationName': stationName},
                   onHideElements: toggleHideElements,
                 ),
-                Mine(
-                  arguments: {},
+                Setting(arguments: {},
                 ),
               ],
             ),

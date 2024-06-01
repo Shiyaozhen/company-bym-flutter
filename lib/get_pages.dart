@@ -30,6 +30,10 @@ import 'package:BYM/pages/powerstation/device/index.dart';
 import 'package:BYM/pages/powerstation/device/mi_detail.dart';
 import 'package:BYM/pages/powerstation/device/mi_list.dart';
 import 'package:BYM/pages/powerstation/index.dart';
+import 'package:BYM/pages/powerstation/setting/config/blue/search_device.dart';
+import 'package:BYM/pages/powerstation/setting/config/select_config.dart';
+import 'package:BYM/pages/powerstation/setting/index.dart';
+
 //测试
 import 'package:BYM/pages/tcp/index.dart';
 import 'package:flutter/material.dart';
@@ -147,6 +151,11 @@ List<GetPage<dynamic>> pages = [
     page: () => BindSuccess(),
     transition: Transition.rightToLeftWithFade,
   ),
+  GetPage(
+    name: '/Setting',
+    page: () => Setting(arguments: {},),
+    transition: Transition.rightToLeftWithFade,
+  ),
   //扫码测试
   GetPage(
     name: '/Scan',
@@ -156,6 +165,16 @@ List<GetPage<dynamic>> pages = [
   GetPage(
     name: '/ByHand',
     page: () => Byhand(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+  GetPage(
+    name: '/SelectConfig',
+    page: () => SelectConfig(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+  GetPage(
+    name: '/SearchDevice',
+    page: () => SearchDevice(),
     transition: Transition.rightToLeftWithFade,
   ),
 ];

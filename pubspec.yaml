@@ -113,6 +113,15 @@ flutter:
     - assets/ic_emu.png
     - assets/ic_wifi_mi.png
     - assets/ic_device_delete.png
+    - assets/ic_mi_offline_bg.png
+    - assets/ic_mi_online_bg.png
+    - assets/ic_mi_fault_bg.png
+    - assets/ic_mi_fault_gray_bg.png
+    - assets/ic_miw_connect.png
+    - assets/ic_mi_one.png
+    - assets/ic_mi_two.png
+    - assets/ic_mi_four.png
+    - assets/ic_mi_nine.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see
