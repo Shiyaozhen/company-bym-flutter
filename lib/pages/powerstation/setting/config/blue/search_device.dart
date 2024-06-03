@@ -1,194 +1,265 @@
-import 'package:flutter/material.dart';
 
-class SearchDevice extends StatefulWidget {
-  const SearchDevice({super.key});
+import 'dart:math';
+import 'dart:ui';
+import 'dart:async';
+import 'package:BYM/main.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+import 'package:BYM/utils/ERApp.dart';
+// import 'package:ZBOX_flutter/pages/device_detail_page/charger_detail_page/ERChargerDetailTabPage.dart';
+import 'package:BYM/utils/BLEManager.dart';
+// import 'package:BYM/util/BYDBHealper.dart';
+import 'package:BYM/utils/BYLog.dart';
+import 'package:BYM/utils/Device.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'dart:convert';
+
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
+
+
+
+class ERBLEListPage extends StatefulWidget {
+  ERBLEListPage({
+    super.key,
+  });
 
   @override
-  State<SearchDevice> createState() => _SearchDeviceState();
+  State<ERBLEListPage> createState() => _ERBLEListPageState();
 }
 
-class _SearchDeviceState extends State<SearchDevice> {
+
+class _ERBLEListPageState extends State<ERBLEListPage> {
+ 
+  List<ScanResult> _scanResults = [];
+  late StreamSubscription<List<ScanResult>> _scanResultsSubscription;
+ 
+  @override
+  void initState() {
+    super.initState();
+
+    _scanResultsSubscription = FlutterBluePlus.scanResults.listen((results) {
+      print(results);
+      List<ScanResult> temp =  results.where((e) => _isRegDeviceName(e.device.advName)).toList();
+      _scanResults = temp;
+      if (mounted) {
+        setState(() {});
+      }
+
+  });
+
+
+    scanDevice();
+  }
+
+
+  @override
+  void dispose() {
+    _scanResultsSubscription.cancel();
+    FlutterBluePlus.stopScan();
+    super.dispose();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          '',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 20.0,
-          ),
-        ),
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          color: Color(0xFF383838),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
-      body: Container(
-        child: Column(
-          children: [
-            SearchTipWidgetState(),
-            // SearchIconWidgetState(),
-            SearchListWidget()
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-//搜索提示
-class SearchTipWidgetState extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: 22.0),
-      child: Column(
-        children: [
-          Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                '扫描附近蓝牙设备(请确认设备已上电)',
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineMedium
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              )),
-          SizedBox(
-            height: 16.0,
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              '持续自动搜索中...',
-              style: Theme.of(context)
-                  .textTheme
-                  .displayMedium
-                  ?.copyWith(color: Color(0xFF7989B2)),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.more_horiz,
             ),
-          )
+            onPressed: () {
+            },
+          ),
+
         ],
       ),
+      body: 
+        Container(
+          height: MediaQuery.of(context).size.height,
+          color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child:Column(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: RefreshIndicator(
+                    onRefresh: onRefresh,
+                    child: GridView.builder(
+                      // shrinkWrap: true, // 必须有，因为长度没写
+                      itemCount: _scanResults.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio:  ((MediaQuery.of(context).size.width - 16 * 3) / 2 ) / 108,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16
+                      ),
+                      itemBuilder: (BuildContext context, int index) {
+                        return cellForItem(index);
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
     );
   }
-}
 
-//搜寻中
-class SearchIconWidgetState extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return Center(
-        child: Column(
-      children: [
-        SizedBox(
-          height: 120,
-        ),
-        Container(
-          width: 200,
-          height: 200,
-          color: Colors.blue,
-        ),
-        SizedBox(
-          height: 27.0,
-        ),
-        Text(
-          '请将手机尽量靠近要添加的设备',
-          style: Theme.of(context)
-              .textTheme
-              .displayLarge
-              ?.copyWith(color: Color(0xFF7989B2)),
-        )
-      ],
-    ));
-  }
-}
+  Widget cellForItem(int i) {
+    ScanResult ret = _scanResults[i];
 
-//已搜寻列表
-class SearchListWidget extends StatefulWidget {
-  @override
-  _SearchListWidgetState createState() => _SearchListWidgetState();
-}
 
-class _SearchListWidgetState extends State<SearchListWidget> {
-  List<String> items = ['40010107', '20010107', '10010107', '90010107'];
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 50, left: 18, right: 18),
-      child: Wrap(
-        spacing: 20,
-        runSpacing: 20,
-        children: items.map((item) {
-          return GestureDetector(
-            onTap: () {
-              print(item); 
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: Color(0xFFF5F7FF),
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              width: 150,
-              height: 120,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+    return GestureDetector(
+      onTap: () {
+        connectDevice(i);
+      },
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Container(
+          color: Color(0xFFF4F6FA),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Visibility(
-                      visible: item.substring(0, 1) == '4',
-                      child: Container(
-                        padding: EdgeInsets.only(right: 10.0),
-                        child: Image.asset(
-                          'assets/ic_mi_four.png',
-                          width: 70,
-                          height: 54,
-                        ),
-                      ),
+                    // BYSVG.svg('assets/er_device_charger_one_gun_face.svg'),
+
+                    Icon(
+                      Icons.adb_sharp
                     ),
-                    Visibility(
-                      visible: item.substring(0, 1) == '2',
-                      child: Container(
-                        padding: EdgeInsets.only(right: 10.0),
-                        child: Image.asset(
-                          'assets/ic_mi_two.png',
-                          width: 84,
-                          height: 54,
-                        ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: item.substring(0, 1) == '1',
-                      child: Container(
-                        padding: EdgeInsets.only(left: 10.0),
-                        child: Image.asset(
-                          'assets/ic_mi_one.png',
-                          width: 51,
-                          height: 64,
-                        ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: item.substring(0, 1) == '9',
-                      child: Container(
-                        padding: EdgeInsets.only(left: 10.0),
-                        child: Image.asset(
-                          'assets/ic_mi_nine.png',
-                          width: 70,
-                          height: 54,
-                        ),
-                      ),
-                    ),
-                    Text(item)
                   ],
                 ),
-              ),
+                Text('${deviceTypeDesc(ret.device.advName)}'),
+                Text('${deviceCode(ret.device.advName)}'),
+              ],
             ),
-          );
-        }).toList(),
+          ),
+        ),
       ),
     );
   }
+
+
+
+  Future scanDevice() async {
+    await FlutterBluePlus.adapterState.where((val) => val == BluetoothAdapterState.on).first;
+    BYLog.d('开始扫描');
+
+    try {
+      await FlutterBluePlus.startScan();
+    } catch (e) {
+      BYLog.d("Start Scan Error:${e}");
+    }
+    if (mounted) { // 组件数建立完善后才能更新UI
+      setState(() {});
+    }
+
+  }
+
+
+  Future<void> onRefresh()async{
+
+  }
+
+
+
+
+  Future connectDevice(int index)async{
+    ScanResult ret = _scanResults[index];
+
+
+    Device device = Device(account:ret.device.advName,connectType:'0',bleScanRet: ret,pass: "123456",deviceType:'0');
+    
+    // EasyLoading.show(status: 'loading...');
+    bool isSuc = await  BLEManager().connectDevice(device);
+
+    if(isSuc){
+      print('1');
+      // bool ret  = await BYDBHealper.getInstance().insert(device);
+
+      if(true){
+        // ERApp().allDevices.value = await BYDBHealper.getInstance().queryAll();
+
+    
+        // EasyLoading.showToast('连接成功'); 
+
+        // BLEManager().getDeviceType((isSuc, errCode, data) {
+        //   BLEManager().startHeart();
+        //   Get.off(ERChargerDetailTabPage());
+        // });
+
+
+      }else{
+        EasyLoading.showToast('插入数据失败');
+      }
+      
+    }else{
+      EasyLoading.showToast('连接失败');
+    }
+
+  }
+
+
+
+  // MARK:-  help func 
+  bool _isRegDeviceName(String deviceName){
+  
+    return (isEVSE(deviceName) || isMI(deviceName) || isER(deviceName));
+  
+  }
+
+
+  String deviceCode(String deviceName){
+    var ret = deviceName.split('-');
+    if(ret.length == 2){
+      return ret.last;
+    }else{
+      return deviceName;
+    }
+  }
+
+  String deviceTypeDesc(String deviceName){
+    if(isEVSE(deviceName)){
+      return '充电桩';
+    }else if(isER(deviceName)){
+      return '能量路由器';
+    }else{
+      return '微型逆变器';
+    }
+  }
+
+
+  bool isEVSE(String deviceName){
+    return deviceName.startsWith('EVSE');
+  }
+
+  bool isER(String deviceName){
+    return deviceName.startsWith('ER');
+  }
+
+  bool isMI(String deviceName){
+    return deviceName.startsWith('MI');
+  }
+
+
+
+
+
+
+
+
+
+
 }

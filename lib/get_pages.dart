@@ -30,6 +30,7 @@ import 'package:BYM/pages/powerstation/device/index.dart';
 import 'package:BYM/pages/powerstation/device/mi_detail.dart';
 import 'package:BYM/pages/powerstation/device/mi_list.dart';
 import 'package:BYM/pages/powerstation/index.dart';
+import 'package:BYM/pages/powerstation/setting/config/blue/config_net.dart';
 import 'package:BYM/pages/powerstation/setting/config/blue/search_device.dart';
 import 'package:BYM/pages/powerstation/setting/config/select_config.dart';
 import 'package:BYM/pages/powerstation/setting/index.dart';
@@ -174,7 +175,12 @@ List<GetPage<dynamic>> pages = [
   ),
   GetPage(
     name: '/SearchDevice',
-    page: () => SearchDevice(),
+    page: () => ERBLEListPage(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+  GetPage(
+    name: '/ConfigNet',
+    page: () => ConfigNet(),
     transition: Transition.rightToLeftWithFade,
   ),
 ];

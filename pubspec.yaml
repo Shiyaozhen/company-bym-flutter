@@ -58,6 +58,8 @@ dependencies:
   percent_indicator: ^4.2.3
   mobile_scanner: ^5.1.1
   plugin_platform_interface: ^2.1.8
+  flutter_blue_plus: ^1.32.7
+  logger: ^2.3.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -122,6 +124,7 @@ flutter:
     - assets/ic_mi_two.png
     - assets/ic_mi_four.png
     - assets/ic_mi_nine.png
+    - assets/ic_connect.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see
