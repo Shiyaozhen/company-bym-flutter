@@ -174,7 +174,9 @@ class PowerInfoWidget extends StatelessWidget {
                 size: 20,
               ),
               color: const Color(0xFF7989B2),
-              onPressed: () {},
+              onPressed: () {
+                BYRoute.toNamed('/ChangeInfo');
+              },
             ),
           ],
         ),
@@ -195,7 +197,7 @@ class _SwitchWidgetState extends State {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
+      padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
       decoration: BoxDecoration(
         color: Color(0xFFFFFFFF),
         borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -215,7 +217,7 @@ class _SwitchWidgetState extends State {
               ),
               SizedBox(width: 20.0),
               Baseline(
-                baseline: 24,
+                baseline: 22,
                 baselineType: TextBaseline.alphabetic,
                 child: Text(
                   '防逆流开关',
@@ -224,7 +226,10 @@ class _SwitchWidgetState extends State {
               ),
             ],
           ),
-          Switch(
+          Container(
+            width: 40,
+            height: 20,
+            child: Switch(
             value: _switch,
             activeColor: Color(0xFF5475F7),
             onChanged: (value) {
@@ -232,7 +237,7 @@ class _SwitchWidgetState extends State {
                 _switch = value;
               });
             },
-          ),
+          ),)
         ],
       ),
     );

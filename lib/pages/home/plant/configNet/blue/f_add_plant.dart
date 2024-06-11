@@ -4,14 +4,14 @@ import 'package:BYM/components/ByDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ChangeInfo extends StatefulWidget {
-  const ChangeInfo({Key? key}) : super(key: key);
+class FAddPlant extends StatefulWidget {
+  const FAddPlant({Key? key}) : super(key: key);
 
   @override
-  _ChangeInfoState createState() => _ChangeInfoState();
+  _FAddPlantState createState() => _FAddPlantState();
 }
 
-class _ChangeInfoState extends State<ChangeInfo> {
+class _FAddPlantState extends State<FAddPlant> {
   TextEditingController _controllerPlant = TextEditingController();
   TextEditingController _controllerAccount = TextEditingController();
   TextEditingController _controllerCountry = TextEditingController();
@@ -296,7 +296,7 @@ class _ChangeInfoState extends State<ChangeInfo> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          '修改信息',
+          '添加电站',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headlineMedium,
         ),

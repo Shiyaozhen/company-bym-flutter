@@ -111,6 +111,7 @@ flutter:
     - assets/ic_scan_emu_tip.png 
     - assets/ic_scan_mi_tip.png 
     - assets/ic_scan_gif.gif 
+    - assets/ic_scan_blue.gif 
     - assets/ic_signle_mi.png
     - assets/ic_emu.png
     - assets/ic_wifi_mi.png
@@ -125,6 +126,8 @@ flutter:
     - assets/ic_mi_four.png
     - assets/ic_mi_nine.png
     - assets/ic_connect.png
+    - assets/ic_plant_default.png
+    - assets/ic_bind_mi.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

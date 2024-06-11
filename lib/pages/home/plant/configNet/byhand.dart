@@ -38,9 +38,11 @@ class _ByhandState extends State<Byhand> {
         // print('添加成功');
         if (_controllerDevice.text.substring(0, 1) == '9' &&
             _controllerDevice.text.length == 8) {
+
         } else if ((_controllerDevice.text.substring(0, 1) == 'A' ||
                 _controllerDevice.text.substring(0, 1) == 'C') &&
             _controllerDevice.text.length == 8) {
+              
         } else {
           showDialog(
             context: context,

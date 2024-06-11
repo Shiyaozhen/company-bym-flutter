@@ -91,7 +91,7 @@ class _IndexState extends State<PlantIndex> {
                       ),
                     ),
                     InkWell(onTap: ()=>{
-                      BYRoute.toNamed('/Scan')
+                      BYRoute.toNamed('/FBlueSearchDevice')
                     },child: SvgPicture.asset(
                         width: 36, height: 36, 'assets/ic_plant_more.svg'),)
                   ],

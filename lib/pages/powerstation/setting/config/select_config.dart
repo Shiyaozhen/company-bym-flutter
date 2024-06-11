@@ -61,9 +61,7 @@ class BlueConfigState extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: InkWell(
-          onTap: ()=>{
-             BYRoute.toNamed('/SearchDevice')
-          },
+          onTap: () => {BYRoute.toNamed('/ConfigNet')},
           child: Row(
             children: [
               SizedBox(
@@ -96,35 +94,35 @@ class BlueConfigState extends StatelessWidget {
 class ApConfigState extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
-      height: 70.0,
-      decoration: BoxDecoration(
-        color: Color(0xFFF5F7FF),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 10.0,
+        height: 70.0,
+        decoration: BoxDecoration(
+          color: Color(0xFFF5F7FF),
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: InkWell(
+          onTap: () => {BYRoute.toNamed('/ApSearchDevice')},
+          child: Row(
+            children: [
+              SizedBox(
+                width: 10.0,
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.wifi,
+                  size: 28,
+                ),
+                color: Color(0xFF5475F7),
+                onPressed: () {},
+              ),
+              SizedBox(
+                width: 10.0,
+              ),
+              Text(
+                '热点配网',
+                style: Theme.of(context).textTheme.headlineMedium,
+              )
+            ],
           ),
-          IconButton(
-            icon: Icon(
-              Icons.wifi,
-              size: 28,
-            ),
-            color: Color(0xFF5475F7),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          SizedBox(
-            width: 10.0,
-          ),
-          Text(
-            '热点配网',
-            style: Theme.of(context).textTheme.headlineMedium,
-          )
-        ],
-      ),
-    );
+        ));
   }
 }

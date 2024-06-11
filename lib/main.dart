@@ -1,14 +1,18 @@
 import 'package:BYM/generated/l10n.dart';
 import 'package:BYM/get_pages.dart';
+import 'package:BYM/utils/BYLog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/route_manager.dart';
 
 void main() {
+  init();
   runApp(GetMaterialApp(
     title: 'Flutter Luckin Coffee',
     initialRoute: '/Login',
     getPages: pages,
+    builder: EasyLoading.init(),
     localizationsDelegates: const [
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
@@ -21,9 +25,9 @@ void main() {
     ],
     theme: ThemeData(
       scaffoldBackgroundColor: Colors.white,
-       appBarTheme: AppBarTheme(
-          backgroundColor: Colors.white, // 设置AppBar背景色
-        ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: Colors.white, // 设置AppBar背景色
+      ),
       // 按钮
       buttonTheme: ButtonThemeData(
         shape: RoundedRectangleBorder(
@@ -51,29 +55,30 @@ void main() {
           color: Color(0xFF383838),
         ),
         displayMedium: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.w400,
-            color: Color(0xFF383838),
+          fontSize: 14.0,
+          fontWeight: FontWeight.w400,
+          color: Color(0xFF383838),
         ),
         displayLarge: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.w400,
-            color: Color(0xFF383838),
+          fontSize: 16.0,
+          fontWeight: FontWeight.w400,
+          color: Color(0xFF383838),
         ),
         headlineSmall: TextStyle(
-            fontSize: 18.0, 
-            fontWeight: FontWeight.w400,
-            color: Color(0xFF383838),
+          fontSize: 18.0,
+          fontWeight: FontWeight.w400,
+          color: Color(0xFF383838),
         ),
         headlineMedium: TextStyle(
           fontSize: 20.0,
           fontWeight: FontWeight.w400,
           color: Color(0xFF383838),
-        ), 
+        ),
         headlineLarge: TextStyle(
           fontSize: 22.0,
           fontWeight: FontWeight.w400,
-          color: Color(0xFF383838),),
+          color: Color(0xFF383838),
+        ),
       ),
       // 输入框
       inputDecorationTheme: InputDecorationTheme(
@@ -99,4 +104,8 @@ void main() {
       ),
     ),
   ));
+}
+
+void init() {
+  BYLog.init(true, isDebug: true);
 }

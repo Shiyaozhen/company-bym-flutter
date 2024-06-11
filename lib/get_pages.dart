@@ -14,6 +14,11 @@ import 'package:BYM/pages/home/mine/password/change_pwd.dart';
 import 'package:BYM/pages/home/overview/index.dart';
 //修改电站信息
 import 'package:BYM/pages/home/plant/change_info.dart';
+import 'package:BYM/pages/home/plant/configNet/blue/f_add_plant.dart';
+import 'package:BYM/pages/home/plant/configNet/blue/f_blue_add_device_step1.dart';
+import 'package:BYM/pages/home/plant/configNet/blue/f_blue_add_device_step2.dart';
+import 'package:BYM/pages/home/plant/configNet/blue/f_blue_add_device_step3.dart';
+import 'package:BYM/pages/home/plant/configNet/blue/f_blue_search_device.dart';
 import 'package:BYM/pages/home/plant/configNet/scan.dart';
 import 'package:BYM/pages/home/plant/configNet/byhand.dart';
 //首页电站
@@ -30,8 +35,9 @@ import 'package:BYM/pages/powerstation/device/index.dart';
 import 'package:BYM/pages/powerstation/device/mi_detail.dart';
 import 'package:BYM/pages/powerstation/device/mi_list.dart';
 import 'package:BYM/pages/powerstation/index.dart';
-import 'package:BYM/pages/powerstation/setting/config/blue/config_net.dart';
-import 'package:BYM/pages/powerstation/setting/config/blue/search_device.dart';
+import 'package:BYM/pages/powerstation/setting/config/ap/ap_search_device.dart';
+import 'package:BYM/pages/powerstation/setting/config/blue/blue_config_net.dart';
+import 'package:BYM/pages/powerstation/setting/config/blue/blue_search_device.dart';
 import 'package:BYM/pages/powerstation/setting/config/select_config.dart';
 import 'package:BYM/pages/powerstation/setting/index.dart';
 
@@ -179,8 +185,43 @@ List<GetPage<dynamic>> pages = [
     transition: Transition.rightToLeftWithFade,
   ),
   GetPage(
+    name: '/ApSearchDevice',
+    page: () => ApSearchDevice(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+   GetPage(
+    name: '/ApConfigState',
+    page: () => ApConfigState(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+  GetPage(
     name: '/ConfigNet',
     page: () => ConfigNet(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+   GetPage(
+    name: '/FBlueSearchDevice',
+    page: () => FBlueSearchDevice(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+    GetPage(
+    name: '/FBlueAddDeviceStep1',
+    page: () => FBlueAddDeviceStep1(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+    GetPage(
+    name: '/FBlueAddDeviceStep2',
+    page: () => FBlueAddDeviceStep2(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+   GetPage(
+    name: '/FBlueAddDeviceStep3',
+    page: () => FBlueAddDeviceStep3(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+      GetPage(
+    name: '/FAddPlant',
+    page: () => FAddPlant(),
     transition: Transition.rightToLeftWithFade,
   ),
 ];
