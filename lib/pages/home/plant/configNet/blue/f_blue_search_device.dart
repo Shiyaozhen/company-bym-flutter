@@ -38,15 +38,14 @@ class _FBlueSearchDeviceState extends State<FBlueSearchDevice> {
     super.initState();
 
     _scanResultsSubscription = FlutterBluePlus.scanResults.listen((results) {
+      BYLog.d('蓝牙扫描结果${results}');
       List<ScanResult> temp =
           results.where((e) => _isRegDeviceName(e.device.advName)).toList();
       _scanResults = temp;
       if (mounted) {
         setState(() {});
       }
-      print(_scanResults.length);
     });
-
     scanDevice();
   }
 
@@ -139,16 +138,45 @@ class _FBlueSearchDeviceState extends State<FBlueSearchDevice> {
             Visibility(
                 visible: _scanResults.length == 0,
                 child: Container(
-                  height: MediaQuery.of(context).size.height - 150,
-                  child: Container(child: Align(alignment: Alignment.center,child: Image.asset('assets/ic_scan_blue.gif'),),),
-                ))
+                    height: MediaQuery.of(context).size.height-150,
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(left: 18.0,top: 20),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text('扫描附近蓝牙设备(请确认设备已上电)',style: TextStyle(fontSize: 20.0,fontWeight:FontWeight.bold),),
+                          ),
+                        ),
+                          Container(
+                          padding: EdgeInsets.only(left: 18.0,top: 10),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text('持续自动搜索中...',style: TextStyle(fontSize: 14.0,color: Color(0xFF7989B2)),),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 80),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Image.asset('assets/ic_scan_blue.gif'),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            '请将手机尽量靠近要添加的设备',
+                            style: TextStyle(color: Color(0xFF7989B2)),
+                          ),
+                        )
+                      ],
+                    )))
           ],
         ));
   }
 
   Widget cellForItem(int i) {
     ScanResult ret = _scanResults[i];
-
     return GestureDetector(
       onTap: () {
         connectDevice(i);
@@ -288,6 +316,6 @@ class _FBlueSearchDeviceState extends State<FBlueSearchDevice> {
   }
 
   bool isMI(String deviceName) {
-    return deviceName.startsWith('MI');
+    return deviceName.startsWith('MI-W') || deviceName.startsWith('MI');
   }
 }
