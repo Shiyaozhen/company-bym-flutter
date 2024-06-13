@@ -1,5 +1,5 @@
 import 'dart:core';
-
+import 'package:BYM/generated/l10n.dart';
 import 'package:BYM/components/ByDashedLine.dart';
 import 'package:BYM/components/ByDayPicker.dart';
 import 'package:BYM/components/ByMask.dart';
@@ -9,23 +9,119 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:BYM/api/overview.dart';
+import 'package:BYM/utils/unit_converter.dart';
+import 'package:BYM/components/by_bar_chart.dart';
+import 'package:get/get.dart';
 
-class OverViewIndex extends StatefulWidget {
-  const OverViewIndex({Key? key}) : super(key: key);
+// 控制器类，状态以及状态的修改在这里定义
+class OverviewController extends GetxController {
+  static OverviewController get instance => Get.find();
+
+  // 当前功率 装机容量
+  var power = '0.00';
+  var capacity = '0.00';
+  getPowerAndCapacity() async {
+    var res = await overviewApi.fetchPowerAndCapacity();
+
+    power = convertPower(res['data']['currentPower']);
+    capacity = convertPower(res['data']['capacity']);
+
+    update();
+  }
+
+  // 发电量
+  var energyDay = '0.00';
+  var energyMonth = '0.00';
+  var energyAll = '0.00';
+  getEnergySummary() async {
+    var res = await overviewApi.fetchEnergySummary();
+
+    energyDay = convertEnergy(res['data']['dayEnergy']);
+    energyMonth = convertEnergy(res['data']['monthEnergy']);
+    energyAll = convertEnergy(res['data']['totalEnergy']);
+
+    update();
+  }
+
+  // 状态数量
+  var onlineNum = '0';
+  var offlineNum = '0';
+  var faultNum = '0';
+  getInverterStatus() async {
+    var res = await overviewApi.fetchInverterStatus();
+
+    onlineNum = res['data']['online'].toString();
+    offlineNum = res['data']['offline'].toString();
+    faultNum = res['data']['fault'].toString();
+
+    update();
+  }
+
+  // 图表
+  List chartDataDay = <Map<String, dynamic>>[];
+  List chartDataMonth = <Map<String, dynamic>>[];
+  List chartDataYear = <Map<String, dynamic>>[];
+  void getStatisticsDay() async {
+    var res = await overviewApi.fetchStatisticsDay();
+    chartDataDay = [
+      for (var i = 0; i < res['data'].length; i++)
+        {
+          'x': i,
+          'y': res['data'][i]['energy'] == null ? 0 : double.parse(res['data'][i]['energy'].toStringAsFixed(2)),
+        }
+    ];
+    update();
+  }
+  void getStatisticsMonth() async {
+    var res = await overviewApi.fetchStatisticsMonth();
+    chartDataMonth = [
+      for (var i = 0; i < res['data'].length; i++)
+        {
+          'x': i,
+          'y': res['data'][i]['energy'] == null ? 0 : double.parse(res['data'][i]['energy'].toStringAsFixed(2)),
+        }
+    ];
+    update();
+  }
+  void getStatisticsYear() async {
+    var res = await overviewApi.fetchStatisticsYear();
+    chartDataYear = [
+      for (var i = 0; i < res['data'].length; i++)
+        {
+          'x': i,
+          'y': res['data'][i]['energy'] == null ? 0 : double.parse(res['data'][i]['energy'].toStringAsFixed(2)),
+        }
+    ];
+    update();
+  }
 
   @override
-  _IndexState createState() => _IndexState();
+  void onInit() {
+    getPowerAndCapacity();
+    getEnergySummary();
+    getInverterStatus();
+    getStatisticsDay();
+
+    super.onInit();
+  }
 }
 
-class _IndexState extends State<OverViewIndex> {
+class OverViewIndex extends StatefulWidget {
+  const OverViewIndex({super.key});
+
+  @override
+  State<OverViewIndex> createState() => _OverViewIndexState();
+}
+
+class _OverViewIndexState extends State<OverViewIndex> {
   Map<int, Widget> segments = {
-    0: Text(
-      '日',
-    ),
-    1: Text('周'),
-    2: Text('月')
+    0: Text(S.current.day),
+    1: Text(S.current.month),
+    2: Text(S.current.year),
   };
   int currentSegment = 0;
+
   //修改日
   void changeDay() {
     showModalBottomSheet(
@@ -63,7 +159,6 @@ class _IndexState extends State<OverViewIndex> {
       },
     );
   }
-
   //修改周
   void changeWeek() {
     showModalBottomSheet(
@@ -101,7 +196,6 @@ class _IndexState extends State<OverViewIndex> {
       },
     );
   }
-
   //修改月
   void changeMonth() {
     showModalBottomSheet(
@@ -147,48 +241,50 @@ class _IndexState extends State<OverViewIndex> {
     String formattedDateMonth = "${now.year}.${now.month}";
     //周
     DateTime startOfWeek = now.subtract(Duration(days: now.weekday));
-    DateTime endOfWeek =
-        now.add(Duration(days: DateTime.daysPerWeek - now.weekday - 1));
-    String formattedDateSWeek =
-        "${startOfWeek.year}.${startOfWeek.month}.${startOfWeek.day}";
-    String formattedDateEWeek =
-        "${endOfWeek.year}.${endOfWeek.month}.${endOfWeek.day}";
+    DateTime endOfWeek = now.add(Duration(days: DateTime.daysPerWeek - now.weekday - 1));
+    String formattedDateSWeek = "${startOfWeek.year}.${startOfWeek.month}.${startOfWeek.day}";
+    String formattedDateEWeek = "${endOfWeek.year}.${endOfWeek.month}.${endOfWeek.day}";
+
     return GuidedOverlay(
+      showOverlay: false, // 是否展示新手引导蒙版
       child: Scaffold(
-          body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: [0, 0.83],
-                colors: [
-                  const Color(0xFFD6DDFF),
-                  Color(0xFFFFFFFF),
-                ],
+        body: Stack(
+          children: [
+            // 渐变色背景
+            Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  stops: [0, 0.83],
+                  colors: [
+                    Color(0xFFD6DDFF),
+                    Color(0xFFFFFFFF),
+                  ],
+                ),
               ),
             ),
-          ),
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).padding.top,
-                      left: 13.0,
-                      right: 13.0),
-                  child: Column(
+            Padding(
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top,
+                left: 13.0,
+                right: 13.0,
+              ),
+              child: SingleChildScrollView(
+                child: GetBuilder<OverviewController>(
+                  init: OverviewController(),
+                  builder: (_) => Column(
                     children: [
+                      // 添加按钮
                       Align(
                         alignment: Alignment.centerRight,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () async {},
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
                             minimumSize: Size(80, 40),
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Icon(
@@ -199,700 +295,568 @@ class _IndexState extends State<OverViewIndex> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(top: 24.0, left: 32.0, right: 32.0),
-                        child: Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween, // 两边对齐
-                          children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Column(
-                                children: [
-                                  //当前功率
-                                  Row(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(right: 8.0),
-                                        child: SvgPicture.asset(
-                                          'assets/ic_current_power.svg',
-                                          width: 30,
-                                          height: 30,
-                                        ),
-                                      ),
-                                      Column(
-                                        children: [
-                                          Container(
-                                              width: 100,
-                                              child: Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                  '当前功率',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .displayMedium
-                                                      ?.copyWith(
-                                                          color: Color(
-                                                              0xFF939393)),
-                                                ),
-                                              )),
-                                          Container(
-                                              width: 100,
-                                              child: Align(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .baseline,
-                                                    textBaseline:
-                                                        TextBaseline.alphabetic,
-                                                    children: [
-                                                      Baseline(
-                                                        baselineType:
-                                                            TextBaseline
-                                                                .alphabetic,
-                                                        baseline: 0.0,
-                                                        child: Text(
-                                                          '0.00',
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .displaySmall
-                                                                  ?.copyWith(
-                                                                      fontSize:
-                                                                          24.0),
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        'kW',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .headlineMedium,
-                                                      ),
-                                                    ],
-                                                  ))),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  //装机容量
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 30.0),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(right: 8.0),
-                                          child: SvgPicture.asset(
-                                            'assets/ic_capacity.svg',
-                                            width: 30,
-                                            height: 18.09,
-                                          ),
-                                        ),
-                                        Column(
-                                          children: [
-                                            Container(
-                                                width: 100,
-                                                child: Align(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: Text(
-                                                    '装机容量',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .displayMedium
-                                                        ?.copyWith(
-                                                            color: Color(
-                                                                0xFF939393)),
-                                                  ),
-                                                )),
-                                            Container(
-                                                width: 100,
-                                                child: Align(
-                                                    alignment:
-                                                        Alignment.centerLeft,
-                                                    child: Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .baseline,
-                                                      textBaseline: TextBaseline
-                                                          .alphabetic,
-                                                      children: [
-                                                        Baseline(
-                                                          baselineType:
-                                                              TextBaseline
-                                                                  .alphabetic,
-                                                          baseline: 0.0,
-                                                          child: Text(
-                                                            '0.00',
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .displaySmall
-                                                                ?.copyWith(
-                                                                    fontSize:
-                                                                        24.0),
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          'kW',
-                                                          style: Theme.of(
-                                                                  context)
-                                                              .textTheme
-                                                              .headlineMedium,
-                                                        ),
-                                                      ],
-                                                    ))),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              child: Image.asset(
-                                'assets/ic_photovoltaic_panels.png',
-                                width: 160,
-                                height: 114.02,
-                              ),
-                            )
-                          ],
-                        ),
+                      PowerSection(power: _.power, capacity: _.capacity),
+                      EnergySection(
+                        energyDay: _.energyDay,
+                        energyMonth: _.energyMonth,
+                        energyAll: _.energyAll,
                       ),
-                      //日、月、累计发电
-                      Padding(
-                        padding: EdgeInsets.only(top: 40.0, left: 20),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                height: 60,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Text(
-                                          '当日发电量',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displaySmall
-                                              ?.copyWith(
-                                                  color: Color(0xFF939393),
-                                                  fontSize: 13.0),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(top: 6.0),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.baseline,
-                                            textBaseline:
-                                                TextBaseline.alphabetic,
-                                            children: [
-                                              Baseline(
-                                                baselineType:
-                                                    TextBaseline.alphabetic,
-                                                baseline: 0.0,
-                                                child: Text(
-                                                  '0.00',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .displaySmall
-                                                      ?.copyWith(
-                                                          fontSize: 18.0),
-                                                ),
-                                              ),
-                                              Text(
-                                                'kW',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .displaySmall
-                                                    ?.copyWith(fontSize: 15.0),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                height: 50,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(right: 10.0),
-                                          child: Container(
-                                            width: 1,
-                                            height: 50,
-                                            child: CustomPaint(
-                                              painter: DashedLinePainter(),
-                                            ),
-                                          ),
-                                        ),
-                                        Column(
-                                          children: [
-                                            Text(
-                                              '当月发电量',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displaySmall
-                                                  ?.copyWith(
-                                                      color: Color(0xFF939393),
-                                                      fontSize: 13.0),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  EdgeInsets.only(top: 6.0),
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.baseline,
-                                                textBaseline:
-                                                    TextBaseline.alphabetic,
-                                                children: [
-                                                  Baseline(
-                                                    baselineType:
-                                                        TextBaseline.alphabetic,
-                                                    baseline: 0.0,
-                                                    child: Text(
-                                                      '0.00',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .displaySmall
-                                                          ?.copyWith(
-                                                              fontSize: 18.0),
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'kW',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .displaySmall
-                                                        ?.copyWith(
-                                                            fontSize: 15.0),
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                margin: EdgeInsets.only(left: 5.0, right: 5.0),
-                                height: 50,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(right: 10.0),
-                                          child: Container(
-                                            width: 1,
-                                            height: 50,
-                                            child: CustomPaint(
-                                              painter: DashedLinePainter(),
-                                            ),
-                                          ),
-                                        ),
-                                        Column(
-                                          children: [
-                                            Text(
-                                              '累计发电量',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displaySmall
-                                                  ?.copyWith(
-                                                      color: Color(0xFF939393),
-                                                      fontSize: 13.0),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  EdgeInsets.only(top: 6.0),
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.baseline,
-                                                textBaseline:
-                                                    TextBaseline.alphabetic,
-                                                children: [
-                                                  Baseline(
-                                                    baselineType:
-                                                        TextBaseline.alphabetic,
-                                                    baseline: 0.0,
-                                                    child: Text(
-                                                      '0.00',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .displaySmall
-                                                          ?.copyWith(
-                                                              fontSize: 18.0),
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'kWh',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .displaySmall
-                                                        ?.copyWith(
-                                                            fontSize: 15.0),
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                      StatusSection(
+                        onlineNum: _.onlineNum,
+                        offlineNum: _.offlineNum,
+                        abnormalNum: _.faultNum,
                       ),
-                      //在线、离线、故障数
+                      // 发电量统计
                       Padding(
-                        padding: EdgeInsets.only(top: 21.0),
+                        padding: const EdgeInsets.only(top: 19.0, bottom: 19.0),
                         child: Container(
-                          height: 140,
+                          padding: const EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                right: 25.0,
-                                left: 25.0,
-                                top: 22.0,
-                                bottom: 22.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  children: [
-                                    Expanded(
-                                        child: Column(
-                                      children: [
-                                        SvgPicture.asset(
-                                            'assets/ic_device_online.svg',
-                                            width: 20,
-                                            height: 20),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                              top: 6.0, bottom: 15),
-                                          child: Text(
-                                            '在线设备',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displaySmall
-                                                ?.copyWith(
-                                                    fontSize: 14.0,
-                                                    color: Color(0xFF939393)),
-                                          ),
-                                        ),
-                                        Text(
-                                          '20',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displaySmall
-                                              ?.copyWith(fontSize: 20.0),
-                                        )
-                                      ],
-                                    )),
-                                  ],
-                                ),
-                                Container(
-                                  width: 1,
-                                  height: 60,
-                                  child: CustomPaint(
-                                    painter: DashedLinePainter(),
+                          child: Column(
+                            children: [
+                              // 标题
+                              Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    'assets/ic_energy_static.svg',
+                                    width: 18.0,
+                                    height: 18.0,
                                   ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 6.0),
+                                    child: Text(
+                                      S.of(context).power_generation_statistics,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              // 日期选择
+                              Padding(
+                                padding: const EdgeInsets.only(top: 24.0),
+                                child: LayoutBuilder(
+                                  builder: (BuildContext context,
+                                      BoxConstraints constraints) {
+                                    double segmentedButtonWidth =
+                                        constraints.maxWidth * 0.9;
+                                    return SizedBox(
+                                      width: segmentedButtonWidth,
+                                      height: 50,
+                                      child: Transform.scale(
+                                        scale: 1.2,
+                                        child: CupertinoSegmentedControl(
+                                          children: segments,
+                                          onValueChanged: (value) {
+                                            setState(() {
+                                              currentSegment = value;
+                                            });
+                                          },
+                                          groupValue: currentSegment,
+                                          unselectedColor:
+                                              const Color(0xFFF5F7FF),
+                                          selectedColor:
+                                              const Color(0xFF5475F7),
+                                          borderColor: Colors.transparent,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
-                                Column(
+                              ),
+                              // 日
+                              Visibility(
+                                visible: currentSegment == 0,
+                                child: Column(
                                   children: [
-                                    Expanded(
-                                        child: Column(
-                                      children: [
-                                        SvgPicture.asset(
-                                            'assets/ic_device_offline.svg',
-                                            width: 20,
-                                            height: 20),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                              top: 6.0, bottom: 15),
-                                          child: Text(
-                                            '离线',
+                                    // 日期选择
+                                    InkWell(
+                                      onTap: changeDay,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            formattedDateDay,
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .displaySmall
+                                                .displayLarge
                                                 ?.copyWith(
-                                                    fontSize: 14.0,
-                                                    color: Color(0xFF939393)),
+                                                  color:
+                                                      const Color(0xFF939393),
+                                                ),
                                           ),
-                                        ),
-                                        Text(
-                                          '5',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displaySmall
-                                              ?.copyWith(fontSize: 20.0),
-                                        )
-                                      ],
-                                    )),
+                                          const Icon(
+                                            Icons.expand_more,
+                                            size: 24,
+                                            color: Color(0xFF939393),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    ByBarChart(data: _.chartDataDay),
                                   ],
                                 ),
-                                Container(
-                                  width: 1,
-                                  height: 60,
-                                  child: CustomPaint(
-                                    painter: DashedLinePainter(),
-                                  ),
-                                ),
-                                Column(
+                              ),
+                              // 月
+                              Visibility(
+                                visible: currentSegment == 1,
+                                child: Column(
                                   children: [
-                                    Expanded(
-                                        child: Column(
-                                      children: [
-                                        SvgPicture.asset(
-                                            'assets/ic_device_fault.svg',
-                                            width: 20,
-                                            height: 20),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                              top: 6.0, bottom: 15),
-                                          child: Text(
-                                            '异常设备',
+                                    InkWell(
+                                      onTap: changeWeek,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            formattedDateSWeek,
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .displaySmall
+                                                .displayLarge
                                                 ?.copyWith(
-                                                    fontSize: 14.0,
-                                                    color: Color(0xFF939393)),
+                                                color: Color(0xFF939393)),
                                           ),
-                                        ),
-                                        Text(
-                                          '2',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displaySmall
-                                              ?.copyWith(fontSize: 20.0),
-                                        )
-                                      ],
-                                    )),
+                                          Icon(
+                                            Icons.expand_more,
+                                            size: 24,
+                                            color: Color(0xFF939393),
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(
+                                                left: 3.0, right: 8.0),
+                                            color: Color(0xFF939393),
+                                            // 背景色
+                                            child: SizedBox(
+                                              width: 20,
+                                              height: 1.6,
+                                            ),
+                                          ),
+                                          Text(
+                                            formattedDateEWeek,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displayLarge
+                                                ?.copyWith(
+                                                color: Color(0xFF939393)),
+                                          ),
+                                          Icon(
+                                            Icons.expand_more,
+                                            size: 24,
+                                            color: Color(0xFF939393),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    ByBarChart(data: _.chartDataMonth),
                                   ],
                                 ),
-                              ],
-                            ),
+                              ),
+                              // 年
+                              Visibility(
+                                visible: currentSegment == 2,
+                                child: Column(
+                                  children: [
+                                    InkWell(
+                                      onTap: changeMonth,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            formattedDateMonth,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displayLarge
+                                                ?.copyWith(
+                                                    color: Color(0xFF939393)),
+                                          ),
+                                          Icon(
+                                            Icons.expand_more,
+                                            size: 24,
+                                            color: Color(0xFF939393),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    ByBarChart(data: _.chartDataYear),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      //发电量统计
-                      Padding(
-                        padding: EdgeInsets.only(top: 19.0, bottom: 19.0),
-                        child: Container(
-                            height: 853,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      SvgPicture.asset(
-                                        'assets/ic_energy_static.svg',
-                                        width: 18.0,
-                                        height: 18.0,
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(left: 6.0),
-                                        child: Text(
-                                          '发电量统计',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Padding(
-                                      padding: EdgeInsets.only(top: 24.0),
-                                      child: LayoutBuilder(
-                                        builder: (BuildContext context,
-                                            BoxConstraints constraints) {
-                                          double segmentedButtonWidth =
-                                              constraints.maxWidth * 0.9;
-                                          return Container(
-                                              width: segmentedButtonWidth,
-                                              height: 50,
-                                              child: Transform.scale(
-                                                scale: 1.2,
-                                                child:
-                                                    CupertinoSegmentedControl(
-                                                  children: segments,
-                                                  onValueChanged: (value) {
-                                                    setState(() {
-                                                      currentSegment = value;
-                                                      print(currentSegment);
-                                                    });
-                                                  },
-                                                  groupValue: currentSegment,
-                                                  unselectedColor:
-                                                      Color(0xFFF5F7FF),
-                                                  selectedColor:
-                                                      Color(0xFF5475F7),
-                                                  borderColor:
-                                                      Colors.transparent,
-                                                ),
-                                              ));
-                                        },
-                                      )),
-                                  Visibility(
-                                    visible: currentSegment == 0,
-                                    child: Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 16.0, bottom: 10.0),
-                                        child: InkWell(
-                                          onTap: changeDay,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                formattedDateDay,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .displayLarge
-                                                    ?.copyWith(
-                                                        color:
-                                                            Color(0xFF939393)),
-                                              ),
-                                              Icon(
-                                                Icons.expand_more,
-                                                size: 24,
-                                                color: Color(0xFF939393),
-                                              ),
-                                            ],
-                                          ),
-                                        )),
-                                  ),
-                                  Visibility(
-                                    visible: currentSegment == 1,
-                                    child: Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 16.0, bottom: 10.0),
-                                        child: InkWell(
-                                          onTap: changeWeek,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                formattedDateSWeek,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .displayLarge
-                                                    ?.copyWith(
-                                                        color:
-                                                            Color(0xFF939393)),
-                                              ),
-                                              Icon(
-                                                Icons.expand_more,
-                                                size: 24,
-                                                color: Color(0xFF939393),
-                                              ),
-                                              Container(
-                                                margin: EdgeInsets.only(
-                                                    left: 3.0, right: 8.0),
-                                                color: Color(0xFF939393), // 背景色
-                                                child: SizedBox(
-                                                  width: 20,
-                                                  height: 1.6,
-                                                ),
-                                              ),
-                                              Text(
-                                                formattedDateEWeek,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .displayLarge
-                                                    ?.copyWith(
-                                                        color:
-                                                            Color(0xFF939393)),
-                                              ),
-                                              Icon(
-                                                Icons.expand_more,
-                                                size: 24,
-                                                color: Color(0xFF939393),
-                                              ),
-                                            ],
-                                          ),
-                                        )),
-                                  ),
-                                  Visibility(
-                                    visible: currentSegment == 2,
-                                    child: Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 16.0, bottom: 10.0),
-                                        child: InkWell(
-                                          onTap: changeMonth,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                formattedDateMonth,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .displayLarge
-                                                    ?.copyWith(
-                                                        color:
-                                                            Color(0xFF939393)),
-                                              ),
-                                              Icon(
-                                                Icons.expand_more,
-                                                size: 24,
-                                                color: Color(0xFF939393),
-                                              ),
-                                            ],
-                                          ),
-                                        )),
-                                  ),
-                                ],
-                              ),
-                            )),
-                      ),
                     ],
                   ),
-                )
-              ],
+                ),
+              ),
             ),
-          )
-        ],
-      )),
-      showOverlay: false, // 是否展示新手引导蒙版
+          ],
+        ),
+      ),
     );
   }
 }
+
+// 当前功率 装机容量
+class PowerSection extends StatelessWidget {
+  const PowerSection({
+    super.key,
+    required this.power,
+    required this.capacity,
+  });
+
+  final String power;
+  final String capacity;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 24.0, left: 12, right: 12),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          // 当前功率、装机容量
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //当前功率
+              Row(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(right: 8.0),
+                    child: SvgPicture.asset(
+                      'assets/ic_current_power.svg',
+                      width: 30,
+                      height: 30,
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        S.of(context).current_power,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(
+                          color: Color(0xFF939393),
+                        ),
+                      ),
+                      Text(
+                        power,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall
+                            ?.copyWith(
+                            fontSize: 24.0),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30,),
+              //装机容量
+              Row(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(right: 8.0),
+                    child: SvgPicture.asset(
+                      'assets/ic_capacity.svg',
+                      width: 30,
+                      height: 18.09,
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        S.of(context).installed_capacity,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(
+                            color: Color(
+                                0xFF939393)),
+                      ),
+                      Text(
+                        capacity,
+                        style: Theme.of(
+                            context)
+                            .textTheme
+                            .displaySmall
+                            ?.copyWith(
+                            fontSize:
+                            24.0),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+          // 图片
+          Expanded(
+            child: Image.asset(
+              'assets/ic_photovoltaic_panels.png',
+              width: 160,
+              height: 114.02,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// 发电量
+class EnergySection extends StatelessWidget {
+  const EnergySection({
+    super.key,
+    required this.energyDay,
+    required this.energyMonth,
+    required this.energyAll,
+  });
+
+  final String energyDay;
+  final String energyMonth;
+  final String energyAll;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 40.0,),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                S.of(context).current_power_generation,
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(
+                    color: const Color(0xFF939393),
+                    fontSize: 13.0),
+              ),
+              const SizedBox(height: 6,),
+              Text(
+                energyDay,
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(
+                    fontSize: 18.0),
+              ),
+            ],
+          ),
+          const DashLine(height: 50,),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                S.of(context).power_generation_for_the_current_month,
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(
+                    color:
+                    Color(0xFF939393),
+                    fontSize: 13.0),
+              ),
+              const SizedBox(height: 6,),
+              Text(
+                energyMonth,
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(
+                    fontSize: 18.0),
+              ),
+            ],
+          ),
+          const DashLine(height: 50,),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                S.of(context).cumulative_power_generation,
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(
+                    color:
+                    Color(0xFF939393),
+                    fontSize: 13.0),
+              ),
+              const SizedBox(height: 6,),
+              Text(
+                '$energyAll',
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(
+                    fontSize: 18.0),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// 在线、离线、故障数
+class StatusSection extends StatelessWidget {
+  const StatusSection({
+    super.key,
+    required this.onlineNum,
+    required this.offlineNum,
+    required this.abnormalNum,
+  });
+
+  final String onlineNum;
+  final String offlineNum;
+  final String abnormalNum;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 21.0),
+      child: Container(
+        height: 140,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                    'assets/ic_device_online.svg',
+                    width: 20,
+                    height: 20),
+                Container(
+                  margin: EdgeInsets.only(
+                      top: 6.0, bottom: 15),
+                  child: Text(
+                    S.of(context).online_equipment,
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(
+                        fontSize: 14.0,
+                        color: Color(0xFF939393)),
+                  ),
+                ),
+                Text(
+                  onlineNum,
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.copyWith(fontSize: 20.0),
+                )
+              ],
+            ),
+            const DashLine(height: 60,),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                    'assets/ic_device_offline.svg',
+                    width: 20,
+                    height: 20),
+                Container(
+                  margin: EdgeInsets.only(
+                      top: 6.0, bottom: 15),
+                  child: Text(
+                    S.of(context).offline_equipment,
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(
+                        fontSize: 14.0,
+                        color: Color(0xFF939393)),
+                  ),
+                ),
+                Text(
+                  offlineNum,
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.copyWith(fontSize: 20.0),
+                )
+              ],
+            ),
+            const DashLine(height: 60,),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                    'assets/ic_device_fault.svg',
+                    width: 20,
+                    height: 20),
+                Container(
+                  margin: EdgeInsets.only(
+                      top: 6.0, bottom: 15),
+                  child: Text(
+                    S.of(context).abnormal_equipment,
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(
+                        fontSize: 14.0,
+                        color: Color(0xFF939393)),
+                  ),
+                ),
+                Text(
+                  abnormalNum,
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.copyWith(fontSize: 20.0),
+                )
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// 虚线
+class DashLine extends StatelessWidget {
+  const DashLine({
+    super.key,
+    required this.height,
+  });
+
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 1,
+      height: height,
+      child: CustomPaint(
+        painter: DashedLinePainter(),
+      ),
+    );
+  }
+}
+
+
+
+

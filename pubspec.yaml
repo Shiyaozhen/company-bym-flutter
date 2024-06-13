@@ -29,7 +29,8 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
-  
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
 
   # The following adds the Cupertino Icons font to your application.
@@ -41,16 +42,14 @@ dependencies:
   permission_handler: ^11.3.1
   fluttertoast: ^8.2.5
   hex: ^0.2.0
-  flutter_localizations:
-    sdk: flutter
   easy_localization: ^3.0.5
   font_awesome_flutter: ^10.7.0
-  intl: ^0.19.0
+  intl: ^0.18.1
   dio: ^5.4.3+1
   common_utils: ^2.1.0
   flutter_easyloading: ^3.0.5
   shared_preferences: ^2.0.7
-  fl_chart: ^0.67.0
+  fl_chart: ^0.68.0
   crypto: ^3.0.3
   flutter_svg: ^2.0.10+1
   image_picker: ^1.1.1
@@ -83,48 +82,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/image/mine/bindAgent/
-    - assets/ic_mine.svg
-    - assets/ic_overview.svg
-    - assets/ic_station.svg
-    - assets/ic_fail.svg
-    - assets/ic_logo.png
-    - assets/ic_success.svg
-    - assets/ic_current_power.svg
-    - assets/ic_capacity.svg 
-    - assets/ic_photovoltaic_panels.png
-    - assets/ic_device_online.svg
-    - assets/ic_device_offline.svg
-    - assets/ic_device_fault.svg
-    - assets/ic_energy_static.svg
-    - assets/ic_plant_more.svg
-    - assets/ic_plant_add.svg
-    - assets/ic_plant_avatar.png
-    - assets/ic_plant_nocircle_more.svg
-    - assets/ic_plant_list.svg
-    - assets/ic_plant_setting.svg
-    - assets/ic_plant_detail.svg
-    - assets/ic_plant_gif.png 
-    - assets/ic_plant_energy_month.svg
-    - assets/ic_plant_energy_day.svg
-    - assets/ic_plant_energy_total.svg
-    - assets/ic_scan_wifi_tip.png 
-    - assets/ic_scan_emu_tip.png 
-    - assets/ic_scan_mi_tip.png 
-    - assets/ic_scan_gif.gif 
-    - assets/ic_signle_mi.png
-    - assets/ic_emu.png
-    - assets/ic_wifi_mi.png
-    - assets/ic_device_delete.png
-    - assets/ic_mi_offline_bg.png
-    - assets/ic_mi_online_bg.png
-    - assets/ic_mi_fault_bg.png
-    - assets/ic_mi_fault_gray_bg.png
-    - assets/ic_miw_connect.png
-    - assets/ic_mi_one.png
-    - assets/ic_mi_two.png
-    - assets/ic_mi_four.png
-    - assets/ic_mi_nine.png
-    - assets/ic_connect.png
+    - assets/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

@@ -55,7 +55,7 @@ List<GetPage<dynamic>> pages = [
       transition: Transition.rightToLeftWithFade),
   GetPage(
       name: '/Login',
-      page: () => Login(),
+      page: () => LoginPage(),
       transition: Transition.rightToLeftWithFade),
   GetPage(
       name: '/SignUp',
@@ -67,7 +67,7 @@ List<GetPage<dynamic>> pages = [
       transition: Transition.rightToLeftWithFade),
   GetPage(
       name: '/Plant',
-      page: () => PlantIndex(),
+      page: () => const PlantListPage(),
       transition: Transition.rightToLeftWithFade),
   GetPage(
       name: '/ChangeInfo',
@@ -132,7 +132,7 @@ List<GetPage<dynamic>> pages = [
     page: () => MIList(arguments: {}),
     transition: Transition.rightToLeftWithFade,
   ),
-    GetPage(
+  GetPage(
     name: '/MIDetail',
     page: () => MIDetail(arguments: {}),
     transition: Transition.rightToLeftWithFade,
@@ -154,7 +154,9 @@ List<GetPage<dynamic>> pages = [
   ),
   GetPage(
     name: '/Setting',
-    page: () => Setting(arguments: {},),
+    page: () => Setting(
+      arguments: {},
+    ),
     transition: Transition.rightToLeftWithFade,
   ),
   //扫码测试

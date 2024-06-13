@@ -8,7 +8,8 @@ class ByDialog extends StatelessWidget {
   final VoidCallback onCancelPressed;
   final VoidCallback onConfirmPressed;
 
-  ByDialog({
+  const ByDialog({
+    super.key,
     required this.titleText,
     required this.contentText,
     required this.cancelText,
@@ -57,3 +58,4 @@ class ByDialog extends StatelessWidget {
     );
   }
 }
+

@@ -22,7 +22,28 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "age": MessageLookupByLibrary.simpleMessage("Age"),
-        "name": MessageLookupByLibrary.simpleMessage("Name")
+        "abnormal_equipment": MessageLookupByLibrary.simpleMessage(""),
+        "cumulative_power_generation": MessageLookupByLibrary.simpleMessage(""),
+        "current_power": MessageLookupByLibrary.simpleMessage(""),
+        "current_power_generation": MessageLookupByLibrary.simpleMessage(""),
+        "day": MessageLookupByLibrary.simpleMessage(""),
+        "email": MessageLookupByLibrary.simpleMessage(""),
+        "email_hint": MessageLookupByLibrary.simpleMessage(""),
+        "experience_power_station": MessageLookupByLibrary.simpleMessage(""),
+        "forget_password": MessageLookupByLibrary.simpleMessage(""),
+        "installed_capacity": MessageLookupByLibrary.simpleMessage(""),
+        "login": MessageLookupByLibrary.simpleMessage(""),
+        "month": MessageLookupByLibrary.simpleMessage(""),
+        "offline_equipment": MessageLookupByLibrary.simpleMessage(""),
+        "online_equipment": MessageLookupByLibrary.simpleMessage(""),
+        "password": MessageLookupByLibrary.simpleMessage(""),
+        "password_hint": MessageLookupByLibrary.simpleMessage(""),
+        "power_generation_for_the_current_month":
+            MessageLookupByLibrary.simpleMessage(""),
+        "power_generation_statistics": MessageLookupByLibrary.simpleMessage(""),
+        "privacy": MessageLookupByLibrary.simpleMessage(""),
+        "read_and_agree": MessageLookupByLibrary.simpleMessage(""),
+        "register": MessageLookupByLibrary.simpleMessage(""),
+        "year": MessageLookupByLibrary.simpleMessage("")
       };
 }

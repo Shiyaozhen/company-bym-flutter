@@ -13,11 +13,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // 获取列表
-  login() async {
-    // var res = await userApi.login('admin', '123456'); // 替换为实际的用户名和密码
-  }
-
   int selectedIndex = 0;
 
   @override
@@ -30,18 +25,20 @@ class _HomePageState extends State<HomePage> {
               index: selectedIndex,
               children: const [
                 OverViewIndex(),
-                PlantIndex(),
+                // PlantIndex(),
+                PlantListPage(),
                 Mine(arguments: {},),
-                // const BluetoothPage()
               ],
             ),
           ),
           CustomBottomNavigationBar(
             selectedIndex: selectedIndex,
             onTabSelected: (index) {
-              setState(() {
-                selectedIndex = index;
-              });
+              setState(
+                () {
+                  selectedIndex = index;
+                },
+              );
             },
           ),
         ],

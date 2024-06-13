@@ -4,7 +4,7 @@ class GuidedOverlay extends StatelessWidget {
   final Widget child;
   final bool showOverlay;
 
-  GuidedOverlay({required this.child, required this.showOverlay});
+  const GuidedOverlay({super.key, required this.child, required this.showOverlay});
 
   @override
   Widget build(BuildContext context) {

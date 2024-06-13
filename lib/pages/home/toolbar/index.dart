@@ -6,7 +6,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
   final Function(int index) onTabSelected;
 
   const CustomBottomNavigationBar({
-    Key? key,
+    super.key,
     required this.selectedIndex,
     required this.onTabSelected,
   });
@@ -26,38 +26,38 @@ class CustomBottomNavigationBar extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           icon: Padding(
+            padding: EdgeInsets.only(top: 10.0),
+            child: SvgPicture.asset('assets/ic_station.svg',
+                width: 28,
+                height: 28,
+                // ignore: deprecated_member_use
+                color:
+                    selectedIndex == 0 ? Color(0xFF5475F7) : Color(0xFFCAD2E5)),
+          ),
+          label: '',
+        ),
+        BottomNavigationBarItem(
+          icon: Padding(
               padding: EdgeInsets.only(top: 10.0),
               child: SvgPicture.asset('assets/ic_overview.svg',
-                  width: 28,
-                  height: 28,
-                  color: selectedIndex == 0
-                      ? Color(0xFF5475F7)
-                      : Color(0xFFCAD2E5))
-                      ),
+                width: 28,
+                height: 28,
+                color: selectedIndex == 1
+                    ? Color(0xFF5475F7)
+                    : Color(0xFFCAD2E5),)
+          ),
           label: '',
         ),
         BottomNavigationBarItem(
           icon: Padding(
-              padding: EdgeInsets.only(top: 10.0),
-              child: SvgPicture.asset('assets/ic_station.svg',
-                  width: 28,
-                  height: 28,
-                  // ignore: deprecated_member_use
-                  color: selectedIndex == 1
-                      ? Color(0xFF5475F7)
-                      : Color(0xFFCAD2E5))),
-          label: '',
-        ),
-        BottomNavigationBarItem(
-          icon: Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: SvgPicture.asset('assets/ic_mine.svg',
-                  width: 28,
-                  height: 28,
-                  // ignore: deprecated_member_use
-                  color: selectedIndex == 2
-                      ? Color(0xFF5475F7)
-                      : Color(0xFFCAD2E5))),
+            padding: const EdgeInsets.only(top: 10.0),
+            child: SvgPicture.asset('assets/ic_mine.svg',
+                width: 28,
+                height: 28,
+                // ignore: deprecated_member_use
+                color:
+                    selectedIndex == 2 ? Color(0xFF5475F7) : Color(0xFFCAD2E5)),
+          ),
           label: '',
         ),
       ],

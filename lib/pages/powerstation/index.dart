@@ -8,13 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PowerStationIndex extends StatefulWidget {
-  const PowerStationIndex({Key? key}) : super(key: key);
+  const PowerStationIndex({super.key});
 
   @override
-  _IndexState createState() => _IndexState();
+  State<PowerStationIndex> createState() => _PowerStationIndexState();
 }
 
-class _IndexState extends State<PowerStationIndex> {
+class _PowerStationIndexState extends State<PowerStationIndex> {
   int selectedIndex = 0;
   bool shouldHideElements = false;
 

@@ -50,21 +50,221 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Name`
-  String get name {
+  /// ``
+  String get email {
     return Intl.message(
-      'Name',
-      name: 'name',
+      '',
+      name: 'email',
       desc: '',
       args: [],
     );
   }
 
-  /// `Age`
-  String get age {
+  /// ``
+  String get email_hint {
     return Intl.message(
-      'Age',
-      name: 'age',
+      '',
+      name: 'email_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get password {
+    return Intl.message(
+      '',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get password_hint {
+    return Intl.message(
+      '',
+      name: 'password_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get register {
+    return Intl.message(
+      '',
+      name: 'register',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get forget_password {
+    return Intl.message(
+      '',
+      name: 'forget_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get read_and_agree {
+    return Intl.message(
+      '',
+      name: 'read_and_agree',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get privacy {
+    return Intl.message(
+      '',
+      name: 'privacy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get login {
+    return Intl.message(
+      '',
+      name: 'login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get experience_power_station {
+    return Intl.message(
+      '',
+      name: 'experience_power_station',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get current_power {
+    return Intl.message(
+      '',
+      name: 'current_power',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get installed_capacity {
+    return Intl.message(
+      '',
+      name: 'installed_capacity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get current_power_generation {
+    return Intl.message(
+      '',
+      name: 'current_power_generation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get power_generation_for_the_current_month {
+    return Intl.message(
+      '',
+      name: 'power_generation_for_the_current_month',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get cumulative_power_generation {
+    return Intl.message(
+      '',
+      name: 'cumulative_power_generation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get online_equipment {
+    return Intl.message(
+      '',
+      name: 'online_equipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get offline_equipment {
+    return Intl.message(
+      '',
+      name: 'offline_equipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get abnormal_equipment {
+    return Intl.message(
+      '',
+      name: 'abnormal_equipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get power_generation_statistics {
+    return Intl.message(
+      '',
+      name: 'power_generation_statistics',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get day {
+    return Intl.message(
+      '',
+      name: 'day',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get month {
+    return Intl.message(
+      '',
+      name: 'month',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get year {
+    return Intl.message(
+      '',
+      name: 'year',
       desc: '',
       args: [],
     );

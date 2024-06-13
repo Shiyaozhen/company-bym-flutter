@@ -1,4 +1,25 @@
 {
-    "name":"姓名",
-    "age":"年龄"
+    "email": "邮箱",
+    "email_hint": "请输入您的邮箱",
+    "password": "密码",
+    "password_hint": "请输入您的密码",
+    "register": "立即注册",
+    "forget_password": "忘记密码",
+    "read_and_agree": "我已阅读并且同意",
+    "privacy": "隐私协议",
+    "login": "登录",
+    "experience_power_station": "体验电站",
+
+    "current_power": "当前功率",
+    "installed_capacity": "装机容量",
+    "current_power_generation": "当前发电量",
+    "power_generation_for_the_current_month": "当月发电量",
+    "cumulative_power_generation": "累计发电量",
+    "online_equipment": "在线设备",
+    "offline_equipment": "离线设备",
+    "abnormal_equipment": "异常设备",
+    "power_generation_statistics": "发电量统计",
+    "day": "日",
+    "month": "月",
+    "year": "年"
 }

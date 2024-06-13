@@ -1,4 +1,25 @@
 {
-  "name":"Name",
-  "age":"Age"
+  "email": "",
+  "email_hint": "",
+  "password": "",
+  "password_hint": "",
+  "register": "",
+  "forget_password": "",
+  "read_and_agree": "",
+  "privacy": "",
+  "login": "",
+  "experience_power_station": "",
+
+  "current_power": "",
+  "installed_capacity": "",
+  "current_power_generation": "",
+  "power_generation_for_the_current_month": "",
+  "cumulative_power_generation": "",
+  "online_equipment": "",
+  "offline_equipment": "",
+  "abnormal_equipment": "",
+  "power_generation_statistics": "",
+  "day": "",
+  "month": "",
+  "year": ""
 }
