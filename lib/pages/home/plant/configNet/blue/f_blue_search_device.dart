@@ -316,6 +316,6 @@ class _FBlueSearchDeviceState extends State<FBlueSearchDevice> {
   }
 
   bool isMI(String deviceName) {
-    return deviceName.startsWith('MI-W') || deviceName.startsWith('MI');
+    return deviceName.startsWith('MI') ;
   }
 }
