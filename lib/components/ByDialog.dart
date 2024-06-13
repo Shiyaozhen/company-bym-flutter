@@ -58,4 +58,3 @@ class ByDialog extends StatelessWidget {
     );
   }
 }
-
