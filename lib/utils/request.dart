@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:BYM/utils/storage.dart';
-import 'dart:convert';
  
 /// 请求方法:枚举类型
 enum DioMethod {

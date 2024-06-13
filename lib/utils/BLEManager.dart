@@ -1,19 +1,12 @@
 
 import 'dart:async';
-// import 'dart:ffi';
-import 'dart:math';
-import 'dart:ui';
-import 'package:flutter/material.dart';
-import 'package:flutter/physics.dart';
 import 'package:BYM/utils/ERApp.dart';
-// import 'package:BYM/utils/BYDBHealper.dart';
 import 'package:BYM/utils/BYLog.dart';
 import 'package:BYM/utils/Device.dart';
 import 'package:BYM/utils/ERChargerData.dart';
 import 'package:BYM/utils/by_cmd_util.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'dart:convert';
-import 'package:get/get.dart';
 
 
 enum ConnectType { ble, udp, tcp,none }

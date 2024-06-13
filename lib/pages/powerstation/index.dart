@@ -1,5 +1,3 @@
-import 'package:BYM/pages/home/mine/index.dart';
-import 'package:BYM/pages/home/plant/index.dart';
 import 'package:BYM/pages/powerstation/detail/index.dart';
 import 'package:BYM/pages/powerstation/device/index.dart';
 import 'package:BYM/pages/powerstation/setting/index.dart';

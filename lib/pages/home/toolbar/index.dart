@@ -38,13 +38,15 @@ class CustomBottomNavigationBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Padding(
-              padding: EdgeInsets.only(top: 10.0),
-              child: SvgPicture.asset('assets/ic_overview.svg',
-                width: 28,
-                height: 28,
-                color: selectedIndex == 1
-                    ? Color(0xFF5475F7)
-                    : Color(0xFFCAD2E5),)
+            padding: EdgeInsets.only(top: 10.0),
+            child: SvgPicture.asset(
+              'assets/ic_overview.svg',
+              width: 28,
+              height: 28,
+              colorFilter: selectedIndex == 1
+                  ? const ColorFilter.mode(Color(0xFF5475F7), BlendMode.srcIn)
+                  : const ColorFilter.mode(Color(0xFFCAD2E5), BlendMode.srcIn),
+            ),
           ),
           label: '',
         ),
