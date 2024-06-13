@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:BYM/components/ByDialog.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ChangeInfo extends StatefulWidget {
@@ -310,8 +311,7 @@ class _ChangeInfoState extends State<ChangeInfo> {
         ),
       ),
       body: Padding(
-        padding:
-            EdgeInsets.only(top: 16.0, bottom: 16.0, left: 13.0, right: 13.0),
+        padding: EdgeInsets.only(top: 16.0, bottom: 16.0, left: 13.0, right: 13.0),
         child: Column(
           children: [
             Row(
@@ -548,3 +548,311 @@ class _ChangeInfoState extends State<ChangeInfo> {
     );
   }
 }
+
+
+
+
+class PlantEditController extends GetxController {
+  // 电站名称
+  TextEditingController nameTextController = TextEditingController();
+  bool showClear = false;
+  void clearName() {
+    nameTextController.text = '';
+    update();
+  }
+
+  // 国家
+  TextEditingController countryTextController = TextEditingController();
+  List countryList = [];
+
+  // 时区
+  TextEditingController timezoneTextController = TextEditingController();
+
+  // 图片
+  List<File> images = [];
+
+  @override
+  void onInit() {
+    print(Get.arguments);
+
+    super.onInit();
+  }
+}
+
+class PlantEdit extends StatelessWidget {
+  const PlantEdit({super.key});
+
+  void showCountryList(context) {
+    /*showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          alignment: Alignment.bottomCenter,
+          insetPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 30),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10), // 这里添加圆角
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('选择国家'),
+              ],
+            ),
+          ),
+        );
+      },
+    );*/
+
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          title: const Text('Select assignment'),
+          children: <Widget>[
+            SimpleDialogOption(
+              onPressed: () {},
+              child: const Text('Treasury department'),
+            ),
+            SimpleDialogOption(
+              onPressed: () {},
+              child: const Text('State department'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text(
+          '修改信息',
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Color(0xFF383838),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      body: GetBuilder<PlantEditController>(
+        init: PlantEditController(),
+        builder: (_) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+          child: Column(
+            children: [
+              // 电站名称
+              Row(
+                children: [
+                  Text(
+                    '*',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayLarge
+                        ?.copyWith(color: Colors.red),
+                  ),
+                  const SizedBox(width: 5,),
+                  Text(
+                    '电站名称',
+                    style: Theme.of(context).textTheme.displayLarge,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10,),
+              TextField(
+                controller: _.nameTextController,
+                decoration: InputDecoration(
+                  hintText: '请输入电站名称',
+                  suffixIcon: _.showClear
+                      ? IconButton(
+                          icon: Icon(Icons.clear, color: Color(0xFF7989B2)),
+                          onPressed: () {
+                            _.clearName();
+                          },
+                        )
+                      : null,
+                ),
+              ),
+              const SizedBox(height: 20,),
+              // 国家
+              Row(
+                children: [
+                  Text(
+                    '*',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayLarge
+                        ?.copyWith(color: Colors.red),
+                  ),
+                  const SizedBox(width: 5,),
+                  Text(
+                    '国家',
+                    style: Theme.of(context).textTheme.displayLarge,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10,),
+              InkWell(
+                onTap: () {
+                  showCountryList(context);
+                },
+                child: IgnorePointer(
+                  child: TextField(
+                    controller: _.countryTextController,
+                    enabled: false,
+                    style: const TextStyle(color: Colors.black),
+                    decoration: const InputDecoration(
+                      hintText: '请选择国家',
+                      suffixIcon: Icon(Icons.keyboard_arrow_down,
+                          color: Color(0xFF7989B2)),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20,),
+              // 时区
+              Row(
+                children: [
+                  Text(
+                    '*',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayLarge
+                        ?.copyWith(color: Colors.red),
+                  ),
+                  const SizedBox(width: 5,),
+                  Text(
+                    '时区',
+                    style: Theme.of(context).textTheme.displayLarge,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10,),
+              InkWell(
+                onTap: () {},
+                child: IgnorePointer(
+                  child: TextField(
+                    controller: _.timezoneTextController,
+                    enabled: false,
+                    style: const TextStyle(color: Colors.black),
+                    decoration: const InputDecoration(
+                      hintText: '请选择时区',
+                      suffixIcon: Icon(Icons.keyboard_arrow_down,
+                          color: Color(0xFF7989B2)),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20,),
+              // 图片
+              Row(
+                textBaseline: TextBaseline.alphabetic,
+                children: [
+                  Baseline(
+                    baseline: 10.0,
+                    baselineType: TextBaseline.alphabetic,
+                    child: Text(
+                      '图片',
+                      style: Theme.of(context).textTheme.displayLarge,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10,),
+              /*Padding(
+                padding: EdgeInsets.only(top: 22.0),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Wrap(
+                        spacing: 3,
+                        runSpacing: 3,
+                        children: [
+                          Visibility(
+                            visible: _images.length < 1,
+                            child: Container(
+                              width: 120,
+                              height: 90,
+                              margin: const EdgeInsets.only(right: 10),
+                              child: ElevatedButton(
+                                onPressed: _images.length < 3 ? _pickImage : null,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color(0xFFF5F7FF),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                ),
+                                child: const Icon(
+                                  Icons.add,
+                                  color: Color(0xFF7989B2),
+                                  size: 30,
+                                ),
+                              ),
+                            ),
+                          ),
+                          ..._images.map(
+                                (image) => Container(
+                              width: 120,
+                              height: 90,
+                              margin: const EdgeInsets.only(right: 10),
+                              child: Stack(
+                                children: [
+                                  Image.file(
+                                    width: 120,
+                                    height: 90,
+                                    image,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Positioned(
+                                    top: 5,
+                                    right: 5,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          _images.remove(image);
+                                        });
+                                      },
+                                      child: Container(
+                                        width: 20,
+                                        height: 20,
+                                        decoration: const BoxDecoration(
+                                          color: Colors.red,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: const Icon(
+                                          Icons.close,
+                                          color: Colors.white,
+                                          size: 16,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),*/
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+

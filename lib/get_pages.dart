@@ -1,5 +1,6 @@
 import 'package:BYM/pages/home/index.dart';
 import 'package:BYM/pages/home/mine/bindAgent/index.dart';
+
 //我的
 import 'package:BYM/pages/home/mine/bindemail/bind_email.dart';
 import 'package:BYM/pages/home/mine/bindemail/bind_success.dart';
@@ -10,10 +11,12 @@ import 'package:BYM/pages/home/mine/language.dart';
 import 'package:BYM/pages/home/mine/logoff.dart';
 import 'package:BYM/pages/home/mine/more.dart';
 import 'package:BYM/pages/home/mine/password/change_pwd.dart';
+
 //首页概览
 import 'package:BYM/pages/home/overview/index.dart';
+
 //修改电站信息
-import 'package:BYM/pages/home/plant/change_info.dart';
+import 'package:BYM/pages/home/plant/edit.dart';
 import 'package:BYM/pages/home/plant/configNet/blue/f_add_plant.dart';
 import 'package:BYM/pages/home/plant/configNet/blue/f_blue_add_device_step1.dart';
 import 'package:BYM/pages/home/plant/configNet/blue/f_blue_add_device_step2.dart';
@@ -21,13 +24,17 @@ import 'package:BYM/pages/home/plant/configNet/blue/f_blue_add_device_step3.dart
 import 'package:BYM/pages/home/plant/configNet/blue/f_blue_search_device.dart';
 import 'package:BYM/pages/home/plant/configNet/scan.dart';
 import 'package:BYM/pages/home/plant/configNet/byhand.dart';
+
 //首页电站
 import 'package:BYM/pages/home/plant/index.dart';
 import 'package:BYM/pages/list/index.dart';
+
 //登录
 import 'package:BYM/pages/login/login.dart';
+
 //注册
 import 'package:BYM/pages/login/sign_up.dart';
+
 //电站详情
 import 'package:BYM/pages/powerstation/detail/index.dart';
 import 'package:BYM/pages/powerstation/detail/total_energy.dart';
@@ -76,8 +83,8 @@ List<GetPage<dynamic>> pages = [
       page: () => const PlantListPage(),
       transition: Transition.rightToLeftWithFade),
   GetPage(
-      name: '/ChangeInfo',
-      page: () => ChangeInfo(),
+      name: '/PlantEdit',
+      page: () => const PlantEdit(),
       transition: Transition.rightToLeftWithFade),
   GetPage(
       name: '/FeedBack',
@@ -191,7 +198,7 @@ List<GetPage<dynamic>> pages = [
     page: () => ApSearchDevice(),
     transition: Transition.rightToLeftWithFade,
   ),
-   GetPage(
+  GetPage(
     name: '/ApConfigState',
     page: () => ApConfigState(),
     transition: Transition.rightToLeftWithFade,
@@ -201,27 +208,27 @@ List<GetPage<dynamic>> pages = [
     page: () => ConfigNet(),
     transition: Transition.rightToLeftWithFade,
   ),
-   GetPage(
+  GetPage(
     name: '/FBlueSearchDevice',
     page: () => FBlueSearchDevice(),
     transition: Transition.rightToLeftWithFade,
   ),
-    GetPage(
+  GetPage(
     name: '/FBlueAddDeviceStep1',
     page: () => FBlueAddDeviceStep1(),
     transition: Transition.rightToLeftWithFade,
   ),
-    GetPage(
+  GetPage(
     name: '/FBlueAddDeviceStep2',
     page: () => FBlueAddDeviceStep2(),
     transition: Transition.rightToLeftWithFade,
   ),
-   GetPage(
+  GetPage(
     name: '/FBlueAddDeviceStep3',
     page: () => FBlueAddDeviceStep3(),
     transition: Transition.rightToLeftWithFade,
   ),
-      GetPage(
+  GetPage(
     name: '/FAddPlant',
     page: () => FAddPlant(),
     transition: Transition.rightToLeftWithFade,

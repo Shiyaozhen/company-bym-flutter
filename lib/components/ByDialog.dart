@@ -58,3 +58,29 @@ class ByDialog extends StatelessWidget {
     );
   }
 }
+
+class MyDialog extends StatelessWidget {
+  const MyDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      alignment: Alignment.bottomCenter,
+      insetPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 30),
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10), // 这里添加圆角
+        ),
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('data'),
+          ],
+        ),
+      ),
+    );
+  }
+}

@@ -25,6 +25,15 @@ class PlantApi {
       },
     );
   }
+
+  deletePlant(String id) async {
+    return await Request().request(
+      '/api/plant/delete',
+      data: {
+        "id": id,
+      },
+    );
+  }
 }
 
 final plantApi = PlantApi();
