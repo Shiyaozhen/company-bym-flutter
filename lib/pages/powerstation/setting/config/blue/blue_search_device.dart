@@ -2,6 +2,7 @@
 import 'dart:math';
 import 'dart:ui';
 import 'dart:async';
+import 'package:BYM/get_pages.dart';
 import 'package:BYM/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -123,16 +124,18 @@ class _ERBLEListPageState extends State<ERBLEListPage> {
         connectDevice(i);
       },
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(10),
         child: Container(
-          color: Color(0xFFF4F6FA),
+          width: 160.0,
+          height: 140.0,
+          color: Color(0xFFF5F7FF),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // BYSVG.svg('assets/er_device_charger_one_gun_face.svg'),
 
@@ -186,24 +189,13 @@ class _ERBLEListPageState extends State<ERBLEListPage> {
     bool isSuc = await  BLEManager().connectDevice(device);
 
     if(isSuc){
-      print('1');
-      // bool ret  = await BYDBHealper.getInstance().insert(device);
-
-      if(true){
-        // ERApp().allDevices.value = await BYDBHealper.getInstance().queryAll();
-
-    
+        print('1');
         // EasyLoading.showToast('连接成功'); 
-
-        // BLEManager().getDeviceType((isSuc, errCode, data) {
-        //   BLEManager().startHeart();
-        //   Get.off(ERChargerDetailTabPage());
-        // });
-
-
-      }else{
-        EasyLoading.showToast('插入数据失败');
-      }
+        BLEManager().getDeviceType((isSuc, errCode, data) {
+          BLEManager().startHeart();
+        });
+        
+        BYRoute.toNamed('/ConfigNet');
       
     }else{
       EasyLoading.showToast('连接失败');

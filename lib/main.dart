@@ -1,6 +1,8 @@
 import 'package:BYM/generated/l10n.dart';
 import 'package:BYM/get_pages.dart';
+import 'package:BYM/utils/BYLog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/route_manager.dart';
 import 'package:BYM/utils/storage.dart';
@@ -9,10 +11,13 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Storage.instance?.init();
 
+  init();
+
   runApp(GetMaterialApp(
     title: 'BYM',
     initialRoute: '/Login',
     getPages: pages,
+    builder: EasyLoading.init(),
     localizationsDelegates: const [
       GlobalMaterialLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
@@ -65,19 +70,20 @@ void main() async{
             color: Color(0xFF383838),
         ),
         headlineSmall: TextStyle(
-            fontSize: 18.0, 
-            fontWeight: FontWeight.w400,
-            color: Color(0xFF383838),
+          fontSize: 18.0,
+          fontWeight: FontWeight.w400,
+          color: Color(0xFF383838),
         ),
         headlineMedium: TextStyle(
           fontSize: 20.0,
           fontWeight: FontWeight.w400,
           color: Color(0xFF383838),
-        ), 
+        ),
         headlineLarge: TextStyle(
           fontSize: 22.0,
           fontWeight: FontWeight.w400,
-          color: Color(0xFF383838),),
+          color: Color(0xFF383838),
+        ),
       ),
       // 输入框
       inputDecorationTheme: InputDecorationTheme(
@@ -103,4 +109,8 @@ void main() async{
       ),
     ),
   ));
+}
+
+void init() {
+  BYLog.init(true, isDebug: true);
 }

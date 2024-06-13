@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-class ConfigNet extends StatefulWidget {
-  const ConfigNet({super.key});
+class ApConfigNet extends StatefulWidget {
+  const ApConfigNet({super.key});
 
   @override
-  State<ConfigNet> createState() => _ConfigNetState();
+  State<ApConfigNet> createState() => _ApConfigNetState();
 }
 
-class _ConfigNetState extends State<ConfigNet> {
+class _ApConfigNetState extends State<ApConfigNet> {
   int step = 0;
 
   void _handleNextButtonClick() {
@@ -25,127 +25,147 @@ class _ConfigNetState extends State<ConfigNet> {
     // final String MIId = arguments['MIId'];
     // print(MIId);
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color(0xFFF5F7FF),
-          title: Text(
-            '设备配网',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 20.0,
-            ),
-          ),
-          centerTitle: true,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            color: Color(0xFF383838),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+      appBar: AppBar(
+        backgroundColor: Color(0xFFF5F7FF),
+        title: Text(
+          '设备配网',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 20.0,
           ),
         ),
-        body: Container(
-            color: Color(0xFFF5F7FF),
-            child: Column(
-              children: [
-                Padding(
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Color(0xFF383838),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      body: Container(
+          color: Color(0xFFF5F7FF),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 25.0, left: 13.0, right: 13.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    //第一步
+                    Visibility(
+                      visible: step == 0,
+                      child: Column(
+                        children: [
+                          TopTiptState(),
+                          SizedBox(
+                            height: 30.0,
+                          ),
+                          WiFiNet(),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          PWDNet(),
+                          SizedBox(
+                            height: 2.0,
+                          ),
+                          FailReasonState(),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
                   padding: EdgeInsets.only(top: 25.0, left: 13.0, right: 13.0),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      //第一步
-                      Visibility(
-                        visible: step == 0,
-                        child: Column(
-                          children: [
-                            TopTiptState(),
-                            SizedBox(
-                              height: 30.0,
-                            ),
-                            WiFiNet(),
-                            SizedBox(
-                              height: 20.0,
-                            ),
-                            PWDNet(),
-                            SizedBox(
-                              height: 2.0,
-                            ),
-                            FailReasonState(),
-                          ],
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Visibility(
+                            visible: step == 2,
+                            child: ConnectingStatefulWidget()),
+                      ])),
+              Padding(
+                  padding: EdgeInsets.only(top: 25.0, left: 13.0, right: 13.0),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Visibility(
+                            visible: step == 1,
+                            child: ConfigSuccessStatefulWidget()),
+                        SizedBox(
+                          height: 50.0,
                         ),
-                      ),
-                    ],
+                      ])),
+            ],
+          )),
+      bottomSheet: Visibility(
+        visible: step == 0,
+        child: Container(
+          height: 60.0,
+          color: Color(0xFFF5F7FF),
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 3,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
                   ),
-                ),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 25.0, left: 13.0, right: 13.0),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Visibility(
-                              visible: step == 2,
-                              child: ConnectingStatefulWidget()),
-                        ])),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 25.0, left: 13.0, right: 13.0),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Visibility(
-                              visible: step == 1,
-                              child: ConfigSuccessStatefulWidget()),
-                        ])),
-              ],
-            )),
-        bottomSheet: Visibility(
-          visible: step == 0,
-          child: Container(
-            height: 60.0,
-            color: Color(0xFFF5F7FF),
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                    ),
-                    child: const Text(
-                      '返回',
-                      style: TextStyle(
-                        color: Color(0xFF5475F7),
-                      ),
+                  child: const Text(
+                    '返回',
+                    style: TextStyle(
+                      color: Color(0xFF5475F7),
                     ),
                   ),
                 ),
-                Expanded(
-                  flex: 5,
-                  child: ElevatedButton(
-                    onPressed: _handleNextButtonClick,
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Color(0xFF5475F7)),
-                    ),
-                    child: const Text(
-                      '下一步',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
+              ),
+              Expanded(
+                flex: 5,
+                child: ElevatedButton(
+                  onPressed: _handleNextButtonClick,
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Color(0xFF5475F7)),
+                  ),
+                  child: const Text(
+                    '下一步',
+                    style: TextStyle(
+                      color: Colors.white,
                     ),
                   ),
-                )
-              ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+      floatingActionButton: Visibility(
+        visible: step == 1,
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          style: ButtonStyle(
+            backgroundColor:
+                MaterialStateProperty.all<Color>(Color(0xFF5475F7)),
+          ),
+          child: const Text(
+            '完成',
+            style: TextStyle(
+              color: Colors.white,
             ),
           ),
-        )
-        );
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    );
   }
 }
 
@@ -485,7 +505,6 @@ class ConfigSuccessStatefulWidget extends StatelessWidget {
             ],
           ),
         ),
-
       ],
     );
   }

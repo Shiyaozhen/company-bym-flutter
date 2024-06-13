@@ -15,6 +15,8 @@ class BYLog{
 
   static bool _debugMode = false;
 
+  BYLog(bool valueFromChild);
+
   static void init(bool bool, { bool isDebug = false}) {
     _debugMode = isDebug;
   }
