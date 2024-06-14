@@ -36,22 +36,26 @@ import 'package:BYM/pages/login/login.dart';
 import 'package:BYM/pages/login/sign_up.dart';
 
 //电站详情
-import 'package:BYM/pages/powerstation/detail/index.dart';
-import 'package:BYM/pages/powerstation/detail/total_energy.dart';
-import 'package:BYM/pages/powerstation/device/index.dart';
-import 'package:BYM/pages/powerstation/device/mi_detail.dart';
-import 'package:BYM/pages/powerstation/device/mi_list.dart';
-import 'package:BYM/pages/powerstation/index.dart';
-import 'package:BYM/pages/powerstation/setting/config/ap/ap_search_device.dart';
-import 'package:BYM/pages/powerstation/setting/config/blue/blue_config_net.dart';
-import 'package:BYM/pages/powerstation/setting/config/blue/blue_search_device.dart';
-import 'package:BYM/pages/powerstation/setting/config/select_config.dart';
-import 'package:BYM/pages/powerstation/setting/index.dart';
+import 'package:BYM/pages/plant/detail/index.dart';
+import 'package:BYM/pages/plant/detail/total_energy.dart';
+import 'package:BYM/pages/plant/device/index.dart';
+import 'package:BYM/pages/plant/device/mi_detail.dart';
+import 'package:BYM/pages/plant/device/mi_list.dart';
+import 'package:BYM/pages/plant/index.dart';
+import 'package:BYM/pages/plant/more/index.dart';
+import 'package:BYM/pages/plant/setting/config/ap/ap_search_device.dart';
+import 'package:BYM/pages/plant/setting/config/blue/blue_config_net.dart';
+import 'package:BYM/pages/plant/setting/config/blue/blue_search_device.dart';
+import 'package:BYM/pages/plant/setting/config/select_config.dart';
+import 'package:BYM/pages/plant/setting/index.dart';
 
 //测试
 import 'package:BYM/pages/tcp/index.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+// 接入点
+import 'package:BYM/pages/access_point/info.dart';
 
 List<GetPage<dynamic>> pages = [
   GetPage(
@@ -90,6 +94,25 @@ List<GetPage<dynamic>> pages = [
       name: '/FeedBack',
       page: () => MineFeedback(),
       transition: Transition.rightToLeftWithFade),
+  // 电站
+  GetPage(
+    name: '/PlantDetail',
+    page: () => PlantDetail(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+  GetPage(
+    name: '/PlantMore',
+    page: () => const PlantMore(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+
+  // 接入点
+  GetPage(
+    name: '/APInfo',
+    page: () => APInfo(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+
   GetPage(
       name: '/MineLogoff',
       page: () => MineLogoff(),
@@ -119,22 +142,11 @@ List<GetPage<dynamic>> pages = [
     transition: Transition.rightToLeftWithFade,
   ),
   GetPage(
-    name: '/DetailIndex',
-    page: () => const DetailIndex(
-      arguments: {},
-    ),
-    transition: Transition.rightToLeftWithFade,
-  ),
-  GetPage(
     name: '/TotalEnergy',
     page: () => const TotalEnergy(),
     transition: Transition.rightToLeftWithFade,
   ),
-  GetPage(
-    name: '/PowerStationIndex',
-    page: () => const PowerStationIndex(),
-    transition: Transition.rightToLeftWithFade,
-  ),
+
   GetPage(
     name: '/Device',
     page: () => Device(arguments: {}, onHideElements: (shouldHide) {}),

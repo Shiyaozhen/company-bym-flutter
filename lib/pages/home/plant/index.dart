@@ -137,7 +137,13 @@ class PlantListPage extends StatelessWidget {
 
                   return InkWell(
                     onTap: () {
-                      BYRoute.toNamed('/PowerStationIndex', arguments: {"stationName": _.plantList[index]['name']});
+                      BYRoute.toNamed(
+                        '/PlantDetail',
+                        arguments: {
+                          "id": _.plantList[index]['id'],
+                          "name": _.plantList[index]['name'],
+                        },
+                      );
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(vertical: 10),

@@ -1,9 +1,10 @@
-// import 'dart:ffi';
-
 import 'package:BYM/components/ByDialog.dart';
 import 'package:BYM/get_pages.dart';
+import 'package:BYM/utils/unit_converter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import '../index.dart';
 
 class Device extends StatefulWidget {
   const Device(
@@ -908,3 +909,325 @@ class _DeviceState extends State<Device> {
     );
   }
 }
+
+
+
+
+
+
+
+class AccessPointList extends StatelessWidget {
+  const AccessPointList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<PlantDetailController>(
+      builder: (_) => Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color(0xFFD6DDFF),
+          title: Text(
+            _.name,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            color: Color(0xFF383838),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+        body: Container(
+          padding: const EdgeInsets.only(left: 13.0, right: 13.0),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: [0, 1.2],
+              colors: [
+                Color(0xFFD6DDFF),
+                Color(0xFFFFFFFF),
+              ],
+            ),
+          ),
+          child: const Column(
+            children: [
+              /*SearchBar(),
+              SizedBox(height: 12.0),
+              TypeBar(),
+              SizedBox(
+                height: 22.0
+              ),*/
+              ApList(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SearchBar extends StatelessWidget {
+  const SearchBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<PlantDetailController>(builder: (_) => TextField(
+      controller: _.apNoTC,
+      decoration: InputDecoration(
+        hintText: '输入设备编号',
+        hintStyle: TextStyle(
+          color: const Color(0xFF7989B2),
+          fontSize: 14,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(60.0),
+          borderSide: const BorderSide(
+            color: Colors.grey,
+            width: 1.0,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(60.0),
+          borderSide: const BorderSide(
+            color: Colors.grey,
+            width: 1.0,
+          ),
+        ),
+        prefixIcon: const Icon(
+          Icons.search,
+          size: 24,
+        ),
+        prefixIconColor: const Color(0xFF7989B2),
+        contentPadding:
+        const EdgeInsets.symmetric(vertical: 15.0),
+      ),
+    ));
+  }
+}
+
+class TypeBar extends StatelessWidget {
+  const TypeBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<PlantDetailController>(builder: (_) => Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        GestureDetector(
+          onTap: () {
+            _.switchType(0);
+          },
+          child: Container(
+            width: 110,
+            height: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              border: Border.all(
+                color: _.type == 0
+                    ? const Color(0xFF5475F7)
+                    : Colors.white,
+                width: 1.0,
+              ),
+              color: Colors.white,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  _.apAllNum.toString(),
+                  style: Theme.of(context).textTheme.displayMedium,
+                ),
+                Text(
+                  '全部',
+                  style: Theme.of(context).textTheme.displaySmall,
+                )
+              ],
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            _.switchType(1);
+          },
+          child: Container(
+            width: 110,
+            height: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              border: Border.all(
+                color: _.type == 1
+                    ? const Color(0xFF5475F7)
+                    : Colors.white,
+                width: 1.0,
+              ),
+              color: Colors.white,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '${_.apWifiNum}',
+                  style: Theme.of(context).textTheme.displayMedium,
+                ),
+                Text(
+                  'Wi-Fi微逆',
+                  style: Theme.of(context).textTheme.displaySmall,
+                )
+              ],
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            _.switchType(2);
+          },
+          child: Container(
+            width: 110,
+            height: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              border: Border.all(
+                color: _.type == 2
+                    ? const Color(0xFF5475F7)
+                    : Colors.white,
+                width: 1.0,
+              ),
+              color: Colors.white,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '${_.apNum}',
+                  style: Theme.of(context).textTheme.displayMedium,
+                ),
+                Text(
+                  '网关',
+                  style: Theme.of(context).textTheme.displaySmall,
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
+    ));
+  }
+}
+
+class ApList extends StatelessWidget {
+  const ApList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<PlantDetailController>(
+      builder: (_) => Expanded(
+        child: ListView.builder(
+          controller: _.scrollController,
+          itemCount: _.apList.length,
+          itemBuilder: (context, index) {
+            var ap = _.apList[index];
+
+            return InkWell(
+              onTap: () {
+                BYRoute.toNamed(
+                  '/APInfo',
+                  arguments: {
+                    // "plantId": ap['plantId'],
+                    "serialNo": ap['serialNo'],
+                  },
+                );
+              },
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 12),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.white,
+                ),
+                child: Column(
+                  children: [
+                    // 编号 状态
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Text(ap['type']['value'] == 1 ? 'MI-W' : 'PLCC'),
+                            const SizedBox(width: 10),
+                            Text(ap['serialNo']),
+                          ],
+                        ),
+                        Icon(ap['status'] == 0
+                            ? Icons.wifi
+                            : ap['status'] == 1
+                                ? Icons.error_outline
+                                : Icons.wifi_off),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    // 功率
+                    Row(
+                      children: [
+                        Icon(Icons.add_circle),
+                        SizedBox(width: 6),
+                        Text('当前功率'),
+                        SizedBox(width: 40),
+                        Text(convertPower(ap['power'])),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    // 发电量
+                    Row(
+                      children: [
+                        Icon(Icons.add_circle),
+                        SizedBox(width: 6),
+                        Text('当日发电量'),
+                        SizedBox(width: 40),
+                        Text(convertPower(ap['energy'])),
+                      ],
+                    ),
+                    // 下挂设备
+                    Visibility(
+                      visible: ap['type']['value'] == 2,
+                      child: Column(
+                        children: [
+                          const Divider(
+                            height: 20,
+                            thickness: 1,
+                            indent: 0,
+                            endIndent: 0,
+                            color: Colors.black,
+                          ),
+                          InkWell(
+                            onTap: () {
+
+                            },
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('下挂设备'),
+                                Icon(Icons.navigate_next),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+

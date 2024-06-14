@@ -25,12 +25,29 @@ class PlantApi {
       },
     );
   }
-
+  // 删除电站
   deletePlant(String id) async {
     return await Request().request(
       '/api/plant/delete',
       data: {
         "id": id,
+      },
+    );
+  }
+
+  fetchPlantPowerSummary(dynamic plantId) async {
+    return await Request().request(
+      '/api/plant/power/summary',
+      data: {
+        "plantId": plantId,
+      },
+    );
+  }
+  fetchPlantEnergySummary(dynamic plantId) async {
+    return await Request().request(
+      '/api/plant/energy/summary',
+      data: {
+        "plantId": plantId,
       },
     );
   }

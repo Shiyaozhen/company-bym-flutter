@@ -8,7 +8,8 @@ class GradientCircularProgressIndicator extends StatelessWidget {
   final double percent;
   final List<Color> colors;
 
-  GradientCircularProgressIndicator({
+  const GradientCircularProgressIndicator({
+    super.key,
     required this.radius,
     required this.lineWidth,
     required this.percent,
@@ -18,8 +19,8 @@ class GradientCircularProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: radius * 2,
-      height: radius * 2,
+      width: radius * 2 + 10,
+      height: radius * 2 + 10,
       child: CustomPaint(
         painter: _GradientCircularProgressPainter(
           lineWidth: lineWidth,
