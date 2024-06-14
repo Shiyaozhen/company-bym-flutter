@@ -27,6 +27,7 @@ import 'package:BYM/pages/home/plant/configNet/byhand.dart';
 
 //首页电站
 import 'package:BYM/pages/home/plant/index.dart';
+import 'package:BYM/pages/inverter/detail.dart';
 import 'package:BYM/pages/list/index.dart';
 
 //登录
@@ -56,6 +57,9 @@ import 'package:get/get.dart';
 
 // 接入点
 import 'package:BYM/pages/access_point/info.dart';
+
+// 逆变器
+import 'package:BYM/pages/inverter/list.dart';
 
 List<GetPage<dynamic>> pages = [
   GetPage(
@@ -108,8 +112,20 @@ List<GetPage<dynamic>> pages = [
 
   // 接入点
   GetPage(
-    name: '/APInfo',
-    page: () => APInfo(),
+    name: '/AccessPointInfo',
+    page: () => AccessPointInfo(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+
+  // 逆变器
+  GetPage(
+    name: '/InverterList',
+    page: () => InverterList(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+  GetPage(
+    name: '/InverterDetail',
+    page: () => InverterDetail(),
     transition: Transition.rightToLeftWithFade,
   ),
 
@@ -147,11 +163,7 @@ List<GetPage<dynamic>> pages = [
     transition: Transition.rightToLeftWithFade,
   ),
 
-  GetPage(
-    name: '/Device',
-    page: () => Device(arguments: {}, onHideElements: (shouldHide) {}),
-    transition: Transition.rightToLeftWithFade,
-  ),
+
   GetPage(
     name: '/MIList',
     page: () => MIList(arguments: {}),

@@ -610,19 +610,13 @@ class PlantEdit extends StatelessWidget {
     showDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return SimpleDialog(
-          title: const Text('Select assignment'),
-          children: <Widget>[
-            SimpleDialogOption(
-              onPressed: () {},
-              child: const Text('Treasury department'),
+          return Dialog(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 100,
+              color: Colors.indigo,
             ),
-            SimpleDialogOption(
-              onPressed: () {},
-              child: const Text('State department'),
-            ),
-          ],
-        );
+          );
       },
     );
   }
@@ -646,131 +640,141 @@ class PlantEdit extends StatelessWidget {
           },
         ),
       ),
-      body: GetBuilder<PlantEditController>(
-        init: PlantEditController(),
-        builder: (_) => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-          child: Column(
-            children: [
-              // 电站名称
-              Row(
-                children: [
-                  Text(
-                    '*',
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayLarge
-                        ?.copyWith(color: Colors.red),
-                  ),
-                  const SizedBox(width: 5,),
-                  Text(
-                    '电站名称',
-                    style: Theme.of(context).textTheme.displayLarge,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10,),
-              TextField(
-                controller: _.nameTextController,
-                decoration: InputDecoration(
-                  hintText: '请输入电站名称',
-                  suffixIcon: _.showClear
-                      ? IconButton(
-                          icon: Icon(Icons.clear, color: Color(0xFF7989B2)),
-                          onPressed: () {
-                            _.clearName();
-                          },
-                        )
-                      : null,
+      body: PlantEditContent(),
+    );
+  }
+}
+
+class PlantEditContent extends StatelessWidget {
+  const PlantEditContent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<PlantEditController>(
+      init: PlantEditController(),
+      builder: (_) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+        child: Column(
+          children: [
+            // 电站名称
+            Row(
+              children: [
+                Text(
+                  '*',
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayLarge
+                      ?.copyWith(color: Colors.red),
                 ),
-              ),
-              const SizedBox(height: 20,),
-              // 国家
-              Row(
-                children: [
-                  Text(
-                    '*',
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayLarge
-                        ?.copyWith(color: Colors.red),
-                  ),
-                  const SizedBox(width: 5,),
-                  Text(
-                    '国家',
-                    style: Theme.of(context).textTheme.displayLarge,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10,),
-              InkWell(
-                onTap: () {
-                  showCountryList(context);
-                },
-                child: IgnorePointer(
-                  child: TextField(
-                    controller: _.countryTextController,
-                    enabled: false,
-                    style: const TextStyle(color: Colors.black),
-                    decoration: const InputDecoration(
-                      hintText: '请选择国家',
-                      suffixIcon: Icon(Icons.keyboard_arrow_down,
-                          color: Color(0xFF7989B2)),
-                    ),
-                  ),
+                const SizedBox(width: 5,),
+                Text(
+                  '电站名称',
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
+              ],
+            ),
+            const SizedBox(height: 10,),
+            TextField(
+              controller: _.nameTextController,
+              decoration: InputDecoration(
+                hintText: '请输入电站名称',
+                suffixIcon: _.showClear
+                    ? IconButton(
+                  icon: Icon(Icons.clear, color: Color(0xFF7989B2)),
+                  onPressed: () {
+                    _.clearName();
+                  },
+                )
+                    : null,
               ),
-              const SizedBox(height: 20,),
-              // 时区
-              Row(
-                children: [
-                  Text(
-                    '*',
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayLarge
-                        ?.copyWith(color: Colors.red),
-                  ),
-                  const SizedBox(width: 5,),
-                  Text(
-                    '时区',
-                    style: Theme.of(context).textTheme.displayLarge,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10,),
-              InkWell(
-                onTap: () {},
-                child: IgnorePointer(
-                  child: TextField(
-                    controller: _.timezoneTextController,
-                    enabled: false,
-                    style: const TextStyle(color: Colors.black),
-                    decoration: const InputDecoration(
-                      hintText: '请选择时区',
-                      suffixIcon: Icon(Icons.keyboard_arrow_down,
-                          color: Color(0xFF7989B2)),
-                    ),
+            ),
+            const SizedBox(height: 20,),
+            // 国家
+            Row(
+              children: [
+                Text(
+                  '*',
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayLarge
+                      ?.copyWith(color: Colors.red),
+                ),
+                const SizedBox(width: 5,),
+                Text(
+                  '国家',
+                  style: Theme.of(context).textTheme.displayLarge,
+                ),
+              ],
+            ),
+            const SizedBox(height: 10,),
+            InkWell(
+              onTap: () {
+                // showCountryList(context);
+              },
+              child: IgnorePointer(
+                child: TextField(
+                  controller: _.countryTextController,
+                  enabled: false,
+                  style: const TextStyle(color: Colors.black),
+                  decoration: const InputDecoration(
+                    hintText: '请选择国家',
+                    suffixIcon: Icon(Icons.keyboard_arrow_down,
+                        color: Color(0xFF7989B2)),
                   ),
                 ),
               ),
-              const SizedBox(height: 20,),
-              // 图片
-              Row(
-                textBaseline: TextBaseline.alphabetic,
-                children: [
-                  Baseline(
-                    baseline: 10.0,
-                    baselineType: TextBaseline.alphabetic,
-                    child: Text(
-                      '图片',
-                      style: Theme.of(context).textTheme.displayLarge,
-                    ),
+            ),
+            const SizedBox(height: 20,),
+            // 时区
+            Row(
+              children: [
+                Text(
+                  '*',
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayLarge
+                      ?.copyWith(color: Colors.red),
+                ),
+                const SizedBox(width: 5,),
+                Text(
+                  '时区',
+                  style: Theme.of(context).textTheme.displayLarge,
+                ),
+              ],
+            ),
+            const SizedBox(height: 10,),
+            InkWell(
+              onTap: () {},
+              child: IgnorePointer(
+                child: TextField(
+                  controller: _.timezoneTextController,
+                  enabled: false,
+                  style: const TextStyle(color: Colors.black),
+                  decoration: const InputDecoration(
+                    hintText: '请选择时区',
+                    suffixIcon: Icon(Icons.keyboard_arrow_down,
+                        color: Color(0xFF7989B2)),
                   ),
-                ],
+                ),
               ),
-              const SizedBox(height: 10,),
-              /*Padding(
+            ),
+            const SizedBox(height: 20,),
+            // 图片
+            Row(
+              textBaseline: TextBaseline.alphabetic,
+              children: [
+                Baseline(
+                  baseline: 10.0,
+                  baselineType: TextBaseline.alphabetic,
+                  child: Text(
+                    '图片',
+                    style: Theme.of(context).textTheme.displayLarge,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10,),
+            /*Padding(
                 padding: EdgeInsets.only(top: 22.0),
                 child: Row(
                   children: <Widget>[
@@ -848,11 +852,11 @@ class PlantEdit extends StatelessWidget {
                   ],
                 ),
               ),*/
-            ],
-          ),
+          ],
         ),
       ),
     );
   }
 }
+
 

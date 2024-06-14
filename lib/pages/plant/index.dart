@@ -1,6 +1,5 @@
 import 'package:BYM/pages/plant/detail/index.dart';
 import 'package:BYM/pages/plant/device/index.dart';
-import 'package:flutter/cupertino.dart';
 import 'more/index.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,6 +46,11 @@ class PlantDetailController extends GetxController {
   }
 
   // 接入点列表
+  bool isDelete = false;
+  void switchIsDelete(value) {
+    isDelete = value;
+    update();
+  }
   TextEditingController apNoTC = TextEditingController();
   int apAllNum = 0;
   int apWifiNum = 0;
@@ -57,8 +61,9 @@ class PlantDetailController extends GetxController {
     update();
   }
   ScrollController scrollController = ScrollController();
+  int page = 1;
   bool isLoading = false;
-  List <Map<String, dynamic>> apList = [
+  List <Map<String, dynamic>> accessPointList = [
     {
       "serialNo": '90000181',
       "type": {
@@ -68,6 +73,7 @@ class PlantDetailController extends GetxController {
       "power": 0,
       "energy": 0,
       "status": 0,
+      "isSelected": false,
     },
     {
       "serialNo": 'A0000001',
@@ -78,6 +84,7 @@ class PlantDetailController extends GetxController {
       "power": 0,
       "energy": 0,
       "status": 1,
+      "isSelected": false,
     },
     {
       "serialNo": '90000181',
@@ -88,10 +95,10 @@ class PlantDetailController extends GetxController {
       "power": 0,
       "energy": 0,
       "status": 3,
+      "isSelected": false,
     },
   ];
-  int page = 1;
-  void getApList() async {
+  void getAccessPointList() async {
     isLoading = true;
     update();
 
@@ -99,12 +106,21 @@ class PlantDetailController extends GetxController {
 
     isLoading = false;
 
-    apList.addAll([
+    accessPointList.addAll([
       for (var item in res['data']['content']) item
     ]);
 
     page++;
 
+    update();
+  }
+  void deleteAccessPoint() async {
+    List deleteAccessPointList = accessPointList.where((ap) => ap['isSelected'] == true).toList();
+
+    print(deleteAccessPointList);
+  }
+  void switchIsSelected(int index, bool? value) {
+    accessPointList[index]['isSelected'] = value;
     update();
   }
 
@@ -121,11 +137,11 @@ class PlantDetailController extends GetxController {
     getPower();
     getEnergy();
 
-    getApList();
+    getAccessPointList();
 
     scrollController.addListener(() {
       if (scrollController.position.pixels == scrollController.position.maxScrollExtent && isLoading == false) {
-        getApList();
+        getAccessPointList();
       }
     });
 

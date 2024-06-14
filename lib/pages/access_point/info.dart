@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class APInfo extends StatelessWidget {
-  const APInfo({super.key});
+class AccessPointInfo extends StatelessWidget {
+  const AccessPointInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +23,13 @@ class APInfo extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text('基本信息'),
-            APInfoItem(label: '类型', value: 'EMU'),
-            APInfoItem(label: '信号强度', value: '-100'),
-            APInfoItem(label: '运行模式', value: 'PLCC透传模式'),
-            APInfoItem(label: '功能码', value: '00'),
-            APInfoItem(label: '当前功率', value: '0 KW'),
-            APInfoItem(label: '当日发电量', value: '0 kWh'),
-            APInfoItem(label: '更新时间', value: '2024-6-7'),
+            AccessPointInfoItem(label: '类型', value: 'EMU'),
+            AccessPointInfoItem(label: '信号强度', value: '-100'),
+            AccessPointInfoItem(label: '运行模式', value: 'PLCC透传模式'),
+            AccessPointInfoItem(label: '功能码', value: '00'),
+            AccessPointInfoItem(label: '当前功率', value: '0 KW'),
+            AccessPointInfoItem(label: '当日发电量', value: '0 kWh'),
+            AccessPointInfoItem(label: '更新时间', value: '2024-6-7'),
           ],
         ),
       ),
@@ -37,8 +37,8 @@ class APInfo extends StatelessWidget {
   }
 }
 
-class APInfoItem extends StatelessWidget {
-  const APInfoItem({
+class AccessPointInfoItem extends StatelessWidget {
+  const AccessPointInfoItem({
     super.key,
     required this.label,
     required this.value,

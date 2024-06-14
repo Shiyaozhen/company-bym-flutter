@@ -10,6 +10,7 @@ class AccessPointApi {
   // 单例getter
   static AccessPointApi? get instance => _instance ?? AccessPointApi._internal();
 
+  // 接入点列表
   queryAccessPoint(String plantId, String? serialNo, int page) async {
     return await Request().request(
       '/api/access-point/query',
@@ -18,6 +19,15 @@ class AccessPointApi {
         "size": 20,
         "plantId": plantId,
         "serialNo": serialNo,
+      },
+    );
+  }
+  // 删除接入点
+  deleteAccessPoint(String id) async {
+    return await Request().request(
+      '/api/access-point/delete',
+      data: {
+        "id": id,
       },
     );
   }
