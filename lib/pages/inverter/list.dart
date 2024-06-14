@@ -51,6 +51,7 @@ class InverterList extends StatelessWidget {
           child: const Column(
             children: [
               StatusBar(),
+              SizedBox(height: 12),
               ItList(),
             ],
           ),
@@ -121,10 +122,10 @@ class ItList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
+    return GetBuilder<InverterListController>(
       builder: (_) => Expanded(
         child: ListView.builder(
-          itemCount: 100,
+          itemCount: 3,
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {},
