@@ -125,15 +125,15 @@ class PlantListPage extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 controller: _.scrollController,
-                itemCount: _.plantList.length,
+                itemCount: _.plantList.length + 1,
                 itemBuilder: (context, index) {
-                  var plant = _.plantList[index];
-
-                  if (index == _.plantList.length - 1) {
+                  if (index == _.plantList.length) {
                     return _.isLoading
                         ? const Center(child: CircularProgressIndicator())
                         : const SizedBox.shrink();
                   }
+
+                  var plant = _.plantList[index];
 
                   return InkWell(
                     onTap: () {

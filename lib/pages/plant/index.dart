@@ -23,9 +23,9 @@ class PlantDetailController extends GetxController {
   double power = 0;
   double capacity = 0;
   double ratio = 0;
-  int energyDay = 10;
-  int energyMonth = 10;
-  int energyAll = 10;
+  double energyDay = 10;
+  double energyMonth = 10;
+  double energyAll = 10;
   void getPower() async{
     var res = await plantApi.fetchPlantPowerSummary(id);
 
@@ -63,46 +63,12 @@ class PlantDetailController extends GetxController {
   ScrollController scrollController = ScrollController();
   int page = 1;
   bool isLoading = false;
-  List <Map<String, dynamic>> accessPointList = [
-    {
-      "serialNo": '90000181',
-      "type": {
-        "value": 2,
-        "label": 'PLCC',
-      },
-      "power": 0,
-      "energy": 0,
-      "status": 0,
-      "isSelected": false,
-    },
-    {
-      "serialNo": 'A0000001',
-      "type": {
-        "value": 1,
-        "label": 'PLCC',
-      },
-      "power": 0,
-      "energy": 0,
-      "status": 1,
-      "isSelected": false,
-    },
-    {
-      "serialNo": '90000181',
-      "type": {
-        "value": 2,
-        "label": 'PLCC',
-      },
-      "power": 0,
-      "energy": 0,
-      "status": 3,
-      "isSelected": false,
-    },
-  ];
+  List <Map<String, dynamic>> accessPointList = [];
   void getAccessPointList() async {
     isLoading = true;
     update();
 
-    var res = accessPointApi.queryAccessPoint(id, apNoTC.text, page);
+    var res = await accessPointApi.queryAccessPoint(id, apNoTC.text, page);
 
     isLoading = false;
 

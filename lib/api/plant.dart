@@ -35,16 +35,16 @@ class PlantApi {
     );
   }
 
-  fetchPlantPowerSummary(dynamic plantId) async {
-    return await Request().request(
+  fetchPlantPowerSummary(dynamic plantId) {
+    return Request().request(
       '/api/plant/power/summary',
       data: {
         "plantId": plantId,
       },
     );
   }
-  fetchPlantEnergySummary(dynamic plantId) async {
-    return await Request().request(
+  fetchPlantEnergySummary(dynamic plantId) {
+    return Request().request(
       '/api/plant/energy/summary',
       data: {
         "plantId": plantId,

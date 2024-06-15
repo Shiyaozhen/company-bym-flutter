@@ -1,16 +1,63 @@
 import 'package:BYM/get_pages.dart';
+import 'package:BYM/utils/unit_converter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:BYM/api/inverter.dart';
 
+// 控制器
 class InverterListController extends GetxController {
-  // String accessPointName = Get.arguments['accessPointName'];
+  String plantId = Get.arguments['plantId'];
+  String accessPointId = Get.arguments['accessPointId'];
+  String serialNo = Get.arguments['serialNo'];
 
   int allNum = 0;
   int onlineNum = 0;
   int offlineNum = 0;
   int faultNum = 0;
+
+  ScrollController scrollController = ScrollController();
+  int page = 1;
+  bool isLoading = false;
+  List inverterList = [];
+  void getInverterList() async {
+    isLoading = true;
+    update();
+
+    // 请求列表
+    var res = await inverterApi.queryInverter(plantId: plantId, accessPointId: accessPointId, page: page);
+    // 请求对应功率、发电量
+    List serialNos = res['data']['content'].map((item) => item['serialNo'] as String).toList();
+    var data = await inverterApi.currentInvertersEvent(serialNos);
+    Map map = {};
+    for (var item in data['data']) {
+      map[item['inverterSerialNo']] = item;
+    }
+
+    isLoading = false;
+
+    inverterList.addAll([
+      for (var item in res['data']['content'])
+        {
+          ...item,
+          "power": map[item['serialNo']]['power'],
+          "energy": map[item['serialNo']]['dailyEnergy'],
+        }
+    ]);
+
+    page++;
+
+    update();
+  }
+
+  @override
+  void onInit() {
+    getInverterList();
+
+    super.onInit();
+  }
 }
 
+// 主体
 class InverterList extends StatelessWidget {
   const InverterList({super.key});
 
@@ -27,7 +74,7 @@ class InverterList extends StatelessWidget {
               BYRoute.back();
             },
           ),
-          title: Text('_.accessPointName'),
+          title: Text(_.serialNo),
           actions: [
             IconButton(
               onPressed: () {},
@@ -50,8 +97,8 @@ class InverterList extends StatelessWidget {
           ),
           child: const Column(
             children: [
-              StatusBar(),
-              SizedBox(height: 12),
+              // StatusBar(),
+              // SizedBox(height: 12),
               ItList(),
             ],
           ),
@@ -61,6 +108,7 @@ class InverterList extends StatelessWidget {
   }
 }
 
+// 状态栏
 class StatusBar extends StatelessWidget {
   const StatusBar({
     super.key,
@@ -85,6 +133,7 @@ class StatusBar extends StatelessWidget {
   }
 }
 
+// 状态栏 -> 状态项
 class StatusItem extends StatelessWidget {
   const StatusItem({
     super.key,
@@ -117,6 +166,7 @@ class StatusItem extends StatelessWidget {
   }
 }
 
+// 列表
 class ItList extends StatelessWidget {
   const ItList({super.key});
 
@@ -125,10 +175,26 @@ class ItList extends StatelessWidget {
     return GetBuilder<InverterListController>(
       builder: (_) => Expanded(
         child: ListView.builder(
-          itemCount: 3,
+          controller: _.scrollController,
+          itemCount: _.inverterList.length + 1,
           itemBuilder: (context, index) {
+            if (index == _.inverterList.length) {
+              return _.isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : const SizedBox.shrink();
+            }
+
+            var inverter = _.inverterList[index];
+
             return GestureDetector(
-              onTap: () {},
+              onTap: () {
+                BYRoute.toNamed(
+                  '/InverterDetail',
+                  arguments: {
+                    "serialNo": inverter['serialNo']
+                  },
+                );
+              },
               onLongPress: () {},
               child: Container(
                 margin: const EdgeInsets.only(bottom: 12),
@@ -137,7 +203,7 @@ class ItList extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                   color: Colors.white,
                 ),
-                child: const Column(
+                child: Column(
                   children: [
                     // 编号 状态
                     Row(
@@ -145,15 +211,15 @@ class ItList extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Text('MI'),
-                            SizedBox(width: 10),
-                            Text('40010107'),
+                            const Text('MI'),
+                            const SizedBox(width: 10),
+                            Text(inverter['serialNo']),
                           ],
                         ),
-                        Icon(Icons.wifi, color: Color(0xFF5475F7)),
+                        StatusIcon(status: inverter['status']),
                       ],
                     ),
-                    SizedBox(height: 12),
+                    const SizedBox(height: 12),
                     // 功率
                     Row(
                       children: [
@@ -161,10 +227,10 @@ class ItList extends StatelessWidget {
                         SizedBox(width: 6),
                         Text('当前功率'),
                         SizedBox(width: 40),
-                        Text('0'),
+                        Text(convertPower(inverter['power'], decimalDigits: 3)),
                       ],
                     ),
-                    SizedBox(height: 12),
+                    const SizedBox(height: 12),
                     // 发电量
                     Row(
                       children: [
@@ -172,7 +238,7 @@ class ItList extends StatelessWidget {
                         SizedBox(width: 6),
                         Text('当日发电量'),
                         SizedBox(width: 40),
-                        Text('0'),
+                        Text(convertEnergy(inverter['energy'], decimalDigits: 8)),
                       ],
                     ),
                   ],
@@ -186,7 +252,7 @@ class ItList extends StatelessWidget {
   }
 }
 
-// 状态图标
+// 列表 -> 状态图标
 class StatusIcon extends StatelessWidget {
   const StatusIcon({super.key, required this.status});
 

@@ -237,8 +237,14 @@ class ApList extends StatelessWidget {
       builder: (_) => Expanded(
         child: ListView.builder(
           controller: _.scrollController,
-          itemCount: _.accessPointList.length,
+          itemCount: _.accessPointList.length + 1,
           itemBuilder: (context, index) {
+            if (index == _.accessPointList.length) {
+              return _.isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : const SizedBox.shrink();
+            }
+
             var ap = _.accessPointList[index];
 
             return GestureDetector(
@@ -254,6 +260,9 @@ class ApList extends StatelessWidget {
                 } else {
                   BYRoute.toNamed(
                     '/InverterDetail',
+                    arguments: {
+
+                    },
                   );
                 }
               },
@@ -275,7 +284,7 @@ class ApList extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Text(ap['type']['value'] == 1 ? 'MI-W' : 'PLCC'),
+                            Text(ap['type']['label']),
                             const SizedBox(width: 10),
                             Text(ap['serialNo']),
                           ],
@@ -328,6 +337,11 @@ class ApList extends StatelessWidget {
                             onTap: () {
                               BYRoute.toNamed(
                                 '/InverterList',
+                                arguments: {
+                                  "plantId": ap['plantId'],
+                                  "accessPointId": ap['id'],
+                                  "serialNo": ap['serialNo'],
+                                },
                               );
                             },
                             child: const Row(

@@ -14,7 +14,12 @@ class InverterApi {
   static InverterApi? get instance => _instance ?? InverterApi._internal();
 
   // 逆变器列表
-  queryInverter(String plantId, String accessPointId, String serialNo, int page) {
+  queryInverter({
+    required String plantId,
+    required String accessPointId,
+    String? serialNo,
+    required int page,
+  }) {
     return Request().request(
       '/api/inverter/query',
       data: {
@@ -23,6 +28,23 @@ class InverterApi {
         "serialNo": serialNo,
         "page": page,
         "size": 20,
+      },
+    );
+  }
+  // 逆变器列表实时功率和发电量
+  currentInvertersEvent(List serialNos) {
+    return Request().request(
+      '/api/current/inverters-event',
+      data: {
+        "serialNos": serialNos,
+      },
+    );
+  }
+  queryInverterDetail(String inverterSerialNo) {
+    return Request().request(
+      '/api/inverter/detail',
+      data: {
+        "inverterSerialNo": inverterSerialNo,
       },
     );
   }
