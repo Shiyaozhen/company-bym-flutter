@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:BYM/get_pages.dart';
 
+import '../../../themes/colors.dart';
+
 class PlantMore extends StatelessWidget {
   const PlantMore({super.key});
 
@@ -25,6 +27,31 @@ class PlantMore extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
+        ),
+        bottomNavigationBar: NavigationBar(
+          backgroundColor: ByColors.bottomNavigationBarColor,
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+          selectedIndex: _.currentPageIndex,
+          onDestinationSelected: (int index) {
+            _.switchPageIndex(index);
+          },
+          destinations: const <Widget>[
+            NavigationDestination(
+              selectedIcon: Icon(Icons.offline_bolt),
+              icon: Icon(Icons.offline_bolt_outlined),
+              label: '',
+            ),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.widgets),
+              icon: Icon(Icons.widgets_outlined),
+              label: '',
+            ),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.settings_applications),
+              icon: Icon(Icons.settings_applications_outlined),
+              label: '',
+            ),
+          ],
         ),
         body: Container(
           padding: const EdgeInsets.only(left: 13.0, right: 13.0),

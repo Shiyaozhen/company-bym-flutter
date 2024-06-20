@@ -1,5 +1,6 @@
 import 'package:BYM/pages/plant/detail/index.dart';
 import 'package:BYM/pages/plant/device/index.dart';
+import 'package:BYM/utils/unit_converter.dart';
 import 'more/index.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -64,16 +65,28 @@ class PlantDetailController extends GetxController {
   int page = 1;
   bool isLoading = false;
   List <Map<String, dynamic>> accessPointList = [];
+  List deleteAccessPointList = [];
   void getAccessPointList() async {
+    // Loading 转圈
     isLoading = true;
     update();
 
-    var res = await accessPointApi.queryAccessPoint(id, apNoTC.text, page);
+    // 接入点列表
+    var apList = (await accessPointApi.queryAccessPoint(id, apNoTC.text, page))['data']['content'];
+    List serialNos = apList.map((item) => item['serialNo'] as String).toList();
+    var realTimeDataList = (await accessPointApi.fetchAccessPointRuntime(serialNos))['data'];
+    var realTimeDataMap = {
+      for (var item in realTimeDataList) item['accessPointSerialNo'] : item
+    };
 
     isLoading = false;
 
     accessPointList.addAll([
-      for (var item in res['data']['content']) item
+      for (var item in apList) {
+        ... item,
+        "power": convertPower(realTimeDataMap[item['serialNo']]?['power'], decimalDigits: 6),
+        "energy": convertEnergy(realTimeDataMap[item['serialNo']]?['dailyEnergy'], decimalDigits: 6),
+      }
     ]);
 
     page++;
@@ -81,12 +94,15 @@ class PlantDetailController extends GetxController {
     update();
   }
   void deleteAccessPoint() async {
-    List deleteAccessPointList = accessPointList.where((ap) => ap['isSelected'] == true).toList();
-
     print(deleteAccessPointList);
+    deleteAccessPointList.clear();
   }
-  void switchIsSelected(int index, bool? value) {
-    accessPointList[index]['isSelected'] = value;
+  void updateDeleteAccessPointList(String serialNo, bool? value) {
+    if(value == true) {
+      deleteAccessPointList.add(serialNo);
+    } else {
+      deleteAccessPointList.remove(serialNo);
+    }
     update();
   }
 
@@ -123,62 +139,22 @@ class PlantDetailController extends GetxController {
   }
 }
 
-class PlantDetail extends StatefulWidget {
+class PlantDetail extends StatelessWidget {
   const PlantDetail({super.key});
 
   @override
-  State<PlantDetail> createState() => _PlantDetailState();
-}
-
-class _PlantDetailState extends State<PlantDetail> {
-  bool shouldHideElements = false;
-  void toggleHideElements(bool shouldHide) {
-    setState(() {
-      shouldHideElements = shouldHide;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> arguments = Get.arguments;
-    final String stationName = arguments['name'];
-
     return GetBuilder(
       init: PlantDetailController(),
-      builder: (_) => Scaffold(
-        bottomNavigationBar: NavigationBar(
-          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-          selectedIndex: _.currentPageIndex,
-          onDestinationSelected: (int index) {
-            _.switchPageIndex(index);
-          },
-          destinations: const <Widget>[
-            NavigationDestination(
-              icon: Icon(Icons.explore),
-              label: '',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.commute),
-              label: '',
-            ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.bookmark),
-              icon: Icon(Icons.bookmark_border),
-              label: '',
-            ),
-          ],
-        ),
-        body: IndexedStack(
-          index: _.currentPageIndex,
-          children: [
-            PlantDetailOverview(),
-            AccessPointList(),
-            PlantMore(),
-          ],
-        ),
+      builder: (_) => IndexedStack(
+        index: _.currentPageIndex,
+        children: const [
+          PlantDetailOverview(),
+          AccessPointList(),
+          PlantMore(),
+        ],
       ),
     );
   }
 }
-
 

@@ -1,3 +1,4 @@
+import 'package:BYM/api/access_point.dart';
 import 'package:BYM/utils/unit_converter.dart';
 import 'package:flutter/material.dart';
 
@@ -21,25 +22,64 @@ class InverterDetailController extends GetxController {
   String secondaryVersion = '';
   String hardVersion = '';
 
+  Map<String, dynamic> powerGenerationData = {
+    "power": '',
+    "standardPower": '',
+    "energyDay": '',
+    "energyAll": '',
+  };
+
+  Map<String, dynamic> basicData = {
+    "model": '',
+    "status": 0,
+    "plantName": '',
+    "primaryVersion": '',
+    "secondaryVersion": '',
+  };
+
+  Map<String, dynamic> communicationModuleData = {
+    "softVersion": '',
+    "hardVersion": '',
+  };
+
   void getInverterDetail() async {
-    var res = await inverterApi.queryInverterDetail(serialNo);
+    if(RegExp(r'^[A-E]').hasMatch(serialNo)) {
+      var runtimeRes = await accessPointApi.fetchAccessPointRuntime([serialNo]);
+      var runtimeData = runtimeRes['data'].isNotEmpty ? runtimeRes['data'][0] : null;
+      powerGenerationData['power'] = runtimeData?['power'].toString();
+      powerGenerationData['energyDay'] = runtimeData?['dailyEnergy'].toString();
+      powerGenerationData['energyAll'] = runtimeData?['totalEnergy'].toString();
+      update();
 
-    capacity = res['data']['standardPower'];
 
-    type = res['data']['type']['value'];
-    status = res['data']['status'];
-    plantName = res['data']['plantName'] ?? '';
-    primaryVersion = res['data']['primaryVersion'];
-    secondaryVersion = res['data']['secondaryVersion'];
+      var accessPointData = (await accessPointApi.fetchAccessPointDetail(serialNo))['data'];
+      communicationModuleData['softVersion'] = accessPointData['softVersion'];
+      communicationModuleData['hardVersion'] = accessPointData['hardVersion'];
 
-    DateTime date = DateTime.fromMicrosecondsSinceEpoch(int.parse(res['data']['createAt']));
+      update();
+
+      var accessPointStatusData = (await accessPointApi.fetchAccessPointStatus(serialNo))['data'];
+
+    } else {
+
+    }
+
+    var inverterData = (await inverterApi.queryInverterDetail(serialNo))['data'];
+    powerGenerationData['standardPower'] = inverterData['standardPower'].toString();
+    basicData['model'] = inverterData['model'];
+    basicData['status'] = inverterData['status'];
+    basicData['plantName'] = inverterData['plantName'];
+    basicData['primaryVersion'] = inverterData['primaryVersion'];
+    basicData['secondaryVersion'] = inverterData['secondaryVersion'];
+
+    /*DateTime date = DateTime.fromMicrosecondsSinceEpoch(int.parse(res['data']['createAt']));
     String year = "${date.year}";
     String month = date.month.toString().padLeft(2, '0');
     String day = date.day.toString().padLeft(2, '0');
     String hour = date.hour.toString().padLeft(2, '0');
     String minute = date.minute.toString().padLeft(2, '0');
     String second = date.second.toString().padLeft(2, '0');
-    updateTime = "$year-$month-$day $hour:$minute:$second";
+    updateTime = "$year-$month-$day $hour:$minute:$second";*/
 
     update();
   }
@@ -87,6 +127,7 @@ class InverterDetail extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                // 发电信息
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
@@ -98,20 +139,26 @@ class InverterDetail extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('发电信息'),
+                          const Text('发电信息'),
                           IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.navigate_next)),
+                            onPressed: () {
+                              BYRoute.toNamed('/InverterChart', arguments: {
+                                "serialNo": _.serialNo,
+                              },);
+                            },
+                            icon: const Icon(Icons.navigate_next),
+                          ),
                         ],
                       ),
-                      InfoItem(label: '当前功率', value: convertPower(_.power)),
-                      InfoItem(label: '标称功率', value: '${_.capacity} W'),
-                      InfoItem(label: '当日发电量', value: convertEnergy(_.energyDay)),
-                      InfoItem(label: '累计发电量', value: convertEnergy(_.energyAll)),
+                      InfoItem(label: '当前功率', value: convertPower(_.powerGenerationData['power'])),
+                      InfoItem(label: '标称功率', value: '${_.powerGenerationData['standardPower']} W'),
+                      InfoItem(label: '当日发电量', value: convertEnergy(_.powerGenerationData['energyDay'])),
+                      InfoItem(label: '累计发电量', value: convertEnergy(_.powerGenerationData['energyAll'])),
                     ],
                   ),
                 ),
                 const SizedBox(height: 12),
+                // 基本信息
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
@@ -121,14 +168,37 @@ class InverterDetail extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('基本信息'),
-                      InfoItem(label: '类型', value: '${_.type}'),
-                      StatusItem(),
-                      InfoItem(label: '所属电站', value: _.plantName),
-                      InfoItem(label: '更新时间', value: _.updateTime),
-                      InfoItem(label: '原边版本号', value: _.primaryVersion),
-                      InfoItem(label: '副边版本号', value: _.secondaryVersion),
-                      InfoItem(label: '硬件版本号', value: _.hardVersion),
+                      const Text('基本信息'),
+                      InfoItem(label: '型号', value: '${_.basicData['model']}'),
+                      const StatusItem(),
+                      InfoItem(label: '所属电站', value: '${_.basicData['plantName']}'),
+                      InfoItem(label: '更新时间', value: ' '),
+                      InfoItem(label: '原边版本号', value: '${_.basicData['primaryVersion']}'),
+                      InfoItem(label: '副边版本号', value: '${_.basicData['secondaryVersion']}'),
+                    ],
+                  ),
+                ),
+                // 通讯模组信息
+                Visibility(
+                  visible: RegExp(r'^[A-E]').hasMatch(_.serialNo),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 12),
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          color: Colors.white,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('通讯模组信息'),
+                            InfoItem(label: '软件版本号', value: _.communicationModuleData['softVersion']),
+                            InfoItem(label: '硬件版本号', value: _.communicationModuleData['hardVersion']),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -222,13 +292,13 @@ class StatusIcon extends StatelessWidget {
 
     switch (status) {
       case 0:
-        icon = const Icon(Icons.wifi, color: Color(0xFF5475F7));
+        icon = const Icon(Icons.wifi_off, color: Color(0xFFAAAAAA));
         break;
       case 1:
-        icon = const Icon(Icons.error_outline, color: Color(0xFFFF7979));
+        icon = const Icon(Icons.wifi, color: Color(0xFF5475F7));
         break;
-      case 3:
-        icon = const Icon(Icons.wifi_off, color: Color(0xFFAAAAAA));
+      case 9:
+        icon = const Icon(Icons.error_outline, color: Color(0xFFFF7979));
         break;
       default:
         icon = const Icon(Icons.wifi_off, color: Color(0xFFAAAAAA));

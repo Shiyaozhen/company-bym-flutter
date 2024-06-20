@@ -19,8 +19,8 @@ class OverviewApi {
     return await Request().request('/api/plant/energy/summary');
   }
   // 在线 离线 异常数量
-  fetchInverterStatus() async {
-    return await Request().request('/api/inverter/status');
+  fetchInverterStatusSummary() async {
+    return await Request().request('/api/inverter/status/summary');
   }
   // 统计图 - 日
   fetchStatisticsDay() async{

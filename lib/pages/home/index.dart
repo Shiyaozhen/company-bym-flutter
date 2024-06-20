@@ -24,9 +24,8 @@ class _HomePageState extends State<HomePage> {
             child: IndexedStack(
               index: selectedIndex,
               children: const [
-                OverViewIndex(),
-                // PlantIndex(),
                 PlantListPage(),
+                OverViewIndex(),
                 Mine(arguments: {},),
               ],
             ),

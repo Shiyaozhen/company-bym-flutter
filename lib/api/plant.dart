@@ -51,6 +51,35 @@ class PlantApi {
       },
     );
   }
+
+  // 获取图表数据
+  fetchPlantChartDataDay({required String plantId, required String date}) {
+    return Request().request(
+      '/api/daily/statistics',
+      data: {
+        "plantId": plantId,
+        "date": date,
+      },
+    );
+  }
+  fetchPlantChartDataMonth({required String plantId, required String date}) {
+    return Request().request(
+      '/api/monthly/statistics',
+      data: {
+        "plantId": plantId,
+        "yearMonth": date,
+      },
+    );
+  }
+  fetchPlantChartDataYear({required String plantId, required String date}) {
+    return Request().request(
+      '/api/yearly/statistics',
+      data: {
+        "plantId": plantId,
+        "year": date,
+      },
+    );
+  }
 }
 
 final plantApi = PlantApi();

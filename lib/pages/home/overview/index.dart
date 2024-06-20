@@ -5,6 +5,7 @@ import 'package:BYM/components/ByDayPicker.dart';
 import 'package:BYM/components/ByMask.dart';
 import 'package:BYM/components/ByMonthPicker.dart';
 import 'package:BYM/components/ByWeekPicker.dart';
+import 'package:BYM/themes/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -49,7 +50,7 @@ class OverviewController extends GetxController {
   var offlineNum = '0';
   var faultNum = '0';
   getInverterStatus() async {
-    var res = await overviewApi.fetchInverterStatus();
+    var res = await overviewApi.fetchInverterStatusSummary();
 
     onlineNum = res['data']['online'].toString();
     offlineNum = res['data']['offline'].toString();
@@ -743,83 +744,68 @@ class StatusSection extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset(
-                    'assets/ic_device_online.svg',
-                    width: 20,
-                    height: 20),
-                Container(
-                  margin: EdgeInsets.only(
-                      top: 6.0, bottom: 15),
-                  child: Text(
-                    S.of(context).online_equipment,
-                    style: Theme.of(context)
-                        .textTheme
-                        .displaySmall
-                        ?.copyWith(
-                        fontSize: 14.0,
-                        color: Color(0xFF939393)),
-                  ),
+                const Icon(Icons.wifi, color: ByColors.primaryColor),
+                const SizedBox(height: 12),
+                Text(
+                  S.of(context).online_equipment,
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.copyWith(
+                      fontSize: 14.0,
+                      color: Color(0xFF939393)),
                 ),
+                const SizedBox(height: 12),
                 Text(
                   onlineNum,
                   style: Theme.of(context)
                       .textTheme
                       .displaySmall
                       ?.copyWith(fontSize: 20.0),
-                )
+                ),
               ],
             ),
             const DashLine(height: 60,),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset(
-                    'assets/ic_device_offline.svg',
-                    width: 20,
-                    height: 20),
-                Container(
-                  margin: EdgeInsets.only(
-                      top: 6.0, bottom: 15),
-                  child: Text(
-                    S.of(context).offline_equipment,
-                    style: Theme.of(context)
-                        .textTheme
-                        .displaySmall
-                        ?.copyWith(
-                        fontSize: 14.0,
-                        color: Color(0xFF939393)),
-                  ),
+                const Icon(Icons.wifi_off, color: ByColors.defaultColor),
+                const SizedBox(height: 12),
+                Text(
+                  S.of(context).offline_equipment,
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.copyWith(
+                      fontSize: 14.0,
+                      color: Color(0xFF939393)),
                 ),
+                const SizedBox(height: 12),
                 Text(
                   offlineNum,
                   style: Theme.of(context)
                       .textTheme
                       .displaySmall
                       ?.copyWith(fontSize: 20.0),
-                )
+                ),
               ],
             ),
             const DashLine(height: 60,),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset(
-                    'assets/ic_device_fault.svg',
-                    width: 20,
-                    height: 20),
-                Container(
-                  margin: EdgeInsets.only(
-                      top: 6.0, bottom: 15),
-                  child: Text(
-                    S.of(context).abnormal_equipment,
-                    style: Theme.of(context)
-                        .textTheme
-                        .displaySmall
-                        ?.copyWith(
-                        fontSize: 14.0,
-                        color: Color(0xFF939393)),
-                  ),
+                const Icon(Icons.info_outline, color: ByColors.dangerColor),
+                const SizedBox(height: 12),
+                Text(
+                  S.of(context).abnormal_equipment,
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.copyWith(
+                      fontSize: 14.0,
+                      color: Color(0xFF939393)),
                 ),
+                const SizedBox(height: 12),
                 Text(
                   abnormalNum,
                   style: Theme.of(context)

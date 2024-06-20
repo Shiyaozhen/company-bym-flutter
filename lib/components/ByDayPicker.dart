@@ -4,14 +4,15 @@ import 'package:table_calendar/table_calendar.dart';
 class DayPicker extends StatefulWidget {
   final Function(DateTime) onConfirm;
 
-  DayPicker({required this.onConfirm});
+  const DayPicker({super.key, required this.onConfirm});
 
   @override
-  _DayPickerState createState() => _DayPickerState();
+  State<DayPicker> createState() => _DayPickerState();
 }
 
 class _DayPickerState extends State<DayPicker> {
   late DateTime _selectedDay;
+
   @override
   void initState() {
     super.initState();
@@ -23,7 +24,7 @@ class _DayPickerState extends State<DayPicker> {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.only(top: 10),
+          padding: const EdgeInsets.only(top: 10),
           child: TableCalendar(
             calendarBuilders: CalendarBuilders(
               selectedBuilder: (context, date, events) {
@@ -109,21 +110,17 @@ class _DayPickerState extends State<DayPicker> {
             focusedDay: _selectedDay,
           ),
         ),
-        SizedBox(
-          height: 30,
-        ),
+        const SizedBox(height: 30),
         SizedBox(
           width: 300,
           child: ElevatedButton(
             onPressed: () {
-              if (_selectedDay != null) {
-                widget.onConfirm(_selectedDay!);
-              }
+              widget.onConfirm(_selectedDay);
               Navigator.pop(context);
             },
-            child: Text('Confirm'),
+            child: const Text('Confirm'),
           ),
-        )
+        ),
       ],
     );
   }

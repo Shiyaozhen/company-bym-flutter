@@ -39,7 +39,7 @@ class _ChangePwdState extends State<ChangePwd> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  '旧密码',
+                  '原密码',
                   style: Theme.of(context).textTheme.displayLarge,
                 ),
               ),
@@ -49,7 +49,7 @@ class _ChangePwdState extends State<ChangePwd> {
               child: TextField(
                 obscureText: isObscure_old,
                 decoration: InputDecoration(
-                  hintText: '请输入旧密码',
+                  hintText: '请输入原密码',
                   suffixIcon: IconButton(
                     icon: Icon(
                         isObscure_old
@@ -111,7 +111,7 @@ class _ChangePwdState extends State<ChangePwd> {
               child: TextField(
                 obscureText: isObscure_con_new,
                 decoration: InputDecoration(
-                  hintText: '请再次输入您的新密码',
+                  hintText: '请确认新密码',
                   suffixIcon: IconButton(
                     icon: Icon(
                         isObscure_con_new

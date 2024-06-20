@@ -1,11 +1,12 @@
 import 'package:BYM/get_pages.dart';
+import 'package:BYM/themes/colors.dart';
 import 'package:BYM/utils/unit_converter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../index.dart';
 
-// 接入点列表页面主体
+// 主体
 class AccessPointList extends StatelessWidget {
   const AccessPointList({super.key});
 
@@ -16,24 +17,24 @@ class AccessPointList extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: const Color(0xFFD6DDFF),
           title: Text(
-            _.name,
+            _.isDelete ? '已选择 ${_.deleteAccessPointList.length}' : _.name,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           centerTitle: true,
-          leading: IconButton(
+          leading: _.isDelete ? const SizedBox() : IconButton(
             icon: const Icon(Icons.arrow_back),
             color: const Color(0xFF383838),
             onPressed: () {
-              Navigator.pop(context);
+              BYRoute.back();
             },
           ),
           actions: [
             _.isDelete
                 ? IconButton(
                     onPressed: () {
+                      _.deleteAccessPointList.clear();
                       _.switchIsDelete(false);
-                      _.deleteAccessPoint();
                     },
                     icon: const Icon(Icons.check),
                   )
@@ -41,6 +42,31 @@ class AccessPointList extends StatelessWidget {
                     onPressed: () {},
                     icon: const Icon(Icons.add_circle_outline),
                   ),
+          ],
+        ),
+        bottomNavigationBar: _.isDelete ? const DeleteButton() : NavigationBar(
+          backgroundColor: ByColors.bottomNavigationBarColor,
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+          selectedIndex: _.currentPageIndex,
+          onDestinationSelected: (int index) {
+            _.switchPageIndex(index);
+          },
+          destinations: const <Widget>[
+            NavigationDestination(
+              selectedIcon: Icon(Icons.offline_bolt),
+              icon: Icon(Icons.offline_bolt_outlined),
+              label: '',
+            ),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.widgets),
+              icon: Icon(Icons.widgets_outlined),
+              label: '',
+            ),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.settings_applications),
+              icon: Icon(Icons.settings_applications_outlined),
+              label: '',
+            ),
           ],
         ),
         body: Container(
@@ -249,21 +275,22 @@ class ApList extends StatelessWidget {
 
             return GestureDetector(
               onTap: () {
-                if(ap['type']['value'] == 2) {
-                  BYRoute.toNamed(
-                    '/AccessPointInfo',
-                    arguments: {
-                      // "plantId": ap['plantId'],
-                      "serialNo": ap['serialNo'],
-                    },
-                  );
-                } else {
-                  BYRoute.toNamed(
-                    '/InverterDetail',
-                    arguments: {
-
-                    },
-                  );
+                if(!_.isDelete) {
+                  if(ap['type']['value'] == 2) {
+                    BYRoute.toNamed(
+                      '/AccessPointInfo',
+                      arguments: {
+                        "serialNo": ap['serialNo'],
+                      },
+                    );
+                  } else {
+                    BYRoute.toNamed(
+                      '/InverterDetail',
+                      arguments: {
+                        "serialNo": ap['serialNo'],
+                      },
+                    );
+                  }
                 }
               },
               onLongPress: () {
@@ -279,46 +306,61 @@ class ApList extends StatelessWidget {
                 child: Column(
                   children: [
                     // 编号 状态
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Text(ap['type']['label']),
-                            const SizedBox(width: 10),
-                            Text(ap['serialNo']),
-                          ],
-                        ),
-                        _.isDelete
-                            ? Checkbox(
-                                value: ap['isSelected'],
-                                onChanged: (bool? value) {
-                                  _.switchIsSelected(index, value);
-                                },
-                              )
-                            : StatusIcon(status: ap['status']),
-                      ],
+                    SizedBox(
+                      height: 36,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Text(ap['type']['label']),
+                              const SizedBox(width: 10),
+                              Text(ap['serialNo']),
+                            ],
+                          ),
+                          _.isDelete
+                              ? Checkbox(
+                                  value: _.deleteAccessPointList.contains(ap['serialNo']) ? true : false,
+                                  onChanged: (bool? value) {
+                                    _.updateDeleteAccessPointList(ap['serialNo'], value);
+                                  },
+                                )
+                              : StatusIcon(status: ap['status']),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 12),
                     // 功率
                     Row(
                       children: [
-                        Icon(Icons.add_circle),
-                        SizedBox(width: 6),
-                        Text('当前功率'),
-                        SizedBox(width: 40),
-                        Text(convertPower(ap['power'])),
+                        const SizedBox(
+                          width: 200,
+                          child: Row(
+                            children: [
+                              Icon(Icons.add_circle),
+                              SizedBox(width: 6),
+                              Text('当前功率'),
+                            ],
+                          ),
+                        ),
+                        Text(ap['power']),
                       ],
                     ),
                     const SizedBox(height: 12),
                     // 发电量
                     Row(
                       children: [
-                        Icon(Icons.add_circle),
-                        SizedBox(width: 6),
-                        Text('当日发电量'),
-                        SizedBox(width: 40),
-                        Text(convertPower(ap['energy'])),
+                        const SizedBox(
+                          width: 200,
+                          child: Row(
+                            children: [
+                              Icon(Icons.add_circle),
+                              SizedBox(width: 6),
+                              Text('当日发电量'),
+                            ],
+                          ),
+                        ),
+                        Text(ap['energy']),
                       ],
                     ),
                     // 下挂设备
@@ -335,14 +377,16 @@ class ApList extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              BYRoute.toNamed(
-                                '/InverterList',
-                                arguments: {
-                                  "plantId": ap['plantId'],
-                                  "accessPointId": ap['id'],
-                                  "serialNo": ap['serialNo'],
-                                },
-                              );
+                              if(!_.isDelete) {
+                                BYRoute.toNamed(
+                                  '/InverterList',
+                                  arguments: {
+                                    "plantId": ap['plantId'],
+                                    "accessPointId": ap['id'],
+                                    "serialNo": ap['serialNo'],
+                                  },
+                                );
+                              }
                             },
                             child: const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -378,20 +422,106 @@ class StatusIcon extends StatelessWidget {
 
     switch (status) {
       case 0:
-        icon = const Icon(Icons.wifi, color: Color(0xFF5475F7));
+        icon = const Icon(Icons.wifi, color: ByColors.primaryColor);
         break;
       case 1:
-        icon = const Icon(Icons.error_outline, color: Color(0xFFFF7979));
+        icon = const Icon(Icons.error_outline, color: ByColors.dangerColor);
         break;
       case 3:
-        icon = const Icon(Icons.wifi_off, color: Color(0xFFAAAAAA));
+        icon = const Icon(Icons.wifi_off, color: ByColors.defaultColor);
         break;
       default:
-        icon = const Icon(Icons.wifi_off, color: Color(0xFFAAAAAA));
+        icon = const Icon(Icons.wifi_off, color: ByColors.defaultColor);
     }
 
     return icon;
   }
 }
+
+// 删除按钮
+class DeleteButton extends StatelessWidget {
+  const DeleteButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<PlantDetailController>(
+      builder: (_) => GestureDetector(
+        onTap: () {
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => const DeleteDialog(),
+          );
+        },
+        child: Container(
+          height: 80,
+          color: Colors.white,
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.delete_outline, color: ByColors.dangerColor),
+              SizedBox(
+                width: 12,
+              ),
+              Text(
+                '删除设备',
+                style: TextStyle(color: ByColors.dangerColor),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// 确认删除对话框
+class DeleteDialog extends StatelessWidget {
+  const DeleteDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<PlantDetailController>(
+      builder: (_) => AlertDialog(
+        content: Container(
+          width: double.maxFinite,
+          constraints: const BoxConstraints(
+            maxHeight: 700,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('是否确认删除设备:'),
+              const SizedBox(height: 12),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: _.deleteAccessPointList.length,
+                itemBuilder: (context, index) {
+                  String key = _.deleteAccessPointList[index];
+
+                  return Text(key);
+                },
+              ),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text('取消'),
+          ),
+          TextButton(
+            onPressed: () {
+              _.deleteAccessPoint();
+            },
+            child: const Text('确定'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
 
 

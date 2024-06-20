@@ -6,42 +6,69 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:BYM/utils/unit_converter.dart';
 
+import '../../../themes/colors.dart';
+
 class PlantDetailOverview extends StatelessWidget {
   const PlantDetailOverview({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFFD6DDFF),
-        title: GetBuilder<PlantDetailController>(
-          builder: (_) => Text(
-            _.name,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headlineMedium,
+    return GetBuilder<PlantDetailController>(
+      builder: (_) => Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color(0xFFD6DDFF),
+          title: GetBuilder<PlantDetailController>(
+            builder: (_) => Text(
+              _.name,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
           ),
-        ),
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          color: Color(0xFF383838),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add_circle_outline),
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
             color: Color(0xFF383838),
             onPressed: () {
-              // Handle the button press
+              Navigator.pop(context);
             },
           ),
-        ],
-      ),
-      body: GetBuilder<PlantDetailController>(
-        builder: (_) => Container(
-          padding: const EdgeInsets.all(12),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.add_circle_outline),
+              color: Color(0xFF383838),
+              onPressed: () {
+                // Handle the button press
+              },
+            ),
+          ],
+        ),
+        bottomNavigationBar: NavigationBar(
+          backgroundColor: ByColors.bottomNavigationBarColor,
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+          selectedIndex: _.currentPageIndex,
+          onDestinationSelected: (int index) {
+            _.switchPageIndex(index);
+          },
+          destinations: const <Widget>[
+            NavigationDestination(
+              selectedIcon: Icon(Icons.offline_bolt),
+              icon: Icon(Icons.offline_bolt_outlined),
+              label: '',
+            ),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.widgets),
+              icon: Icon(Icons.widgets_outlined),
+              label: '',
+            ),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.settings_applications),
+              icon: Icon(Icons.settings_applications_outlined),
+              label: '',
+            ),
+          ],
+        ),
+        body: Container(
+          padding: const EdgeInsets.only(top: 24, left: 12, right: 12, bottom: 12),
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
@@ -64,30 +91,35 @@ class PlantDetailOverview extends StatelessWidget {
                   ),
                   Align(
                     alignment: Alignment.center,
-                    child: Column(
-                      children: [
-                        Text(
-                          convertPower(_.power),
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Color.fromARGB(255, 8, 8, 8),
-                            fontWeight: FontWeight.bold,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 16, left: 15),
+                      child: Column(
+                        children: [
+                          Text(
+                            convertPower(_.power).split(" ")[0],
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Color.fromARGB(255, 8, 8, 8),
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        const Text(
-                          'kW',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Color(0xFF939393),
-                            fontWeight: FontWeight.bold,
+                          Text(
+                            convertPower(_.power).split(" ")[1] ?? 'kW',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Color(0xFF939393),
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               // 2
               Row(
                 children: [
@@ -110,9 +142,12 @@ class PlantDetailOverview extends StatelessWidget {
                                 height: 28,
                                 'assets/ic_plant_energy_day.svg',
                               ),
-                              const SizedBox(width: 12,),
+                              const SizedBox(
+                                width: 12,
+                              ),
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
@@ -120,10 +155,11 @@ class PlantDetailOverview extends StatelessWidget {
                                     style: Theme.of(context)
                                         .textTheme
                                         .displayLarge
-                                        ?.copyWith(
-                                        color: Color(0xFF939393)),
+                                        ?.copyWith(color: Color(0xFF939393)),
                                   ),
-                                  const SizedBox(height: 6,),
+                                  const SizedBox(
+                                    height: 6,
+                                  ),
                                   Text(
                                     convertEnergy(_.energyDay),
                                     style: Theme.of(context)
@@ -135,7 +171,9 @@ class PlantDetailOverview extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 12,),
+                        const SizedBox(
+                          height: 12,
+                        ),
                         // 月
                         Container(
                           height: 80,
@@ -151,9 +189,12 @@ class PlantDetailOverview extends StatelessWidget {
                                 height: 28,
                                 'assets/ic_plant_energy_day.svg',
                               ),
-                              const SizedBox(width: 12,),
+                              const SizedBox(
+                                width: 12,
+                              ),
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
@@ -161,10 +202,11 @@ class PlantDetailOverview extends StatelessWidget {
                                     style: Theme.of(context)
                                         .textTheme
                                         .displayLarge
-                                        ?.copyWith(
-                                        color: Color(0xFF939393)),
+                                        ?.copyWith(color: Color(0xFF939393)),
                                   ),
-                                  const SizedBox(height: 6,),
+                                  const SizedBox(
+                                    height: 6,
+                                  ),
                                   Text(
                                     convertEnergy(_.energyMonth),
                                     style: Theme.of(context)
@@ -179,7 +221,9 @@ class PlantDetailOverview extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(width: 12,),
+                  const SizedBox(
+                    width: 12,
+                  ),
                   // 功率比
                   Expanded(
                     child: Container(
@@ -237,8 +281,13 @@ class PlantDetailOverview extends StatelessWidget {
                 ),
                 child: InkWell(
                   onTap: () => {
-                    BYRoute.toNamed('/TotalEnergy',
-                        arguments: {'stationName': ''})
+                    BYRoute.toNamed(
+                      '/PlantChart',
+                      arguments: {
+                        "id": _.id,
+                        "name": _.name,
+                      },
+                    )
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -265,7 +314,9 @@ class PlantDetailOverview extends StatelessWidget {
                             convertEnergy(_.energyAll),
                             style: Theme.of(context).textTheme.headlineLarge,
                           ),
-                          const SizedBox(width: 5,),
+                          const SizedBox(
+                            width: 5,
+                          ),
                           const Icon(Icons.navigate_next),
                         ],
                       ),

@@ -55,11 +55,15 @@ import 'package:BYM/pages/tcp/index.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+// 电站
+import 'package:BYM/pages/plant/chart/index.dart';
+
 // 接入点
 import 'package:BYM/pages/access_point/info.dart';
 
 // 逆变器
 import 'package:BYM/pages/inverter/list.dart';
+import 'package:BYM/pages/inverter/chart/index.dart';
 
 List<GetPage<dynamic>> pages = [
   GetPage(
@@ -109,6 +113,11 @@ List<GetPage<dynamic>> pages = [
     page: () => const PlantMore(),
     transition: Transition.rightToLeftWithFade,
   ),
+  GetPage(
+    name: '/PlantChart',
+    page: () => const PlantChart(),
+    transition: Transition.rightToLeftWithFade,
+  ),
 
   // 接入点
   GetPage(
@@ -126,6 +135,11 @@ List<GetPage<dynamic>> pages = [
   GetPage(
     name: '/InverterDetail',
     page: () => InverterDetail(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+  GetPage(
+    name: '/InverterChart',
+    page: () => InverterChart(),
     transition: Transition.rightToLeftWithFade,
   ),
 

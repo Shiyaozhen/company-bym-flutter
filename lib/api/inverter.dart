@@ -32,9 +32,9 @@ class InverterApi {
     );
   }
   // 逆变器列表实时功率和发电量
-  currentInvertersEvent(List serialNos) {
+  queryInverterRuntime(List serialNos) {
     return Request().request(
-      '/api/current/inverters-event',
+      '/api/inverter/runtime',
       data: {
         "serialNos": serialNos,
       },

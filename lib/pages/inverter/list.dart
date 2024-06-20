@@ -1,4 +1,5 @@
 import 'package:BYM/get_pages.dart';
+import 'package:BYM/themes/colors.dart';
 import 'package:BYM/utils/unit_converter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,12 @@ class InverterListController extends GetxController {
   String plantId = Get.arguments['plantId'];
   String accessPointId = Get.arguments['accessPointId'];
   String serialNo = Get.arguments['serialNo'];
+
+  bool isDelete = false;
+  void switchIsDelete(bool value) {
+    isDelete = value;
+    update();
+  }
 
   int allNum = 0;
   int onlineNum = 0;
@@ -27,7 +34,7 @@ class InverterListController extends GetxController {
     var res = await inverterApi.queryInverter(plantId: plantId, accessPointId: accessPointId, page: page);
     // 请求对应功率、发电量
     List serialNos = res['data']['content'].map((item) => item['serialNo'] as String).toList();
-    var data = await inverterApi.currentInvertersEvent(serialNos);
+    var data = await inverterApi.queryInverterRuntime(serialNos);
     Map map = {};
     for (var item in data['data']) {
       map[item['inverterSerialNo']] = item;
@@ -39,13 +46,28 @@ class InverterListController extends GetxController {
       for (var item in res['data']['content'])
         {
           ...item,
-          "power": map[item['serialNo']]['power'],
-          "energy": map[item['serialNo']]['dailyEnergy'],
+          "power": map.isNotEmpty ? map[item['serialNo']]['power'] : 0,
+          "energy": map.isNotEmpty ? map[item['serialNo']]['dailyEnergy'] : 0,
         }
     ]);
 
     page++;
 
+    update();
+  }
+  List deleteInverterList = [];
+  void deleteInverter() async {
+    print(deleteInverterList);
+    deleteInverterList.clear();
+    isDelete = false;
+    update();
+  }
+  void updateDeleteInverterList(String serialNo, bool? value) {
+    if(value == true) {
+      deleteInverterList.add(serialNo);
+    } else {
+      deleteInverterList.remove(serialNo);
+    }
     update();
   }
 
@@ -68,20 +90,30 @@ class InverterList extends StatelessWidget {
       builder: (_) => Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xFFD6DDFF),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              BYRoute.back();
-            },
-          ),
-          title: Text(_.serialNo),
+          leading: _.isDelete
+              ? const SizedBox()
+              : IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () {
+                    BYRoute.back();
+                  },
+                ),
+          title: _.isDelete ? Text("已选择 ${_.deleteInverterList.length}") : Text(_.serialNo),
           actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.add_circle_outline),
-            ),
+            _.isDelete
+                ? IconButton(
+                    onPressed: () {
+                      _.switchIsDelete(false);
+                    },
+                    icon: const Icon(Icons.check),
+                  )
+                : IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.add_circle_outline),
+                  ),
           ],
         ),
+        bottomNavigationBar: _.isDelete ? const DeleteButton() : null,
         body: Container(
           padding: const EdgeInsets.all(12),
           decoration: const BoxDecoration(
@@ -120,13 +152,13 @@ class StatusBar extends StatelessWidget {
       builder: (_) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          StatusItem(label: '全部', value: _.allNum, color: const Color(0xFF383838)),
+          StatusBarItem(label: '全部', value: _.allNum, color: const Color(0xFF383838)),
           const SizedBox(width: 12),
-          StatusItem(label: '在线', value: _.onlineNum, color: const Color(0xFF5475F7)),
+          StatusBarItem(label: '在线', value: _.onlineNum, color: const Color(0xFF5475F7)),
           const SizedBox(width: 12),
-          StatusItem(label: '离线', value: _.offlineNum, color: const Color(0xFFAAAAAA)),
+          StatusBarItem(label: '离线', value: _.offlineNum, color: const Color(0xFFAAAAAA)),
           const SizedBox(width: 12),
-          StatusItem(label: '故障', value: _.faultNum, color: const Color(0xFFFF7979)),
+          StatusBarItem(label: '故障', value: _.faultNum, color: const Color(0xFFFF7979)),
         ],
       ),
     );
@@ -134,8 +166,8 @@ class StatusBar extends StatelessWidget {
 }
 
 // 状态栏 -> 状态项
-class StatusItem extends StatelessWidget {
-  const StatusItem({
+class StatusBarItem extends StatelessWidget {
+  const StatusBarItem({
     super.key,
     required this.label,
     required this.value,
@@ -195,7 +227,9 @@ class ItList extends StatelessWidget {
                   },
                 );
               },
-              onLongPress: () {},
+              onLongPress: () {
+                _.switchIsDelete(true);
+              },
               child: Container(
                 margin: const EdgeInsets.only(bottom: 12),
                 padding: const EdgeInsets.all(12),
@@ -206,27 +240,41 @@ class ItList extends StatelessWidget {
                 child: Column(
                   children: [
                     // 编号 状态
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            const Text('MI'),
-                            const SizedBox(width: 10),
-                            Text(inverter['serialNo']),
-                          ],
-                        ),
-                        StatusIcon(status: inverter['status']),
-                      ],
+                    SizedBox(
+                      height: 36,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Text(inverter['type']['label']),
+                              const SizedBox(width: 10),
+                              Text(inverter['serialNo']),
+                            ],
+                          ),
+                          _.isDelete ? Checkbox(
+                            value: _.deleteInverterList.contains(inverter['serialNo']) ? true : false,
+                            onChanged: (bool? value) {
+                              _.updateDeleteInverterList(inverter['serialNo'], value);
+                            },
+                          ) : StatusIcon(status: inverter['status']),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 12),
                     // 功率
                     Row(
                       children: [
-                        Icon(Icons.add_circle),
-                        SizedBox(width: 6),
-                        Text('当前功率'),
-                        SizedBox(width: 40),
+                        const SizedBox(
+                          width: 200,
+                          child: Row(
+                            children: [
+                              Icon(Icons.add_circle),
+                              SizedBox(width: 6),
+                              Text('当前功率'),
+                            ],
+                          ),
+                        ),
                         Text(convertPower(inverter['power'], decimalDigits: 3)),
                       ],
                     ),
@@ -234,10 +282,16 @@ class ItList extends StatelessWidget {
                     // 发电量
                     Row(
                       children: [
-                        Icon(Icons.add_circle),
-                        SizedBox(width: 6),
-                        Text('当日发电量'),
-                        SizedBox(width: 40),
+                        const SizedBox(
+                          width: 200,
+                          child: Row(
+                            children: [
+                              Icon(Icons.add_circle),
+                              SizedBox(width: 6),
+                              Text('当日发电量'),
+                            ],
+                          ),
+                        ),
                         Text(convertEnergy(inverter['energy'], decimalDigits: 8)),
                       ],
                     ),
@@ -264,19 +318,104 @@ class StatusIcon extends StatelessWidget {
 
     switch (status) {
       case 0:
-        icon = const Icon(Icons.wifi, color: Color(0xFF5475F7));
+        icon = const Icon(Icons.wifi, color: ByColors.primaryColor);
         break;
       case 1:
-        icon = const Icon(Icons.error_outline, color: Color(0xFFFF7979));
+        icon = const Icon(Icons.error_outline, color: ByColors.dangerColor);
         break;
       case 3:
-        icon = const Icon(Icons.wifi_off, color: Color(0xFFAAAAAA));
+        icon = const Icon(Icons.wifi_off, color: ByColors.defaultColor);
         break;
       default:
-        icon = const Icon(Icons.wifi_off, color: Color(0xFFAAAAAA));
+        icon = const Icon(Icons.wifi_off, color: ByColors.defaultColor);
     }
 
     return icon;
+  }
+}
+
+// 删除按钮
+class DeleteButton extends StatelessWidget {
+  const DeleteButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<InverterListController>(
+      builder: (_) => GestureDetector(
+        onTap: () {
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => const DeleteDialog(),
+          );
+        },
+        child: Container(
+          height: 80,
+          color: Colors.white,
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.delete_outline, color: ByColors.dangerColor),
+              SizedBox(
+                width: 12,
+              ),
+              Text(
+                '删除设备',
+                style: TextStyle(color: ByColors.dangerColor),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// 确认删除对话框
+class DeleteDialog extends StatelessWidget {
+  const DeleteDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<InverterListController>(
+      builder: (_) => AlertDialog(
+        content: Container(
+          width: double.maxFinite,
+          constraints: const BoxConstraints(
+            maxHeight: 700,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('是否确认删除设备:'),
+              const SizedBox(height: 12),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: _.deleteInverterList.length,
+                itemBuilder: (context, index) {
+                  String key = _.deleteInverterList[index];
+
+                  return Text(key);
+                },
+              ),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text('取消'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _.deleteInverter();
+            },
+            child: const Text('确定'),
+          ),
+        ],
+      ),
+    );
   }
 }
 
