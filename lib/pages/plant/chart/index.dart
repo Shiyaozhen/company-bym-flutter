@@ -1,5 +1,4 @@
 import 'package:BYM/api/plant.dart';
-import 'package:BYM/components/ByDayPicker.dart';
 import 'package:BYM/components/by_bar_chart.dart';
 import 'package:BYM/components/by_calendar.dart';
 import 'package:BYM/get_pages.dart';
@@ -22,7 +21,7 @@ class PlantChartController extends GetxController {
 
   String day = '2024-06-20';
   String month = '2024-06';
-  int year = 2024;
+  String year = '2024';
 
   String energyDay = '';
   String energyMonth = '';
@@ -58,7 +57,7 @@ class PlantChartController extends GetxController {
     update();
   }
   void getChartDataYear() async {
-    var data = (await plantApi.fetchPlantChartDataYear(plantId: id, date: '$year'))['data'];
+    var data = (await plantApi.fetchPlantChartDataYear(plantId: id, date: year))['data'];
 
     chartDataYear = [
       for(var item in data)
@@ -163,14 +162,11 @@ class ChartDay extends StatelessWidget {
               children: [
                 Text(_.day),
                 IconButton(
-                  onPressed: () async {
-                    await showDialog(
+                  onPressed: () {
+                    showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return ByPickerYear(initialDate: DateTime(_.year), callback: (year) {
-                          _.year = year;
-                          _.getChartDataYear();
-                        });
+                        return ByPickerDay(callback: (dateTime) {});
                       },
                     );
                   },
@@ -224,7 +220,24 @@ class ChartMonth extends StatelessWidget {
             Row(
               children: [
                 Text(_.month),
-                const Icon(Icons.expand_more),
+                IconButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return ByPickerMonth(
+                          year: _.month.split('-')[0],
+                          month: _.month.split('-')[1],
+                          callback: (year, month) {
+                            _.month = '$year-$month';
+                            _.getChartDataMonth();
+                          },
+                        );
+                      },
+                    );
+                  },
+                  icon: const Icon(Icons.expand_more),
+                ),
               ],
             ),
             const SizedBox(height: 40),
@@ -274,11 +287,11 @@ class ChartYear extends StatelessWidget {
               children: [
                 Text('${_.year}'),
                 IconButton(
-                  onPressed: () async {
-                    await showDialog(
+                  onPressed: () {
+                    showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return ByPickerYear(initialDate: DateTime(_.year), callback: (year) {
+                        return ByPickerYear(year: _.year, callback: (year) {
                           _.year = year;
                           _.getChartDataYear();
                         });
