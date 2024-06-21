@@ -1,3 +1,4 @@
+import 'package:BYM/api/statistics.dart';
 import 'package:BYM/get_pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ import 'package:BYM/api/plant.dart';
 import 'package:BYM/utils/unit_converter.dart';
 
 // 控制器类
-class PlantController extends GetxController {
+class PlantListController extends GetxController {
   int selectedItem = 0;
 
   int plantNum = 0;
@@ -20,14 +21,20 @@ class PlantController extends GetxController {
     isLoading = true;
     update();
 
-    var res = await plantApi.queryPlant(page: page, name: name);
+    var data = (await plantApi.queryPlant(page: page, name: name))['data'];
+    List<String> plantIds = [
+      for(var item in data['content']) item['id']
+    ];
+
+    await statisticsApi.getPlantRuntime(plantIds);
+
+
+    plantNum = int.parse(data['totalElements']);
+    plantList.addAll([
+      for (var item in data['content']) item
+    ]);
 
     isLoading = false;
-
-    plantNum = int.parse(res['data']['totalElements']);
-    plantList.addAll([
-      for (var item in res['data']['content']) item
-    ]);
 
     page++;
 
@@ -63,6 +70,7 @@ class PlantController extends GetxController {
   }
 }
 
+// 电站列表
 class PlantListPage extends StatelessWidget {
   const PlantListPage({super.key});
 
@@ -81,8 +89,8 @@ class PlantListPage extends StatelessWidget {
           ],
         ),
       ),
-      child: GetBuilder<PlantController>(
-        init: PlantController(),
+      child: GetBuilder<PlantListController>(
+        init: PlantListController(),
         builder: (_) => Column(
           children: [
             Row(
@@ -285,6 +293,7 @@ class PlantListPage extends StatelessWidget {
   }
 }
 
+// 更多操作
 class MoreButton extends StatelessWidget {
   const MoreButton({
     super.key,
@@ -295,7 +304,7 @@ class MoreButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<PlantController>(
+    return GetBuilder<PlantListController>(
       builder: (_) => IconButton(
         icon: const Icon(Icons.more_horiz_outlined),
         tooltip: '更多',
@@ -376,6 +385,7 @@ class MoreButton extends StatelessWidget {
   }
 }
 
+// 删除电站 确认对话框
 class DeleteDialog extends StatelessWidget {
   const DeleteDialog({
     super.key,
@@ -386,7 +396,7 @@ class DeleteDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<PlantController>(
+    return GetBuilder<PlantListController>(
       builder: (_) => Dialog(
         alignment: Alignment.bottomCenter,
         insetPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 30),

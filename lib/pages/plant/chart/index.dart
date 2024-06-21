@@ -4,6 +4,7 @@ import 'package:BYM/components/by_calendar.dart';
 import 'package:BYM/get_pages.dart';
 import 'package:BYM/themes/colors.dart';
 import 'package:BYM/utils/unit_converter.dart';
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -69,6 +70,8 @@ class PlantChartController extends GetxController {
 
     update();
   }
+
+  List<DateTime?> dateTimeList = [];
 
   @override
   void onInit() {
@@ -162,15 +165,16 @@ class ChartDay extends StatelessWidget {
               children: [
                 Text(_.day),
                 IconButton(
-                  onPressed: () {
-                    /*showDialog(
+                  onPressed: () async {
+                    var results = await showCalendarDatePicker2Dialog(
                       context: context,
-                      builder: (BuildContext context) {
-                        return ByPickerDay(callback: (dateTime) {});
-                      },
-                    );*/
+                      config: CalendarDatePicker2WithActionButtonsConfig(),
+                      dialogSize: const Size(325, 400),
+                      value: [DateTime.now()],
+                      borderRadius: BorderRadius.circular(15),
+                    );
 
-
+                    print(results);
                   },
                   icon: const Icon(Icons.expand_more),
                 ),
