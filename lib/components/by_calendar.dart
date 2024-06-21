@@ -1,9 +1,9 @@
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 // 日选择器
 class ByPickerDay extends StatefulWidget {
-  final Function(DateTime) callback;
+  final Function(DateTime?) callback;
 
   const ByPickerDay({
     super.key,
@@ -15,37 +15,34 @@ class ByPickerDay extends StatefulWidget {
 }
 
 class _ByPickerDayState extends State<ByPickerDay> {
-  late DateTime _selectedDay;
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedDay = DateTime.now();
-  }
+  List<DateTime?> _dates = [];
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('选择月份'),
-      content: SizedBox(
-        width: 600,
-        height: 400,
-        child: TableCalendar(
-          firstDay: DateTime.utc(2010, 10, 16),
-          lastDay: DateTime.utc(2030, 3, 14),
-          focusedDay: DateTime.now(),
+    return SizedBox(
+      width: 300,
+      height: 300,
+      child: CalendarDatePicker2(
+        config: CalendarDatePicker2Config(
+          firstDate: DateTime(DateTime.now().year - 3),
+          lastDate: DateTime(DateTime.now().year, 12, 31),
+
         ),
+        value: _dates,
+        onValueChanged: (dates) {
+          print(dates);
+          _dates = dates;
+          widget.callback(dates[0]);
+        },
       ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Text('确认'),
-        ),
-      ],
     );
   }
+}
+
+void showByPickerDay(BuildContext context, Function(DateTime?) callback) {
+  showDialog(context: context, builder: (context) {
+    return ByPickerDay(callback: callback);
+  });
 }
 
 // 月选择器

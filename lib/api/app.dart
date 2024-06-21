@@ -17,7 +17,7 @@ class AppApi {
   /// 登录
   login(String username, String password) async {
     var res = await Request().request(
-      "/api/password/login",
+      "/api/auth/login",
       method: DioMethod.post,
       data: {"username": username, "password": password},
       options: Options(

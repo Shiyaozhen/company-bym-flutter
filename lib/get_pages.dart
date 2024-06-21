@@ -1,16 +1,22 @@
+// 登录
+import 'package:BYM/pages/login/login.dart';
+
+// 忘记密码
+import 'package:BYM/pages/forget_password/index.dart';
+
 import 'package:BYM/pages/home/index.dart';
 import 'package:BYM/pages/home/mine/bindAgent/index.dart';
 
 //我的
-import 'package:BYM/pages/home/mine/bindemail/bind_email.dart';
-import 'package:BYM/pages/home/mine/bindemail/bind_success.dart';
+import 'package:BYM/pages/home/mine/password/change_pwd.dart';
+import 'package:BYM/pages/home/mine/bind_email/bind_email.dart';
+import 'package:BYM/pages/home/mine/bind_email/bind_success.dart';
 import 'package:BYM/pages/home/mine/con_logoff.dart';
 import 'package:BYM/pages/home/mine/connect.dart';
 import 'package:BYM/pages/home/mine/feed_back.dart';
 import 'package:BYM/pages/home/mine/language.dart';
 import 'package:BYM/pages/home/mine/logoff.dart';
 import 'package:BYM/pages/home/mine/more.dart';
-import 'package:BYM/pages/home/mine/password/change_pwd.dart';
 
 //首页概览
 import 'package:BYM/pages/home/overview/index.dart';
@@ -29,12 +35,6 @@ import 'package:BYM/pages/home/plant/configNet/byhand.dart';
 import 'package:BYM/pages/home/plant/index.dart';
 import 'package:BYM/pages/inverter/detail.dart';
 import 'package:BYM/pages/list/index.dart';
-
-//登录
-import 'package:BYM/pages/login/login.dart';
-
-//注册
-import 'package:BYM/pages/login/sign_up.dart';
 
 //电站详情
 import 'package:BYM/pages/plant/detail/index.dart';
@@ -66,6 +66,20 @@ import 'package:BYM/pages/inverter/list.dart';
 import 'package:BYM/pages/inverter/chart/index.dart';
 
 List<GetPage<dynamic>> pages = [
+  // 登录
+  GetPage(
+    name: '/Login',
+    page: () => LoginPage(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+
+  // 忘记密码
+  GetPage(
+    name: '/ForgetPassword',
+    page: () => const ForgetPasswordPage(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+
   GetPage(
       name: '/Home',
       page: () => HomePage(),
@@ -77,14 +91,6 @@ List<GetPage<dynamic>> pages = [
   GetPage(
       name: '/TcpPage',
       page: () => TcpPage(),
-      transition: Transition.rightToLeftWithFade),
-  GetPage(
-      name: '/Login',
-      page: () => LoginPage(),
-      transition: Transition.rightToLeftWithFade),
-  GetPage(
-      name: '/SignUp',
-      page: () => SignUp(),
       transition: Transition.rightToLeftWithFade),
   GetPage(
       name: '/OverView',
@@ -152,18 +158,8 @@ List<GetPage<dynamic>> pages = [
       page: () => Conlogoff(),
       transition: Transition.rightToLeftWithFade),
   GetPage(
-    name: '/ChangePwd',
-    page: () => const ChangePwd(),
-    transition: Transition.rightToLeftWithFade,
-  ),
-  GetPage(
     name: '/Language',
     page: () => const Language(),
-    transition: Transition.rightToLeftWithFade,
-  ),
-  GetPage(
-    name: '/BindEmail',
-    page: () => const BindEmail(),
     transition: Transition.rightToLeftWithFade,
   ),
   GetPage(
@@ -269,6 +265,18 @@ List<GetPage<dynamic>> pages = [
   GetPage(
     name: '/FAddPlant',
     page: () => FAddPlant(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+
+  // 我的
+  GetPage(
+    name: '/ChangePwd',
+    page: () => const ChangePasswordPage(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+  GetPage(
+    name: '/BindEmail',
+    page: () => const BindEmailPage(),
     transition: Transition.rightToLeftWithFade,
   ),
 ];

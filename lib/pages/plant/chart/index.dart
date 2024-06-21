@@ -163,12 +163,14 @@ class ChartDay extends StatelessWidget {
                 Text(_.day),
                 IconButton(
                   onPressed: () {
-                    showDialog(
+                    /*showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return ByPickerDay(callback: (dateTime) {});
                       },
-                    );
+                    );*/
+
+
                   },
                   icon: const Icon(Icons.expand_more),
                 ),

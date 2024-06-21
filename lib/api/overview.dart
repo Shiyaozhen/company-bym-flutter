@@ -25,7 +25,7 @@ class OverviewApi {
   // 统计图 - 日
   fetchStatisticsDay() async{
     return await Request().request(
-      '/api/daily/statistics',
+      '/api/user/daily/statistics',
       data: {
         "date": '2024-06-11',
       },

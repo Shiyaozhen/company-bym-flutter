@@ -6,98 +6,87 @@ class Mine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context).copyWith(
-        scaffoldBackgroundColor: const Color.fromRGBO(247, 249, 255, 1),
-        dividerTheme: const DividerThemeData(
-          color: Color.fromRGBO(121, 137, 178, 0.1),
-          endIndent: 20,
-          indent: 20,
-          space: 0,
-        ),
-        iconTheme: const IconThemeData(
-          color: Colors.indigo,
-          size: 18,
-        ),
-        listTileTheme: const ListTileThemeData(
-          iconColor: Color.fromRGBO(121, 137, 178, 1),
-        ),
-      ),
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(12),
-          child: ListView(
-            children: [
-              const ImageSection(),
-              Ink(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Column(
-                  children: [
-                    MineListItem(
-                      leading: Icon(Icons.lock_outline),
-                      title: '修改密码',
-                      trailing: Icon(Icons.arrow_forward_ios),
-                      route: '/ChangePwd',
-                    ),
-                    Divider(),
-                    MineListItem(
-                      leading: Icon(Icons.language),
-                      title: '设置语言',
-                      trailing: Icon(Icons.arrow_forward_ios),
-                      route: '/Language',
-                    ),
-                    Divider(),
-                    MineListItem(
-                      leading: Icon(Icons.mail_outline),
-                      title: '绑定邮箱',
-                      trailing: Icon(Icons.arrow_forward_ios),
-                      route: '/BindEmail',
-                    ),
-                    Divider(),
-                    MineListItem(
-                      leading: Icon(Icons.group_outlined),
-                      title: '绑定经销商',
-                      trailing: Icon(Icons.arrow_forward_ios),
-                      route: '/BindAgent',
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Ink(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const MineListItem(
-                  leading: Icon(Icons.phone_outlined),
-                  title: '联系我们',
-                  trailing: Icon(Icons.arrow_forward_ios),
-                  route: '/Connect',
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Ink(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const MineListItem(
-                  leading: Icon(Icons.more_horiz_outlined),
-                  title: '更多',
-                  trailing: Icon(Icons.arrow_forward_ios),
-                  route: '/MineMore',
-                ),
-              ),
+    return Scaffold(
+      body: Ink(
+        padding: const EdgeInsets.all(12),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0, 0.83],
+            colors: [
+              Color(0xFFD6DDFF),
+              Color(0xFFFFFFFF),
             ],
           ),
+        ),
+        child: ListView(
+          children: [
+            const ImageSection(),
+            Ink(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Column(
+                children: [
+                  MineListItem(
+                    leading: Icon(Icons.lock_outline),
+                    title: '修改密码',
+                    trailing: Icon(Icons.arrow_forward_ios),
+                    route: '/ChangePwd',
+                  ),
+                  Divider(),
+                  MineListItem(
+                    leading: Icon(Icons.language),
+                    title: '设置语言',
+                    trailing: Icon(Icons.arrow_forward_ios),
+                    route: '/Language',
+                  ),
+                  Divider(),
+                  MineListItem(
+                    leading: Icon(Icons.mail_outline),
+                    title: '绑定邮箱',
+                    trailing: Icon(Icons.arrow_forward_ios),
+                    route: '/BindEmail',
+                  ),
+                  Divider(),
+                  MineListItem(
+                    leading: Icon(Icons.group_outlined),
+                    title: '绑定经销商',
+                    trailing: Icon(Icons.arrow_forward_ios),
+                    route: '/BindAgent',
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            Ink(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const MineListItem(
+                leading: Icon(Icons.phone_outlined),
+                title: '联系我们',
+                trailing: Icon(Icons.arrow_forward_ios),
+                route: '/Connect',
+              ),
+            ),
+            const SizedBox(height: 20),
+            Ink(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const MineListItem(
+                leading: Icon(Icons.more_horiz_outlined),
+                title: '更多',
+                trailing: Icon(Icons.arrow_forward_ios),
+                route: '/MineMore',
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -138,6 +127,11 @@ class ImageSection extends StatelessWidget {
 }
 
 class MineListItem extends StatelessWidget {
+  final Icon leading;
+  final String title;
+  final Icon trailing;
+  final String route;
+
   const MineListItem({
     super.key,
     required this.leading,
@@ -146,11 +140,6 @@ class MineListItem extends StatelessWidget {
     required this.route,
   });
 
-  final Icon leading;
-  final String title;
-  final Icon trailing;
-  final String route;
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -158,13 +147,10 @@ class MineListItem extends StatelessWidget {
         BYRoute.toNamed(route, arguments: {});
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.all(8.0),
         child: ListTile(
           leading: leading,
-          title: Text(
-            title,
-            style: TextStyle(),
-          ),
+          title: Text(title),
           trailing: trailing,
         ),
       ),

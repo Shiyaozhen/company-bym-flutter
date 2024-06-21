@@ -55,7 +55,7 @@ class PlantApi {
   // 获取图表数据
   fetchPlantChartDataDay({required String plantId, required String date}) {
     return Request().request(
-      '/api/daily/statistics',
+      '/api/plant/daily/statistics',
       data: {
         "plantId": plantId,
         "date": date,

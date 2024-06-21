@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:BYM/api/verification.dart';
+import 'package:BYM/components/by_input_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../utils/by_util.dart';
 
@@ -214,3 +217,88 @@ class _BindEmailState extends State<BindEmail> {
     );
   }
 }
+
+
+
+
+class BindEmailController extends GetxController {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController codeController = TextEditingController();
+  String? mask;
+
+  void getCode() async {
+    mask = await verificationApi.sendCodeBindEmail(emailController.text)['data']['mask'];
+
+    update();
+  }
+
+  void bindEmail() async {}
+
+  @override
+  void onInit() {
+    getCode();
+
+    super.onInit();
+  }
+}
+
+class BindEmailPage extends StatelessWidget {
+  const BindEmailPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<BindEmailController>(
+      init: BindEmailController(),
+      builder: (_) => Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () => BYRoute.back(),
+            icon: const Icon(Icons.arrow_back),
+          ),
+          title: const Text('绑定邮箱'),
+        ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.only(left: 12, right: 12, bottom: 50),
+          child: ElevatedButton(
+            onPressed: () {
+
+            },
+            child: const Text('绑定'),
+          ),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('邮箱'),
+              const SizedBox(height: 12),
+              ByTextField(controller: _.emailController),
+              const SizedBox(height: 24),
+
+              const Text('请输入密码'),
+              const SizedBox(height: 12),
+              ByPasswordField(controller: _.passwordController),
+              const SizedBox(height: 24),
+
+              const Text('验证码'),
+              const SizedBox(height: 12),
+              ByButtonTextField(
+                controller: _.codeController,
+                suffix: IconButton(
+                  icon: const Text('发送'),
+                  onPressed: () {
+                    _.getCode();
+                  },
+                ),
+              ),
+              const SizedBox(height: 24),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+

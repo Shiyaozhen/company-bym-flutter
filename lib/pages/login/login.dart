@@ -224,33 +224,26 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
   }
 }
 
-// 立即注册、忘记密码
+// 忘记密码
 class TextButtonRow extends StatelessWidget {
   const TextButtonRow({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         GestureDetector(
           onTap: () {
-            BYRoute.toNamed('/SignUp', arguments: {});
+            BYRoute.toNamed('/ForgetPassword');
           },
           child: Text(
-            S.of(context).register,
+            '${S.of(context).forget_password}?',
             style: Theme.of(context)
                 .textTheme
                 .headlineSmall
                 ?.copyWith(color: const Color(0xFF5475F7)),
           ),
-        ),
-        Text(
-          '${S.of(context).forget_password}?',
-          style: Theme.of(context)
-              .textTheme
-              .headlineSmall
-              ?.copyWith(color: const Color(0xFF5475F7)),
         ),
       ],
     );
