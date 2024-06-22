@@ -106,6 +106,7 @@ class Request {
 
     data ??= {};
 
+    BYLog.i("data: ${data}");
     BYLog.i("content type: ${options.contentType}");
     try {
       Response response;

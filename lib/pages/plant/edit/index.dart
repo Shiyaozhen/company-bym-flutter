@@ -9,6 +9,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:dio/dio.dart' as dio_package;
+import 'package:http_parser/http_parser.dart';
+import 'package:mime/mime.dart';
 
 class PlantEditController extends GetxController {
   var plant = Get.arguments['plant'];
@@ -26,6 +28,7 @@ class PlantEditController extends GetxController {
     "PL": '波兰',
     "ES": '西班牙',
   };
+
   void updateCountry(entry) {
     country = entry.key;
     countryCtl.text = entry.value;
@@ -35,14 +38,41 @@ class PlantEditController extends GetxController {
 
   TextEditingController timezoneCtl = TextEditingController();
   List timezoneList = [
-    'UTC+00:00', 'UTC+01:00', 'UTC+02:00', 'UTC+03:00', 'UTC+03:30',
-    'UTC+04:00', 'UTC+04:30', 'UTC+05:00', 'UTC+05:30', 'UTC+06:00',
-    'UTC+06:30', 'UTC+07:00', 'UTC+08:00', 'UTC+09:00', 'UTC+10:00',
-    'UTC+11:00', 'UTC+12:00', 'UTC-01:00', 'UTC-02:00', 'UTC-03:00',
-    'UTC-03:30', 'UTC-04:00', 'UTC-04:30', 'UTC-05:00', 'UTC-05:30',
-    'UTC-06:00', 'UTC-06:30', 'UTC-07:00', 'UTC-08:00', 'UTC-09:00',
-    'UTC-10:00', 'UTC-11:00', 'UTC-12:00'
+    'UTC+00:00',
+    'UTC+01:00',
+    'UTC+02:00',
+    'UTC+03:00',
+    'UTC+03:30',
+    'UTC+04:00',
+    'UTC+04:30',
+    'UTC+05:00',
+    'UTC+05:30',
+    'UTC+06:00',
+    'UTC+06:30',
+    'UTC+07:00',
+    'UTC+08:00',
+    'UTC+09:00',
+    'UTC+10:00',
+    'UTC+11:00',
+    'UTC+12:00',
+    'UTC-01:00',
+    'UTC-02:00',
+    'UTC-03:00',
+    'UTC-03:30',
+    'UTC-04:00',
+    'UTC-04:30',
+    'UTC-05:00',
+    'UTC-05:30',
+    'UTC-06:00',
+    'UTC-06:30',
+    'UTC-07:00',
+    'UTC-08:00',
+    'UTC-09:00',
+    'UTC-10:00',
+    'UTC-11:00',
+    'UTC-12:00'
   ];
+
   void updateTimezone(timezone) {
     timezoneCtl.text = timezone;
 
@@ -51,6 +81,7 @@ class PlantEditController extends GetxController {
 
   ImagePicker picker = ImagePicker();
   File? image;
+
   Future<void> pickImage(ImageSource source) async {
     try {
       final XFile? pickedFile = await picker.pickImage(source: source);
@@ -66,8 +97,11 @@ class PlantEditController extends GetxController {
   void updatePlant() async {
     if (image != null) {
       BYLog.i("image: ${image}");
+      String filename = image!.path.split("/").last;
       dio_package.FormData formData = dio_package.FormData.fromMap({
-        "image": await dio_package.MultipartFile.fromFile(image!.path)
+        "image": await dio_package.MultipartFile.fromFile(image!.path,
+            filename: filename,
+            contentType: MediaType.parse(lookupMimeType(image!.path)!))
       });
 
       await storageApi.uploadImage(formData);
@@ -121,9 +155,7 @@ class PlantEdit extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     decoration: BoxDecoration(
-                      color: _.country == entry.key
-                          ? ByColors.bg1
-                          : null,
+                      color: _.country == entry.key ? ByColors.bg1 : null,
                     ),
                     child: Text(entry.value, textAlign: TextAlign.center),
                   ),
@@ -161,9 +193,8 @@ class PlantEdit extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     decoration: BoxDecoration(
-                      color: _.timezoneCtl.text == timezone
-                          ? ByColors.bg1
-                          : null,
+                      color:
+                          _.timezoneCtl.text == timezone ? ByColors.bg1 : null,
                     ),
                     child: Text(timezone, textAlign: TextAlign.center),
                   ),
@@ -214,7 +245,6 @@ class PlantEdit extends StatelessWidget {
                 const SizedBox(height: 12),
                 ByTextField(controller: _.plantCtl),
                 const SizedBox(height: 20),
-
                 const Text('国家'),
                 const SizedBox(height: 12),
                 ByButtonTextField(
@@ -228,7 +258,6 @@ class PlantEdit extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-
                 const Text('时区'),
                 const SizedBox(height: 12),
                 ByButtonTextField(
@@ -242,7 +271,6 @@ class PlantEdit extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-
                 const Text('图片'),
                 const SizedBox(height: 12),
                 _.image == null
