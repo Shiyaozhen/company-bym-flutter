@@ -10,6 +10,28 @@ class PlantApi {
   // 单例getter
   static PlantApi? get instance => _instance ?? PlantApi._internal();
 
+  // 改
+  updatePlant({
+    required String id,
+    required String name,
+    required String country,
+    required String timezone,
+    String? image,
+    String type = 'SYSTEM'
+  }) {
+    return Request().request(
+      '/api/plant/update',
+      data: {
+        "id": id,
+        "name": name,
+        "country": country,
+        "timezone": timezone,
+        "image": image,
+        "type": type,
+      },
+    );
+  }
+
   // 电站列表
   queryPlant({
     int page = 1,
@@ -34,6 +56,8 @@ class PlantApi {
       },
     );
   }
+
+
 
   fetchPlantPowerSummary(dynamic plantId) {
     return Request().request(

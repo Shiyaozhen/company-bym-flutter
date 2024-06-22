@@ -21,8 +21,6 @@ import 'package:BYM/pages/home/mine/more.dart';
 //首页概览
 import 'package:BYM/pages/home/overview/index.dart';
 
-//修改电站信息
-import 'package:BYM/pages/home/plant/edit.dart';
 import 'package:BYM/pages/home/plant/configNet/blue/f_add_plant.dart';
 import 'package:BYM/pages/home/plant/configNet/blue/f_blue_add_device_step1.dart';
 import 'package:BYM/pages/home/plant/configNet/blue/f_blue_add_device_step2.dart';
@@ -56,6 +54,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 // 电站
+import 'package:BYM/pages/plant/edit/index.dart';
 import 'package:BYM/pages/plant/chart/index.dart';
 
 // 接入点
@@ -100,10 +99,7 @@ List<GetPage<dynamic>> pages = [
       name: '/Plant',
       page: () => const PlantListPage(),
       transition: Transition.rightToLeftWithFade),
-  GetPage(
-      name: '/PlantEdit',
-      page: () => const PlantEdit(),
-      transition: Transition.rightToLeftWithFade),
+
   GetPage(
       name: '/FeedBack',
       page: () => MineFeedback(),
@@ -122,6 +118,11 @@ List<GetPage<dynamic>> pages = [
   GetPage(
     name: '/PlantChart',
     page: () => const PlantChart(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+  GetPage(
+    name: '/PlantEdit',
+    page: () => const PlantEdit(),
     transition: Transition.rightToLeftWithFade,
   ),
 

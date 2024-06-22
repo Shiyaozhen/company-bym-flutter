@@ -1,3 +1,4 @@
+import 'package:BYM/utils/BYLog.dart';
 import 'package:dio/dio.dart';
 import 'package:BYM/utils/storage.dart';
  
@@ -13,19 +14,15 @@ enum DioMethod {
  
 // 创建请求类：封装dio
 class Request {
-  /// 单例模式
+  // 单例模式
   static Request? _instance;
- 
-  /// 工厂函数：执行初始化
+  // 工厂函数：执行初始化
   factory Request() => _instance ?? Request._internal();
- 
-  /// 获取实例对象时，如果有实例对象就返回，没有就初始化
+  // 获取实例对象时，如果有实例对象就返回，没有就初始化
   static Request? get instance => _instance ?? Request._internal();
- 
-  /// Dio实例
+  // Dio实例
   static Dio _dio = Dio();
-
-  /// 初始化
+  // 初始化
   Request._internal() {
     // 初始化基本选项
     BaseOptions options = BaseOptions(
@@ -49,7 +46,7 @@ class Request {
     );
   }
 
-  /// 请求拦截器
+  // 请求拦截器
   void _onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     // 添加token到请求头，如果isToken=false，则说明不需要加token
     bool isToken = options.extra['isToken'] ?? true;
@@ -59,10 +56,10 @@ class Request {
       options.headers['Authorization'] = 'Bearer $token';
     }
 
+    BYLog.i("handler content type: ${options.contentType}");
     handler.next(options);
   }
- 
-  /// 响应拦截器
+  // 响应拦截器
   void _onResponse(
       Response response, ResponseInterceptorHandler handler) async {
     // 请求成功是对数据做基本处理
@@ -75,13 +72,12 @@ class Request {
     }
     handler.next(response);
   }
-
-  /// 错误处理: 网络错误等
+  // 错误处理: 网络错误等
   void _onError(DioException error, ErrorInterceptorHandler handler) {
     handler.next(error);
   }
  
-  /// 请求类：支持异步请求操作
+  // 请求类：支持异步请求操作
   Future<T> request<T>(
     String path, {
     DioMethod method = DioMethod.post,
@@ -110,6 +106,7 @@ class Request {
 
     data ??= {};
 
+    BYLog.i("content type: ${options.contentType}");
     try {
       Response response;
       // 开始发送请求

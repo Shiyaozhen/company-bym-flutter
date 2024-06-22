@@ -340,7 +340,8 @@ class MoreButton extends StatelessWidget {
                       // 编辑电站
                       TextButton(
                         onPressed: () {
-                          BYRoute.toNamed('/PlantEdit', arguments: plant);
+                          Navigator.pop(context);
+                          BYRoute.toNamed('/PlantEdit', arguments: {"plant": plant});
                         },
                         style: ButtonStyle(
                           foregroundColor: MaterialStateProperty.all<Color>(

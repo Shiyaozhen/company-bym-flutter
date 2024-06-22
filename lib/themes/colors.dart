@@ -10,5 +10,8 @@ class ByColors {
   // 图表 切换日月年按钮 背景色
   static const Color color1 = Color(0xFFF5F7FF);
 
+  // 弹窗列表选中项背景色
+  static const Color bg1 = Color(0xFFF5F7FF);
+
   static Color bottomNavigationBarColor = Colors.white.withOpacity(0.3);
 }

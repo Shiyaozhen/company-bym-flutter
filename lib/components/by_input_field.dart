@@ -93,14 +93,16 @@ class _ByPasswordFieldState extends State<ByPasswordField> {
 // 右侧有按钮的输入框
 class ByButtonTextField extends StatefulWidget {
   final TextEditingController controller;
-  final String hintText;
   final Widget? suffix;
+  final String hintText;
+  final bool readonly;
 
   const ByButtonTextField({
     super.key,
     required this.controller,
-    this.hintText = '',
     this.suffix,
+    this.hintText = '',
+    this.readonly = false,
   });
 
   @override
@@ -116,6 +118,7 @@ class _ByButtonTextFieldState extends State<ByButtonTextField> {
         hintText: widget.hintText,
         suffixIcon: widget.suffix,
       ),
+      readOnly: widget.readonly,
       onChanged: (text) {},
       onSubmitted: (text) {},
     );
