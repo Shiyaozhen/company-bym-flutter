@@ -1,5 +1,33 @@
+import 'package:BYM/api/user.dart';
 import 'package:BYM/get_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class MineController extends GetxController {
+  Image? image;
+  String nickname = '';
+  String email = '';
+
+  void getUser() async {
+    try {
+      var data = (await userApi.getUser())['data'];
+
+      nickname = data['nickname'];
+      email = data['email'] ?? '';
+
+      update();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void onInit() {
+    getUser();
+
+    super.onInit();
+  }
+}
 
 class Mine extends StatelessWidget {
   const Mine({super.key, required Map<String, dynamic> arguments});
@@ -94,33 +122,37 @@ class Mine extends StatelessWidget {
 }
 
 class ImageSection extends StatelessWidget {
-  const ImageSection({
-    super.key,
-  });
+  const ImageSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 40),
-      padding: const EdgeInsets.symmetric(vertical: 24),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 70,
-            height: 70,
-            child: Image.network('https://picsum.photos/250?image=9'),
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-          const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('用户名'),
-              Text('example@email.com'),
-            ],
-          ),
-        ],
+    return GetBuilder(
+      init: MineController(),
+      builder: (_) => Container(
+        margin: const EdgeInsets.only(top: 40, bottom: 24),
+        child: Row(
+          children: [
+            InkWell(
+              onTap: () => BYRoute.toNamed('/User'),
+              child: SizedBox(
+                width: 70,
+                height: 70,
+                child: Image.network('https://picsum.photos/250?image=9'),
+              ),
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(_.nickname),
+                const SizedBox(height: 12),
+                Text(_.email),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:BYM/api/plant.dart';
+import 'package:BYM/api/statistics.dart';
 import 'package:BYM/components/by_bar_chart.dart';
 import 'package:BYM/components/by_calendar.dart';
 import 'package:BYM/get_pages.dart';
@@ -10,9 +11,8 @@ import 'package:get/get.dart';
 
 // 控制器
 class PlantChartController extends GetxController {
-  String id = '915';
-  // String id = Get.arguments['id'];
-  // String name = Get.arguments['name'];
+  String id = Get.arguments['id'];
+  String name = Get.arguments['name'];
 
   int currentIndex = 0;
   void switchCalendarView(int index) {
@@ -20,7 +20,7 @@ class PlantChartController extends GetxController {
     update();
   }
 
-  String day = '2024-06-20';
+  DateTime day = DateTime.now();
   String month = '2024-06';
   String year = '2024';
 
@@ -32,7 +32,7 @@ class PlantChartController extends GetxController {
   List chartDataMonth = [];
   List chartDataYear = [];
   void getChartDataDay() async {
-    var data = (await plantApi.fetchPlantChartDataDay(plantId: id, date: day))['data'];
+    var data = (await statisticsApi.getPlantDailyStatistics(id, dateTime2String(day)))['data'];
 
     chartDataDay = [
       for(var item in data)
@@ -45,7 +45,7 @@ class PlantChartController extends GetxController {
     update();
   }
   void getChartDataMonth() async {
-    var data = (await plantApi.fetchPlantChartDataMonth(plantId: id, date: month))['data'];
+    var data = (await statisticsApi.getPlantMonthlyStatistics(id, month))['data'];
 
     chartDataMonth = [
       for(var item in data)
@@ -58,7 +58,7 @@ class PlantChartController extends GetxController {
     update();
   }
   void getChartDataYear() async {
-    var data = (await plantApi.fetchPlantChartDataYear(plantId: id, date: year))['data'];
+    var data = (await statisticsApi.getPlantYearlyStatistics(id, year))['data'];
 
     chartDataYear = [
       for(var item in data)
@@ -71,7 +71,13 @@ class PlantChartController extends GetxController {
     update();
   }
 
-  List<DateTime?> dateTimeList = [];
+  String dateTime2String(DateTime dateTime) {
+    String year = dateTime.year.toString();
+    String month = dateTime.month.toString().padLeft(2, '0');
+    String day = dateTime.day.toString().padLeft(2, '0');
+
+    return '$year-$month-$day';
+  }
 
   @override
   void onInit() {
@@ -96,7 +102,7 @@ class PlantChart extends StatelessWidget {
           leading: IconButton(
               onPressed: () => BYRoute.back(),
               icon: const Icon(Icons.arrow_back)),
-          title: Text('_.name'),
+          title: Text(_.name),
         ),
         body: Container(
           padding: const EdgeInsets.all(12),
@@ -163,18 +169,22 @@ class ChartDay extends StatelessWidget {
             // 日期选择
             Row(
               children: [
-                Text(_.day),
+                Text(_.dateTime2String(_.day)),
                 IconButton(
                   onPressed: () async {
                     var results = await showCalendarDatePicker2Dialog(
                       context: context,
                       config: CalendarDatePicker2WithActionButtonsConfig(),
                       dialogSize: const Size(325, 400),
-                      value: [DateTime.now()],
+                      value: [_.day],
                       borderRadius: BorderRadius.circular(15),
                     );
 
-                    print(results);
+                    if(results != null) {
+                      _.day = results[0]!;
+
+                      _.getChartDataDay();
+                    }
                   },
                   icon: const Icon(Icons.expand_more),
                 ),

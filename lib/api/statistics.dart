@@ -11,35 +11,35 @@ class StatisticsApi {
   static StatisticsApi? get instance => _instance ?? StatisticsApi._internal();
 
   // 用户
-  getUserYearlyStatistics() {
+  getUserYearlyStatistics(String year) {
     return Request().request(
-      '',
+      '/api/user/yearly/statistics',
       data: {
-
+        "year": year,
       },
     );
   }
-  getUserMonthlyStatistics() {
+  getUserMonthlyStatistics(String yearMonth) {
     return Request().request(
-      '',
+      '/api/user/monthly/statistics',
       data: {
-
+        "yearMonth": yearMonth,
       },
     );
   }
-  getUserDailyStatistics() {
+  getUserDailyStatistics(String date) {
     return Request().request(
-      '',
+      '/api/user/daily/statistics',
       data: {
-
+        "date": date,
       },
     );
   }
-  getUserMinutelyStatistics() {
+  getUserMinutelyStatistics(String date) {
     return Request().request(
-      '',
+      '/api/user/minutely/statistics',
       data: {
-
+        "date": date,
       },
     );
   }
@@ -53,35 +53,39 @@ class StatisticsApi {
   }
 
   // 电站
-  getPlantYearlyStatistics() {
+  getPlantYearlyStatistics(String plantId, String year) {
     return Request().request(
-      '',
+      '/api/plant/yearly/statistics',
       data: {
-
+        "plantId": plantId,
+        "year": year,
       },
     );
   }
-  getPlantMonthlyStatistics() {
+  getPlantMonthlyStatistics(String plantId, String yearMonth) {
     return Request().request(
-      '',
+      '/api/plant/yearly/statistics',
       data: {
-
+        "plantId": plantId,
+        "yearMonth": yearMonth,
       },
     );
   }
-  getPlantDailyStatistics() {
+  getPlantDailyStatistics(String plantId, String date) {
     return Request().request(
-      '',
+      '/api/plant/daily/statistics',
       data: {
-
+        "plantId": plantId,
+        "date": date,
       },
     );
   }
-  getPlantMinutelyStatistics() {
+  getPlantMinutelyStatistics(String plantId, String date) {
     return Request().request(
-      '',
+      '/api/plant/minutely/statistics',
       data: {
-
+        "plantId": plantId,
+        "date": date,
       },
     );
   }
@@ -153,35 +157,39 @@ class StatisticsApi {
   }
 
   // 逆变器
-  getInverterYearlyStatistics() {
+  getInverterYearlyStatistics(String inverterSerialNo, String year) {
     return Request().request(
-      '',
+      '/api/inverter/yearly/statistics',
       data: {
-
+        "inverterSerialNo": inverterSerialNo,
+        "year": year,
       },
     );
   }
-  getInverterMonthlyStatistics() {
+  getInverterMonthlyStatistics(String inverterSerialNo, String yearMonth) {
     return Request().request(
-      '',
+      '/api/inverter/monthly/statistics',
       data: {
-
+        "inverterSerialNo": inverterSerialNo,
+        "yearMonth": yearMonth,
       },
     );
   }
-  getInverterDailyStatistics() {
+  getInverterDailyStatistics(String inverterSerialNo, String date) {
     return Request().request(
-      '',
+      '/api/inverter/daily/statistics',
       data: {
-
+        "inverterSerialNo": inverterSerialNo,
+        "date": date,
       },
     );
   }
-  getInverterMinutelyStatistics() {
+  getInverterMinutelyStatistics(String inverterSerialNo, String date) {
     return Request().request(
-      '',
+      '/api/inverter/minutely/statistics',
       data: {
-
+        "inverterSerialNo": inverterSerialNo,
+        "date": date,
       },
     );
   }

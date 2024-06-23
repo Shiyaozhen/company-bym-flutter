@@ -42,7 +42,7 @@ class InverterApi {
   }
   queryInverterDetail(String inverterSerialNo) {
     return Request().request(
-      '/api/inverter/detail',
+      '/api/inverter/details',
       data: {
         "inverterSerialNo": inverterSerialNo,
       },

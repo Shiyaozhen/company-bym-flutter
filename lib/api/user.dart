@@ -10,6 +10,33 @@ class UserApi {
   // 单例getter
   static UserApi? get instance => _instance ?? UserApi._internal();
 
+  // 删
+  deleteUser() {
+    return Request().request('/api/user/cancel', data: {},);
+  }
+  // 改
+  editUser({
+    required String userId,
+    required String nickname,
+    String phone = '',
+    String timezone = 'UTC+00:00'
+  }) {
+    return Request().request(
+      '/api/user/update',
+      data: {
+        "userId": userId,
+        "nickname": nickname,
+        "phone": phone,
+        "timezone": timezone,
+      },
+    );
+  }
+
+  // 查
+  getUser() {
+    return Request().request('/api/user/details', data: {});
+  }
+
   // 修改密码
   changePassword({
     required String originalPassword,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../themes/colors.dart';
+
 // 普通输入框
 class ByTextField extends StatefulWidget {
   final TextEditingController controller;
@@ -124,3 +126,80 @@ class _ByButtonTextFieldState extends State<ByButtonTextField> {
     );
   }
 }
+
+// 选择框
+class BySelect extends StatelessWidget {
+  final TextEditingController controller;
+  final List options;
+  final bool readonly;
+
+  const BySelect({
+    super.key,
+    required this.controller,
+    this.options = const [],
+    this.readonly = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: controller,
+      readOnly: readonly,
+      decoration: InputDecoration(
+        suffixIcon: IconButton(
+          onPressed: () {
+            // 获取当前选中的值的索引
+            int currentIndex = options.indexOf(controller.text);
+            // 创建 ScrollController 并设置初始滚动位置
+            ScrollController scrollController = ScrollController(
+              initialScrollOffset: currentIndex * 48.0, // 每个 ListTile 的高度为 48.0
+            );
+
+            showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return SizedBox(
+                  height: 250.0,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        child: IconButton(
+                          onPressed: () => Navigator.pop(context),
+                          icon: const Icon(Icons.expand_more),
+                        ),
+                      ),
+                      Expanded(
+                        child: options.isEmpty
+                            ? const Center(
+                                child: Text('没有可用的选项'),
+                              )
+                            : ListView.builder(
+                                controller: scrollController,
+                                itemCount: options.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return ListTile(
+                                    title: Text(options[index]),
+                                    tileColor: index == currentIndex ? ByColors.bg1 : null,
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                      controller.text = options[index];
+                                    },
+                                  );
+                                },
+                              ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+          icon: const Icon(Icons.expand_more),
+        ),
+      ),
+    );
+  }
+}
+
+

@@ -26,8 +26,15 @@ class PlantListController extends GetxController {
       for(var item in data['content']) item['id']
     ];
 
-    await statisticsApi.getPlantRuntime(plantIds);
+    List runtimeData = (await statisticsApi.getPlantRuntime(plantIds))['data'];
 
+    for(var item in data['content']) {
+      int index = runtimeData.indexWhere((element) => element['plantId'] == item['id']);
+
+      if(index != -1) {
+        item['power'] = runtimeData[index]['power'];
+      }
+    }
 
     plantNum = int.parse(data['totalElements']);
     plantList.addAll([
@@ -236,7 +243,7 @@ class PlantListPage extends StatelessWidget {
                                     const SizedBox(
                                       width: 40,
                                     ),
-                                    Text(convertPower(plant['currentPower']),
+                                    Text(convertPower(plant['power']),
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineSmall),

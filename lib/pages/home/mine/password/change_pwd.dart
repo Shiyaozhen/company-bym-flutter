@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../get_pages.dart';
+
 class ChangePasswordController extends GetxController {
   TextEditingController passwordController1 = TextEditingController();
   TextEditingController passwordController2 = TextEditingController();
@@ -22,10 +24,7 @@ class ChangePasswordPage extends StatelessWidget {
       init: ChangePasswordController(),
       builder: (_) => Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.arrow_back),
-          ),
+          leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => BYRoute.back()),
           title: const Text('修改密码'),
         ),
         bottomNavigationBar: Padding(

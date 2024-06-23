@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'package:BYM/api/statistics.dart';
 import 'package:BYM/generated/l10n.dart';
 import 'package:BYM/components/ByDashedLine.dart';
 import 'package:BYM/components/ByDayPicker.dart';
@@ -14,6 +15,7 @@ import 'package:BYM/api/overview.dart';
 import 'package:BYM/utils/unit_converter.dart';
 import 'package:BYM/components/by_bar_chart.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 // 控制器类，状态以及状态的修改在这里定义
 class OverviewController extends GetxController {
@@ -60,11 +62,14 @@ class OverviewController extends GetxController {
   }
 
   // 图表
+  DateTime day = DateTime.now();
+  String yearMonth = '';
+  String year = '';
   List chartDataDay = <Map<String, dynamic>>[];
   List chartDataMonth = <Map<String, dynamic>>[];
   List chartDataYear = <Map<String, dynamic>>[];
   void getStatisticsDay() async {
-    var res = await overviewApi.fetchStatisticsDay();
+    var res = await statisticsApi.getUserDailyStatistics(dateTime2String(day));
     chartDataDay = [
       for (var i = 0; i < res['data'].length; i++)
         {
@@ -75,7 +80,7 @@ class OverviewController extends GetxController {
     update();
   }
   void getStatisticsMonth() async {
-    var res = await overviewApi.fetchStatisticsMonth();
+    var res = await statisticsApi.getUserMonthlyStatistics(yearMonth);
     chartDataMonth = [
       for (var i = 0; i < res['data'].length; i++)
         {
@@ -86,7 +91,7 @@ class OverviewController extends GetxController {
     update();
   }
   void getStatisticsYear() async {
-    var res = await overviewApi.fetchStatisticsYear();
+    var res = await statisticsApi.getUserYearlyStatistics(year);
     chartDataYear = [
       for (var i = 0; i < res['data'].length; i++)
         {
@@ -97,12 +102,26 @@ class OverviewController extends GetxController {
     update();
   }
 
+  String dateTime2String(
+      DateTime dateTime, {
+        String format = 'yyyy-MM-dd',
+      }) {
+    final DateFormat formatter = DateFormat(format);
+
+    return formatter.format(dateTime);
+  }
+
   @override
   void onInit() {
+    yearMonth = dateTime2String(DateTime.now(), format: 'yyyy-MM');
+    year = dateTime2String(DateTime.now(), format: 'yyyy');
+
     getPowerAndCapacity();
     getEnergySummary();
     getInverterStatus();
     getStatisticsDay();
+    getStatisticsMonth();
+    getStatisticsYear();
 
     super.onInit();
   }

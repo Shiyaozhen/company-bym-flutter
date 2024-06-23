@@ -11,12 +11,13 @@ import 'package:BYM/pages/home/mine/bindAgent/index.dart';
 import 'package:BYM/pages/home/mine/password/change_pwd.dart';
 import 'package:BYM/pages/home/mine/bind_email/bind_email.dart';
 import 'package:BYM/pages/home/mine/bind_email/bind_success.dart';
-import 'package:BYM/pages/home/mine/con_logoff.dart';
 import 'package:BYM/pages/home/mine/connect.dart';
 import 'package:BYM/pages/home/mine/feed_back.dart';
 import 'package:BYM/pages/home/mine/language.dart';
-import 'package:BYM/pages/home/mine/logoff.dart';
 import 'package:BYM/pages/home/mine/more.dart';
+import 'package:BYM/pages/home/mine/user/index.dart';
+import 'package:BYM/pages/home/mine/more/unregister/index.dart';
+import 'package:BYM/pages/home/mine/more/unregister/confirm/index.dart';
 
 //首页概览
 import 'package:BYM/pages/home/overview/index.dart';
@@ -150,14 +151,7 @@ List<GetPage<dynamic>> pages = [
     transition: Transition.rightToLeftWithFade,
   ),
 
-  GetPage(
-      name: '/MineLogoff',
-      page: () => MineLogoff(),
-      transition: Transition.rightToLeftWithFade),
-  GetPage(
-      name: '/ConLogoff',
-      page: () => Conlogoff(),
-      transition: Transition.rightToLeftWithFade),
+
   GetPage(
     name: '/Language',
     page: () => const Language(),
@@ -278,6 +272,21 @@ List<GetPage<dynamic>> pages = [
   GetPage(
     name: '/BindEmail',
     page: () => const BindEmailPage(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+  GetPage(
+    name: '/User',
+    page: () => const UserPage(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+  GetPage(
+    name: '/MineUnregister',
+    page: () => const UnregisterPage(),
+    transition: Transition.rightToLeftWithFade,
+  ),
+  GetPage(
+    name: '/MineUnregisterConfirm',
+    page: () => const UnregisterConfirmPage(),
     transition: Transition.rightToLeftWithFade,
   ),
 ];

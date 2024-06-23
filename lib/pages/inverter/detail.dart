@@ -142,9 +142,12 @@ class InverterDetail extends StatelessWidget {
                           const Text('发电信息'),
                           IconButton(
                             onPressed: () {
-                              BYRoute.toNamed('/InverterChart', arguments: {
-                                "serialNo": _.serialNo,
-                              },);
+                              BYRoute.toNamed(
+                                '/InverterChart',
+                                arguments: {
+                                  "serialNo": _.serialNo,
+                                },
+                              );
                             },
                             icon: const Icon(Icons.navigate_next),
                           ),
